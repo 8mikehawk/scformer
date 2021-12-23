@@ -9,6 +9,7 @@ import torch.nn.functional as F
 import torch.nn as nn
 import torch.optim as optmi
 import os
+from loguru import logger
 
 # dataset config
 ####################
@@ -32,14 +33,20 @@ device = 'cuda'
 class_num = 2
 model = sct_b2(class_num=class_num)
 model = model.to(device)
-
+# load pretrained 
+model.load_state_dict(torch.load("models/checkpoints/train_best.pth"))
 ####################
 
 # training config
 ####################
 lr = 1e-4
-epoch = 1000
+epoch = 10000
 checkpoint_save_path = "./models/checkpoints/"
+####################
+
+# logger
+####################
+logger.add("models/checkpoints/sct_b2.log")
 ####################
 
 # load datasets
@@ -57,21 +64,22 @@ best = [0]
 best_val_dice = [0]
 
 # setting tqdm 
-progress_result = tqdm(enumerate(train_loader), desc="|epoch: |mIou(best_val):  |processing: / ", total=val_ds.__len__())
-progress_epoch = tqdm(enumerate(train_loader),  desc="|epoch: |mIou(best):      |processing: / ", total=epoch)
-progress_batch = tqdm(enumerate(train_loader),  desc="|epoch: |mIou(real time): |processing: / ", total=train_ds.__len__())
+# progress_result = tqdm(enumerate(train_loader), desc="|epoch: |mIou(best_val):  |processing: / ", total=val_ds.__len__())
+# progress_epoch = tqdm(enumerate(train_loader),  desc="|epoch: |mIou(best):      |processing: / ", total=epoch)
+# progress_batch = tqdm(enumerate(train_loader),  desc="|epoch: |mIou(real time): |processing: / ", total=train_ds.__len__())
 
-progress_result.set_description(f"|epoch: 0|mIou(best_val):          None|processing: / ")
-progress_epoch.set_description( f"|epoch: 0|mIou(best_train):        None|processing: / ")
+# progress_result.set_description(f"|epoch: 0|mIou(best_val):          None|processing: / ")
+# progress_epoch.set_description( f"|epoch: 0|mIou(best_train):        None|processing: / ")
 
 # training 
-for epoch in range(epoch):
+logger.info("Start training ...")
+for epoch in tqdm(range(epoch)):
     train_loss = 0
     train_acc = 0
     train_miou = 0
     train_class_acc = 0
     model = model.train()
-    for idx, (img, label) in enumerate(train_loader):
+    for idx, (img, label) in tqdm(enumerate(train_loader)):
     
         img = img.to(device)
         label = label.to(device)
@@ -96,9 +104,9 @@ for epoch in range(epoch):
         train_class_acc += eval_metrix['class_accuracy']
 
         # tqdm
-        if idx != 0:
-            progress_batch.set_description(f"|epoch: {epoch}|mIou(read_time): {train_miou / idx}|processing:{idx * batch_size}/{train_ds.__len__()}|")
-        progress_batch.update(batch_size)      
+        # if idx != 0:
+        #     progress_batch.set_description(f"|epoch: {epoch}|mIou(read_time): {train_miou / idx}|processing:{idx * batch_size}/{train_ds.__len__()}|")
+        # progress_batch.update(batch_size)      
 
     metric_description = '|Train Acc|: {:.5f}|Train Mean IU|: {:.5f}\n|Train_class_acc|:{:}'.format(
         train_acc / len(train_loader),
@@ -106,9 +114,9 @@ for epoch in range(epoch):
         train_class_acc / len(train_loader))
     if max(best) <= train_miou / len(train_loader):
         best.append(train_miou / len(train_loader))
-        progress_epoch.set_description(f"|epoch: {epoch}|mIou(best_train): {max(best)}|")
+        # progress_epoch.set_description(f"|epoch: {epoch}|mIou(best_train): {max(best)}|")
         torch.save(model.state_dict(), os.path.join(checkpoint_save_path, "train_best.pth"))
-    progress_epoch.update(1)
+    # progress_epoch.update(1)
 
     # evaluation ---
     with torch.no_grad():
@@ -133,9 +141,11 @@ for epoch in range(epoch):
             eval_metrics = eval_semantic_segmentation(pre_label, true_label, class_num)
             eval_acc = eval_metrics['mean_class_accuracy'] + eval_acc
             eval_miou = eval_metrics['miou'] + eval_miou
-            progress_result.update(batch_size)
+            # progress_result.update(batch_size)
 
         if max(best_val) <= eval_miou / len(val_loader):
             best_val.append(eval_miou / len(val_loader))
-            progress_result.set_description(f"|epoch: {epoch}|mIou(best_val):  {max(best_val)}|")
+            # progress_result.set_description(f"|epoch: {epoch}|mIou(best_val):  {max(best_val)}|")
             torch.save(model.state_dict(), os.path.join(checkpoint_save_path, "val_best.pth"))
+            logger.critical(f"| epoch {epoch} | best val mIou : {max(best_val)} |")
+    logger.info(f"| epoch {epoch} | training mIou : {train_miou / len(train_loader)} | val mIou : {eval_miou / len(val_loader)} |")
