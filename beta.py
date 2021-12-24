@@ -1,5 +1,5 @@
 import models
-from utils import ISIC2018
+from utils import ISIC2018, Timer
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 from models import sct_b2
@@ -11,8 +11,9 @@ import torch.optim as optmi
 import os
 from loguru import logger
 
-# dataset config
+
 ####################
+# dataset config
 train_img_root = "/mnt/DATA-1/DATA-2/Feilong/scformer/data/ISIC2018/train/"
 val_img_root = "/mnt/DATA-1/DATA-2/Feilong/scformer/data/ISIC2018/val/"
 train_label_root = "/mnt/DATA-1/DATA-2/Feilong/scformer/data/ISIC2018/train_labels/"
@@ -21,33 +22,29 @@ class_dict_path = "data/ISIC2018/class_dict.csv"
 crop_size = (512, 512)
 batch_size = 8
 num_workers = 8
-####################
 
 # gpu config
-####################
 device = 'cuda'
-####################
 
 # model config
-####################
 class_num = 2
 model = sct_b2(class_num=class_num)
 model = model.to(device)
+
 # load pretrained 
 model.load_state_dict(torch.load("models/checkpoints/train_best.pth"))
-####################
 
 # training config
-####################
 lr = 1e-4
-epoch = 10000
+max_epoch = 10000
 checkpoint_save_path = "./models/checkpoints/"
-####################
 
 # logger
-####################
 logger.add("models/checkpoints/sct_b2.log")
+# timmer
+timer = Timer()
 ####################
+
 
 # load datasets
 train_ds = ISIC2018([train_img_root, train_label_root], crop_size, class_dict_path=class_dict_path)
@@ -63,17 +60,9 @@ best_val = [0]
 best = [0]
 best_val_dice = [0]
 
-# setting tqdm 
-# progress_result = tqdm(enumerate(train_loader), desc="|epoch: |mIou(best_val):  |processing: / ", total=val_ds.__len__())
-# progress_epoch = tqdm(enumerate(train_loader),  desc="|epoch: |mIou(best):      |processing: / ", total=epoch)
-# progress_batch = tqdm(enumerate(train_loader),  desc="|epoch: |mIou(real time): |processing: / ", total=train_ds.__len__())
-
-# progress_result.set_description(f"|epoch: 0|mIou(best_val):          None|processing: / ")
-# progress_epoch.set_description( f"|epoch: 0|mIou(best_train):        None|processing: / ")
-
 # training 
 logger.info("Start training ...")
-for epoch in tqdm(range(epoch)):
+for epoch in tqdm(range(max_epoch)):
     train_loss = 0
     train_acc = 0
     train_miou = 0
@@ -101,12 +90,7 @@ for epoch in tqdm(range(epoch)):
         eval_metrix = eval_semantic_segmentation(pre_label, true_label, class_num)
         train_acc += eval_metrix['mean_class_accuracy']
         train_miou += eval_metrix['miou']
-        train_class_acc += eval_metrix['class_accuracy']
-
-        # tqdm
-        # if idx != 0:
-        #     progress_batch.set_description(f"|epoch: {epoch}|mIou(read_time): {train_miou / idx}|processing:{idx * batch_size}/{train_ds.__len__()}|")
-        # progress_batch.update(batch_size)      
+        train_class_acc += eval_metrix['class_accuracy']    
 
     metric_description = '|Train Acc|: {:.5f}|Train Mean IU|: {:.5f}\n|Train_class_acc|:{:}'.format(
         train_acc / len(train_loader),
@@ -114,9 +98,7 @@ for epoch in tqdm(range(epoch)):
         train_class_acc / len(train_loader))
     if max(best) <= train_miou / len(train_loader):
         best.append(train_miou / len(train_loader))
-        # progress_epoch.set_description(f"|epoch: {epoch}|mIou(best_train): {max(best)}|")
         torch.save(model.state_dict(), os.path.join(checkpoint_save_path, "train_best.pth"))
-    # progress_epoch.update(1)
 
     # evaluation ---
     with torch.no_grad():
@@ -141,11 +123,10 @@ for epoch in tqdm(range(epoch)):
             eval_metrics = eval_semantic_segmentation(pre_label, true_label, class_num)
             eval_acc = eval_metrics['mean_class_accuracy'] + eval_acc
             eval_miou = eval_metrics['miou'] + eval_miou
-            # progress_result.update(batch_size)
 
         if max(best_val) <= eval_miou / len(val_loader):
             best_val.append(eval_miou / len(val_loader))
-            # progress_result.set_description(f"|epoch: {epoch}|mIou(best_val):  {max(best_val)}|")
             torch.save(model.state_dict(), os.path.join(checkpoint_save_path, "val_best.pth"))
-            logger.critical(f"| epoch {epoch} | best val mIou : {max(best_val)} |")
-    logger.info(f"| epoch {epoch} | training mIou : {train_miou / len(train_loader)} | val mIou : {eval_miou / len(val_loader)} |")
+            logger.critical(f"| epoch: {epoch} | best val mIou : {max(best_val)} |")
+    remain_time = timer.get_remain_time(epoch, max_epoch)
+    logger.info(f"| remain time: {remain_time['hour']} hour, {remain_time['min']} min, {remain_time['second']} second | epoch {epoch} | training mIou : {train_miou / len(train_loader)} | val mIou : {eval_miou / len(val_loader)} |")
