@@ -10,6 +10,7 @@ import torch.nn as nn
 import torch.optim as optmi
 import os
 from loguru import logger
+import pdb
 
 
 ####################
@@ -18,7 +19,6 @@ train_img_root = "/mnt/DATA-1/DATA-2/Feilong/scformer/data/ISIC2018/train/"
 val_img_root = "/mnt/DATA-1/DATA-2/Feilong/scformer/data/ISIC2018/val/"
 train_label_root = "/mnt/DATA-1/DATA-2/Feilong/scformer/data/ISIC2018/train_labels/"
 val_label_root = "/mnt/DATA-1/DATA-2/Feilong/scformer/data/ISIC2018/val_labels/"
-class_dict_path = "data/ISIC2018/class_dict.csv"
 crop_size = (512, 512)
 batch_size = 8
 num_workers = 8
@@ -32,7 +32,8 @@ model = sct_b2(class_num=class_num)
 model = model.to(device)
 
 # load pretrained 
-model.load_state_dict(torch.load("models/checkpoints/train_best.pth"))
+# model.load_state_dict(torch.load("models/checkpoints/train_best.pth"))
+# model.load_state_dict(torch.load("/mnt/DATA-1/DATA-2/Feilong/myself/cnn_model/best_train_miou_Seg.pth"))
 
 # training config
 lr = 1e-4
@@ -41,14 +42,12 @@ checkpoint_save_path = "./models/checkpoints/"
 
 # logger
 logger.add("models/checkpoints/sct_b2.log")
-# timmer
-timer = Timer()
 ####################
 
 
 # load datasets
-train_ds = ISIC2018([train_img_root, train_label_root], crop_size, class_dict_path=class_dict_path)
-val_ds = ISIC2018([val_img_root, val_label_root], crop_size, class_dict_path=class_dict_path)
+train_ds = ISIC2018(train_img_root, val_img_root, train_label_root, val_label_root, crop_size, mode='train')
+val_ds = ISIC2018(train_img_root, val_img_root, train_label_root, val_label_root, crop_size, mode='val')
 
 train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers)
 val_loader = DataLoader(val_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers)
@@ -128,5 +127,4 @@ for epoch in tqdm(range(max_epoch)):
             best_val.append(eval_miou / len(val_loader))
             torch.save(model.state_dict(), os.path.join(checkpoint_save_path, "val_best.pth"))
             logger.critical(f"| epoch: {epoch} | best val mIou : {max(best_val)} |")
-    remain_time = timer.get_remain_time(epoch, max_epoch)
-    logger.info(f"| remain time: {remain_time['hour']} hour, {remain_time['min']} min, {remain_time['second']} second | epoch {epoch} | training mIou : {train_miou / len(train_loader)} | val mIou : {eval_miou / len(val_loader)} |")
+    logger.info(f"| training mIou : {train_miou / len(train_loader)} | val mIou : {eval_miou / len(val_loader)} |")
