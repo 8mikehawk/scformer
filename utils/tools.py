@@ -46,16 +46,40 @@ def iou_mean(pred, target, n_classes = 1):
         iousSum += float(intersection) / float(max(union, 1))
     return iousSum/n_classes
 
-def dice_coeff(pred, target):
-    smooth = 1e-5
-    pred = np.array(pred)
-    target = np.array(target)
-    
-    pred = torch.as_tensor(pred)
-    target = torch.as_tensor(target)
-    num = pred.size(0)
-    m1 = pred.view(num, -1)  # Flatten
-    m2 = target.view(num, -1)  # Flatten
-    intersection = (m1 * m2).sum()
-    res = (2. * intersection + smooth) / (m1.sum() + m2.sum() + smooth)
-    return res
+class Dice_score():
+  def __init__(self):
+    self.pred = None
+    self.label = None
+    self.m_dice = []
+
+  def dice(self, pred, label):
+    x_y = torch.sum(pred * label)
+    x = torch.sum(pred)
+    y = torch.sum(label)
+    dice = (2 * x_y) / (x + y)
+    return dice
+
+  def cal_dice(self, pred, label):
+    # pred = torch.as_tensor(self.pred)
+    # label = torch.as_tensor(self.label)
+    for i in range(pred.shape[0]):
+
+        class_0 = pred[i, 0, :, :]
+        class_1 = pred[i, 1, :, :]
+
+        label_0 = torch.as_tensor(label)
+        label_1 = torch.where(label == 1, 0, 1)
+
+        dice_0 = self.dice(class_0, label_1)
+        dice_1 = self.dice(class_1, label_1)
+
+        dice_ = (dice_0 + dice_1) / 2
+
+        dice_ = dice_.cpu().numpy()
+        self.m_dice.append(dice_)
+
+        # self.m_dice.append((dice_0 + dice_1)/2)   
+
+    return np.mean(self.m_dice)
+
+  
