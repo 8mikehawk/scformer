@@ -54,43 +54,44 @@ val_loader = DataLoader(val_ds, batch_size=batch_size, shuffle=True, num_workers
 criterion = nn.NLLLoss().to(device)
 optimizer = optmi.AdamW(model.parameters(), lr=lr)
 
-best = [0]
-best_val_dice = [0]
+# best = [0]
+# best_val_dice = [0]
 
 # training 
 logger.info("Start training ...")
-for epoch in tqdm(range(max_epoch)):
-    train_dice_score = []
-    model = model.train()
-    for idx, (img, label) in tqdm(enumerate(train_loader)):
+# for epoch in tqdm(range(max_epoch)):
+#     train_dice_score = []
+#     eval_dice_score = []
     
-        img = img.to(device)
-        label = label.to(device)
-        out = model(img)
-        out_ = F.softmax(out, dim=1)
-        out = F.log_softmax(out, dim=1)
+#     model = model.train()
+#     for idx, (img, label) in tqdm(enumerate(train_loader)):
+    
+#         img = img.to(device)
+#         label = label.to(device)
+#         out = model(img)
+#         out_ = F.softmax(out, dim=1)
+#         out = F.log_softmax(out, dim=1)
 
-        loss = criterion(out, label)
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
-        train_dice_score.append(cal_dice(out_, label))
-    if max(best) <= (np.mean(train_dice_score)):
-        best.append(np.mean(train_dice_score))
-        torch.save(model.state_dict(), os.path.join(checkpoint_save_path, "train_best.pth"))
+#         loss = criterion(out, label)
+#         optimizer.zero_grad()
+#         loss.backward()
+#         optimizer.step()
+#         train_dice_score.append(cal_dice(out_, label))
+#     if max(best) <= (np.mean(train_dice_score)):
+#         best.append(np.mean(train_dice_score))
+#         torch.save(model.state_dict(), os.path.join(checkpoint_save_path, "train_best.pth"))
 
-    with torch.no_grad():
-        net = model
-        eval_dice_score = []
-        for idx, (img, label) in enumerate(val_loader):
-            img = img.to(device)
-            label = label.to(device)
-            out = model(img)
-            out = F.softmax(out, dim=1)
-            eval_dice_score.append(cal_dice(out, label))
-        print(np.mean(eval_dice_score))    
-        if max(best_val_dice) <= (np.mean(eval_dice_score)):
-            best_val_dice.append(np.mean(eval_dice_score))
-            torch.save(model.state_dict(), os.path.join(checkpoint_save_path, "val_best.pth"))
-            logger.critical(f"| epoch: {epoch} | best val mDice : {max(best_val_dice)} |") 
-    logger.info(f"| epoch {epoch} | training mDice : {np.mean(train_dice_score)} | val mDice : {np.mean(eval_dice_score)} |")
+#     with torch.no_grad():
+#         net = model
+#         for idx, (img, label) in enumerate(val_loader):
+#             img = img.to(device)
+#             label = label.to(device)
+#             out = model(img)
+#             out = F.softmax(out, dim=1)
+#             eval_dice_score.append(cal_dice(out, label))
+#         print(np.mean(eval_dice_score))    
+#         if max(best_val_dice) <= (np.mean(eval_dice_score)):
+#             best_val_dice.append(np.mean(eval_dice_score))
+#             torch.save(model.state_dict(), os.path.join(checkpoint_save_path, "val_best.pth"))
+#             logger.critical(f"| epoch: {epoch} | best val mDice : {max(best_val_dice)} |") 
+#     logger.info(f"| epoch {epoch} | training mDice : {np.mean(train_dice_score)} | val mDice : {np.mean(eval_dice_score)} |")

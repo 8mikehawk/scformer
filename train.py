@@ -1,103 +1,114 @@
-def evaluate(model):
-    with torch.no_grad():
-        net = model
-        eval_loss = 0
-        eval_acc = 0
-        eval_miou = 0
-        for j, sample in tqdm(enumerate(val_data)):
-            valImg = Variable(sample['image'].to(cfg['device']))
-            valLabel = Variable(sample['label'].long().to(cfg['device']))
+import configparser
+from models import sct_b1
+from loguru import logger
+from utils.tools import ISIC2018
+from tqdm import tqdm
+import torch.nn as nn
+import torch.optim as optmi
+import torch.nn.functional as F
+from utils.tools import mean_dice
+from torch.utils.data import DataLoader
+import torch
+import os
 
-            out = net(valImg)
-            out = F.log_softmax(out, dim=1)
-            loss = criterion(out, valLabel)
-            eval_loss = loss.item() + eval_loss
-            pre_label = out.max(dim=1)[1].data.cpu().numpy()
-            pre_label = [i for i in pre_label]
+cf = configparser.ConfigParser()
 
-            true_label = valLabel.data.cpu().numpy()
-            true_label = [i for i in true_label]
+cf.read("/mnt/DATA-1/DATA-2/Feilong/scformer/train_package/sct_b1_isic2018/train.conf")
 
-            eval_metrics = eval_semantic_segmentation(pre_label, true_label, cfg['n_class'])
-            eval_acc = eval_metrics['mean_class_accuracy'] + eval_acc
-            eval_miou = eval_metrics['miou'] + eval_miou
 
-        if max(best_val) <= eval_miou / len(val_data):
-            best_val.append(eval_miou / len(val_data))
-            print('val_miou:', max(best_val))
-            torch.save(net.state_dict(), cfg['val_pth_save_path'])
+# 定义模型
+# model = build_model(cf.get("model", "name"), cf.get("dataset", "class_num"))
+device = "cuda"
+model = sct_b1(class_num=int(cf.get("dataset", "class_num")))
+model = model.to(device)
 
-if __name__ == '__main__':
-    from utilis.build_model import build_tri_heads
-    from utilis.get_paras import get_hyper_parameters
-    from utilis.load_data import load_ISIC2018, load_city_scapes
-    from utilis.eval_semantic_segmentation import eval_semantic_segmentation
-    import torch
 
-    import torch.nn.functional as F
+# 定义模型
+# train_loader, val_loader = build_dataset("ISIC2018")
+train_img_root = cf.get("dataset", "train_img_root")
+val_img_root = cf.get("dataset", "val_img_root")
+train_label_root = cf.get("dataset", "train_label_root")
+val_label_root = cf.get("dataset", "val_label_root")
+crop_size = (cf.get("dataset", "crop_size")[0], cf.get("dataset", "crop_size")[1])
+batch_size = int(cf.get("dataset", "batch_size"))
+num_workers = int(cf.get("dataset", "num_workers"))
+checkpoint_save_path = cf.get("schedule", "checkpoint_save_path")
 
-    from torch.autograd import Variable
+# training
+max_epoch = int(cf.get("schedule", "max_epoch"))
+lr = float(cf.get("schedule", "lr"))
 
-    import torch.nn as nn
-    import torch.optim as optmi
-    from tqdm import tqdm
+train_ds = ISIC2018(train_img_root, val_img_root, train_label_root, val_label_root, (512, 512), mode='train')
+val_ds = ISIC2018(train_img_root, val_img_root, train_label_root, val_label_root, (512, 512), mode='val')
 
-    # 定义模型
-    net = build_tri_heads("tri-heads-0")
+train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers)
+val_loader = DataLoader(val_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers)
 
-    # 定义超参
-    cfg = get_hyper_parameters()
+# optimizer
+criterion = nn.NLLLoss().to(device)
+optimizer = optmi.AdamW(model.parameters(), lr=lr)
 
-    # 读取数据
-    train_data, val_data = load_ISIC2018()
+# logger
+logger.add(cf.get("logger", "path"))
 
-    nets = net.to(cfg['device'])
-    # 损失函数和优化器
-    criterion = nn.NLLLoss().to(cfg['device'])
-    optimizer = optmi.AdamW(net.parameters(), lr=cfg['lr'])
-
-    best_val = [0]
-    best = [0]
-    best_val_dice = [0]
-
-    for epoch in tqdm(range(cfg['epoch_number'])):
-        train_loss = 0
-        train_acc = 0
-        train_miou = 0
-        train_class_acc = 0
-        net = net.train()
-
-        for i, sample in tqdm(enumerate(train_data)):
-            img_data = Variable(sample['image'].to(cfg['device']))
-            img_label = Variable(sample['label'].to(cfg['device']))
-
-            out = net(img_data)
-            out = F.log_softmax(out, dim=1)
-            loss = criterion(out, img_label)
-            optimizer.zero_grad()
-            loss.backward()
-            optimizer.step()
-            train_loss += loss.item()
-
-            pre_label = out.max(dim=1)[1].data.cpu().numpy()
-            pre_label = [i for i in pre_label]
-            true_label = img_label.data.cpu().numpy()
-            true_label = [i for i in true_label]
-
-            eval_metrix = eval_semantic_segmentation(pre_label, true_label, cfg['n_class'])
-            train_acc += eval_metrix['mean_class_accuracy']
-            train_miou += eval_metrix['miou']
-            train_class_acc += eval_metrix['class_accuracy']
-
-        metric_description = '|Train Acc|: {:.5f}|Train Mean IU|: {:.5f}\n|Train_class_acc|:{:}'.format(
-            train_acc / len(train_data),
-            train_miou / len(train_data),
-            train_class_acc / len(train_data))
-
-        if max(best) <= train_miou / len(train_data):
-            best.append(train_miou / len(train_data))
-            print('train_miou:', max(best))
-            torch.save(net.state_dict(), cfg['train_pth_save_path'])
+# start training
+logger.info(f"| start training .... |")
+best_val_dice = [0]
+for epoch in tqdm(range(max_epoch)):
+    # train_dice = 0
+    for idx, (img, label) in tqdm(enumerate(train_loader)):
         
-        if epoch % 100 == 0:
-            evaluate(net)
+        model = model.train()
+        img = img.to(device)
+        label = label.to(device)
+        out = model(img)
+        out_ = F.softmax(out, dim=1)
+        out = F.log_softmax(out, dim=1)
+
+        loss = criterion(out, label)
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+    # 先不测试train的准确率，为了减少时间
+    #     pre_label = out_.max(dim=1)[1].data.cpu().numpy()
+    #     pre_label = [i for i in pre_label]
+
+    #     true_label = label.data.cpu().numpy()
+    #     true_label = [i for i in true_label]
+
+    #     all_acc, acc, dice = mean_dice(pre_label, true_label, num_classes = 2, ignore_index = None)
+
+    #     train_dice = dice + train_dice     
+    # print('train_dice_score :{:}'.format(train_dice.mean()/(idx+1)))   
+
+    # print("train epoch done") 
+    logger.info(f"| epoch : {epoch} | training done |")
+
+
+    # evaluate ...
+    val_dice = 0
+    with torch.no_grad():
+        for idx, (img, label) in enumerate(val_loader):
+            img = img.to(device)
+            label = label.to(device)
+            x = model(img)
+            pred = F.softmax(x, dim=1)
+
+            pre_label = pred.max(dim=1)[1].data.cpu().numpy()
+            pre_label = [i for i in pre_label]
+
+            true_label = label.data.cpu().numpy()
+            true_label = [i for i in true_label]
+
+            all_acc, acc, dice = mean_dice(pre_label, true_label, num_classes = 2, ignore_index = None)
+
+            val_dice = dice + val_dice
+        epoch_dice = val_dice.mean()/(idx+1)
+        print('val_dice_score :{:}'.format(epoch_dice))   
+        if max(best_val_dice) <=  epoch_dice:
+            best_val_dice.append(epoch_dice)
+            # print('best_val_dice_score :{:}'.format(max(best_val_dice)))
+            logger.critical(f"| epoch : {epoch} | best_val_dice_score : {max(best_val_dice)} |")
+            torch.save(model.state_dict(), os.path.join(checkpoint_save_path, "val_best.pth"))
+        else:
+            logger.info(f"| epoch : {epoch} | val done |")

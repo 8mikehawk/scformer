@@ -1,12 +1,7 @@
-import pandas as pd
 import os
-import torch as t
 import numpy as np
-import torchvision.transforms.functional as ff
 from torch.utils.data import Dataset
 from PIL import Image
-import torchvision.transforms as transforms
-from cv2 import cv2
 import torch
 
 # dataset for isic2018
@@ -15,7 +10,7 @@ class ISIC2018(Dataset):
         self.train_img_files = self.read_file(train_img_root)
         self.val_img_files = self.read_file(val_img_root)
         self.train_label_files = self.read_file(train_label_root)
-        self.val_label_files = self.read_file(val_label_root)
+        self.val_label_files = self.read_file(val_label_root)      
         self.mode = mode
         self.crop_size = crop_size
 

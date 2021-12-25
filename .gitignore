@@ -5,4 +5,4 @@ models/__pycache__/
 predicr_results/
 .vscode/
 models/checkpoints/
-train/**/*.pth
+train_package/**/*.pth

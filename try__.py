@@ -11,24 +11,8 @@ import torch.nn as nn
 import torch.optim as optmi
 import os
 import pdb
+from utils import iou_mean
 import numpy as np
-from models import sct_b2
-
-def build_model(name, class_num):
-  if name == "sct_b2":
-    model = sct_b2(class_num=class_num)
-    return model
-
-
-def build_dataset(name, train_img_root, val_img_root, train_label_root, val_label_root, crop_size, batch_size, num_workers):
-    if name == "ISIC2018":
-        train_ds = ISIC2018(train_img_root, val_img_root, train_label_root, val_label_root, crop_size, mode='train')
-        val_ds = ISIC2018(train_img_root, val_img_root, train_label_root, val_label_root, crop_size, mode='val')
-
-        train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers)
-        val_loader = DataLoader(val_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers)   
-
-        return train_loader, val_loader     
 
 
 
@@ -286,3 +270,50 @@ def legacy_mean_iou(results, gt_seg_maps, num_classes, ignore_index):
         total_mat.sum(axis=1) + total_mat.sum(axis=0) - np.diag(total_mat))
 
     return all_acc, acc, iou
+
+
+
+####################
+# dataset config
+train_img_root = "/mnt/DATA-1/DATA-2/Feilong/scformer/data/ISIC2018/train/"
+val_img_root = "/mnt/DATA-1/DATA-2/Feilong/scformer/data/ISIC2018/val/"
+train_label_root = "/mnt/DATA-1/DATA-2/Feilong/scformer/data/ISIC2018/train_labels/"
+val_label_root = "/mnt/DATA-1/DATA-2/Feilong/scformer/data/ISIC2018/val_labels/"
+crop_size = (512, 512)
+batch_size = 8
+num_workers = 8
+
+# gpu config
+device = 'cuda'
+
+# model config
+class_num = 2
+model = sct_b2(class_num=class_num)
+model = model.to(device)
+
+# load pretrained 
+model.load_state_dict(torch.load("/mnt/DATA-1/DATA-2/Feilong/scformer/models/checkpoints/val_best_b2.pth"))
+model = model.to(device)
+val_ds = ISIC2018(train_img_root, val_img_root, train_label_root, val_label_root, crop_size, mode='val')
+val_loader = DataLoader(val_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers)
+
+
+train_dice = 0
+
+with torch.no_grad():
+    for idx, (img, label) in tqdm(enumerate(val_loader)):
+        img = img.to(device)
+        label = label.to(device)
+        x = model(img)
+        pred = F.softmax(x, dim=1)
+
+        pre_label = pred.max(dim=1)[1].data.cpu().numpy()
+        pre_label = [i for i in pre_label]
+
+        true_label = label.data.cpu().numpy()
+        true_label = [i for i in true_label]
+
+        all_acc, acc, dice = legacy_mean_dice(pre_label, true_label, num_classes = 2, ignore_index = None)
+
+        train_dice = dice + train_dice
+    print('test_dice_score :{:}'.format(train_dice.mean()/(idx+1)))

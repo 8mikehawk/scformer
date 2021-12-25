@@ -1,2 +1,4 @@
 from .my_dataset import ISIC2018
-from .tools import Timer, iou_mean, cal_dice
+from .tools import legacy_mean_dice as mean_dice
+from .tools import legacy_mean_iou as mean_iou
+from .tools import build_model

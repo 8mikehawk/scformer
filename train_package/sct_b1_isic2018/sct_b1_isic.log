@@ -1,0 +1,15 @@
+2021-12-25 21:16:19.810 | INFO     | __main__:<module>:55 - | start training .... |
+2021-12-25 21:19:05.384 | INFO     | __main__:<module>:85 - | epoch : 0 | training done |
+2021-12-25 21:19:26.766 | CRITICAL | __main__:<module>:111 - | epoch : 0 | best_val_dice_score : 0.6179802311319517 |
+2021-12-25 21:22:13.167 | INFO     | __main__:<module>:85 - | epoch : 1 | training done |
+2021-12-25 21:22:35.524 | CRITICAL | __main__:<module>:111 - | epoch : 1 | best_val_dice_score : 0.7321086534614969 |
+2021-12-25 21:25:21.991 | INFO     | __main__:<module>:85 - | epoch : 2 | training done |
+2021-12-25 21:25:45.511 | CRITICAL | __main__:<module>:111 - | epoch : 2 | best_val_dice_score : 0.815371667307356 |
+2021-12-25 21:28:31.786 | INFO     | __main__:<module>:85 - | epoch : 3 | training done |
+2021-12-25 21:28:53.922 | CRITICAL | __main__:<module>:111 - | epoch : 3 | best_val_dice_score : 0.8373596942927048 |
+2021-12-25 21:31:37.744 | INFO     | __main__:<module>:85 - | epoch : 4 | training done |
+2021-12-25 21:32:01.740 | CRITICAL | __main__:<module>:111 - | epoch : 4 | best_val_dice_score : 0.8621523993433675 |
+2021-12-25 21:34:48.577 | INFO     | __main__:<module>:85 - | epoch : 5 | training done |
+2021-12-25 21:35:12.307 | CRITICAL | __main__:<module>:111 - | epoch : 5 | best_val_dice_score : 0.8699113342741661 |
+2021-12-25 21:37:58.535 | INFO     | __main__:<module>:85 - | epoch : 6 | training done |
+2021-12-25 21:38:20.286 | INFO     | __main__:<module>:114 - | epoch : 6 | val done |
