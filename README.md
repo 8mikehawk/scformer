@@ -1,4 +1,4 @@
-# scformer
+# scformer (not finished)
 
 # usage
 1. in folder **train_package**, add your training folder for example **sct_b1_isic2018**.
