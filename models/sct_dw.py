@@ -250,7 +250,6 @@ class sct_b0(nn.Module):
         features = self.decode_head(features)
         up = UpsamplingBilinear2d(scale_factor=4)
         features = up(features)
-        print(features.shape)
         return features
 
 
@@ -271,7 +270,7 @@ class sct_b1(nn.Module):
         features = self.decode_head(features)
         up = UpsamplingBilinear2d(scale_factor=4)
         features = up(features)
-        print(features.shape)
+
         return features
 
 
@@ -292,7 +291,6 @@ class sct_b2(nn.Module):
         features = self.decode_head(features)
         up = UpsamplingBilinear2d(scale_factor=4)
         features = up(features)
-        print(features.shape)
         return features
 
 class sct_b3(nn.Module):
@@ -312,7 +310,6 @@ class sct_b3(nn.Module):
         features = self.decode_head(features)
         up = UpsamplingBilinear2d(scale_factor=4)
         features = up(features)
-        print(features.shape)
         return features
 
 class sct_b4(nn.Module):
@@ -332,7 +329,6 @@ class sct_b4(nn.Module):
         features = self.decode_head(features)
         up = UpsamplingBilinear2d(scale_factor=4)
         features = up(features)
-        print(features.shape)
         return features
 
 class sct_b5(nn.Module):
