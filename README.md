@@ -34,3 +34,9 @@
    ```
 3. add a new class on `/utils/my_dataset.py` if you want to train on a new dataset. Then, import this new class on the `train.py` like `from utils.tools import ISIC2018`
 4. 
+
+1. 创建文件夹
+2. 改train.ocnf test.config
+3. 改train中数据集的类
+4. 确定train中model
+5. 改train中train_ds 那部分
