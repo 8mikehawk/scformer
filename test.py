@@ -44,7 +44,7 @@ with torch.no_grad():
         label = label.to(device)
         x = model(img)
         pred = F.softmax(x, dim=1)
-        # break
+        break
         # pred = pred.reshape((batch_size, class_num, crop_size[0]*crop_size[1]))
         # pred = torch.argmax(pred, dim=1)
         # pred = torch.where(pred == 1, 255, 0)
@@ -52,4 +52,4 @@ with torch.no_grad():
         # miou = iou_mean(pred.cpu().numpy(), label.cpu().numpy(), n_classes=1)
         miou = dice_coeff(pred.cpu().numpy(), label.cpu().numpy())
         miou_.append(miou)
-print(np.mean(miou_))
+# print(np.mean(miou_))
