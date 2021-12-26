@@ -356,3 +356,7 @@ class sct_b5(nn.Module):
 
         return features
                
+#MitEncoder = sct_b1(class_num=2)
+#from torchinfo import summary
+#
+#summary = summary(MitEncoder, (8, 3, 512, 512))

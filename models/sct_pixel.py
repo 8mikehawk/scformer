@@ -148,6 +148,8 @@ class MitEncoder(Module):
         self.embeds = ModuleList()
         self.stages = ModuleList()
 
+        self.conv = Conv2d(3,64,3,1,1)
+        self.pw = Conv2d(3136,64,1,1)
         self.hwc2chw = Rearrange('b h w c -> b c h w')
         self.chw2hwc = Rearrange('b c h w -> b h w c')
 
@@ -176,21 +178,25 @@ class MitEncoder(Module):
         a = 1
         x1 = self.conv(x)
         x2 = torch.nn.functional.unfold(x1,kernel_size =7,dilation = 1,stride = 4, padding = 7//2)
-        x3 = x2.view(x1.shape[0],-1,x1.shape[2]//4,x1.shape[3]//4) 
+        x3 = x2.view(x1.shape[0],-1,x1.shape[2]//4,x1.shape[3]//4)
         x3 = self.pw(x3) # ([8, 64, 128, 128])
         x3 = self.chw2hwc(x3)         
-        print(x3.shape)
+
         
         for embed, stage in zip(self.embeds, self.stages):
             x = embed(x)  # [2, 128, 128, 64]
-            print(x.shape)
+            # if a == 1:
+            # 	x = x + x3
+            # 	a = 0	
+            # x = stage(x)
+            # x = self.hwc2chw(x)
+            # features.append(x)
             if a == 1:
-            		x = x + x3
-            		a = 0
-            		
-            x = stage(x)
-            x = self.hwc2chw(x)
-            features.append(x)
+                x = x + x3
+                a = 0
+            x = stage(x)     
+            x = self.hwc2chw(x) 
+            features.append(x) 
 
         return features
 
@@ -268,7 +274,6 @@ class sct_b0(nn.Module):
         features = self.decode_head(features)
         up = UpsamplingBilinear2d(scale_factor=4)
         features = up(features)
-        print(features.shape)
         return features
 
 
@@ -289,7 +294,6 @@ class sct_b1(nn.Module):
         features = self.decode_head(features)
         up = UpsamplingBilinear2d(scale_factor=4)
         features = up(features)
-        print(features.shape)
         return features
 
 
@@ -310,7 +314,6 @@ class sct_b2(nn.Module):
         features = self.decode_head(features)
         up = UpsamplingBilinear2d(scale_factor=4)
         features = up(features)
-        print(features.shape)
         return features
 
 class sct_b3(nn.Module):
@@ -330,7 +333,6 @@ class sct_b3(nn.Module):
         features = self.decode_head(features)
         up = UpsamplingBilinear2d(scale_factor=4)
         features = up(features)
-        print(features.shape)
         return features
 
 class sct_b4(nn.Module):
@@ -350,7 +352,6 @@ class sct_b4(nn.Module):
         features = self.decode_head(features)
         up = UpsamplingBilinear2d(scale_factor=4)
         features = up(features)
-        print(features.shape)
         return features
 
 class sct_b5(nn.Module):
@@ -373,7 +374,6 @@ class sct_b5(nn.Module):
 
         return features
                
-# MitEncoder = sct_b4(class_num=2)
-# from torchinfo import summary
-
-# summary = summary(MitEncoder, (8, 3, 512, 512))
+#model = sct_b1()
+#from torchinfo import summary
+#summary = summary(model, (8, 3, 512, 512))
