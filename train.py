@@ -1,5 +1,5 @@
 import configparser
-from models import sct_b1
+from models import sct_b1_pixel, build
 from loguru import logger
 from utils.tools import ISIC2018
 from tqdm import tqdm
@@ -7,39 +7,59 @@ import torch.nn as nn
 import torch.optim as optmi
 import torch.nn.functional as F
 from utils.tools import mean_dice
+from utils import DataBuilder
 from torch.utils.data import DataLoader
 import torch
 import os
+import sys
+import yaml
 
-cf = configparser.ConfigParser()
-
-cf.read("/mnt/DATA-1/DATA-2/Feilong/scformer/train_package/sct_b1_isic2018/train.conf")
+f = open(sys.argv[1])
+config = yaml.safe_load(f)
 
 
 # 定义模型
 # model = build_model(cf.get("model", "name"), cf.get("dataset", "class_num"))
-device = "cuda"
-model = sct_b1(class_num=int(cf.get("dataset", "class_num")))
+# device = "cuda"
+# model = sct_b1_pixel(class_num=int(cf.get("dataset", "class_num")))
+# model = model.to(device)
+
+device = config['training']['device']
+model = build(model_name=config['model']['model_name'])
 model = model.to(device)
 
 
 # 定义模型
 # train_loader, val_loader = build_dataset("ISIC2018")
-train_img_root = cf.get("dataset", "train_img_root")
-val_img_root = cf.get("dataset", "val_img_root")
-train_label_root = cf.get("dataset", "train_label_root")
-val_label_root = cf.get("dataset", "val_label_root")
-crop_size = (cf.get("dataset", "crop_size")[0], cf.get("dataset", "crop_size")[1])
-batch_size = int(cf.get("dataset", "batch_size"))
-num_workers = int(cf.get("dataset", "num_workers"))
-checkpoint_save_path = cf.get("schedule", "checkpoint_save_path")
+# train_img_root = cf.get("dataset", "train_img_root")
+# val_img_root = cf.get("dataset", "val_img_root")
+# train_label_root = cf.get("dataset", "train_label_root")
+# val_label_root = cf.get("dataset", "val_label_root")
+# crop_size = (cf.get("dataset", "crop_size")[0], cf.get("dataset", "crop_size")[1])
+# batch_size = int(cf.get("dataset", "batch_size"))
+# num_workers = int(cf.get("dataset", "num_workers"))
+# checkpoint_save_path = cf.get("schedule", "checkpoint_save_path")
+
+train_img_root = config['dataset']['train_img_root']
+val_img_root = config['dataset']['val_img_root']
+train_label_root = config['dataset']['train_label_root']
+val_label_root = config['dataset']['val_label_root']
+crop_size = (
+    config['dataset']['crop_size']['w'],
+    config['dataset']['crop_size']['h']
+)
+batch_size = config['dataset']['batch_size']
+num_workers = config['dataset']['num_workers']
+checkpoint_save_path = config['other']['checkpoint_save_path']
 
 # training
-max_epoch = int(cf.get("schedule", "max_epoch"))
-lr = float(cf.get("schedule", "lr"))
+max_epoch = config['training']['max_epoch']
+lr = float(
+    config['training']['lr']
+)
 
-train_ds = ISIC2018(train_img_root, val_img_root, train_label_root, val_label_root, (512, 512), mode='train')
-val_ds = ISIC2018(train_img_root, val_img_root, train_label_root, val_label_root, (512, 512), mode='val')
+train_ds = DataBuilder(train_img_root, val_img_root, train_label_root, val_label_root, crop_size, mode='train')
+val_ds = DataBuilder(train_img_root, val_img_root, train_label_root, val_label_root, crop_size, mode='val')
 
 train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers)
 val_loader = DataLoader(val_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers)
@@ -49,7 +69,8 @@ criterion = nn.NLLLoss().to(device)
 optimizer = optmi.AdamW(model.parameters(), lr=lr)
 
 # logger
-logger.add(cf.get("logger", "path"))
+print(config['other']['logger_path'])
+logger.add(config['other']['logger_path'])
 
 # start training
 logger.info(f"| start training .... |")
