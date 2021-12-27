@@ -7,3 +7,5 @@ from .sct import sct_b1 as sct_b1
 from .sct_dw import sct_b1 as sct_b1_dw
 from .sct_pixel import sct_b1 as sct_b1_pixel
 from .sct_dw_pixel import sct_b1 as sct_b1_dw_pixel
+
+from .build_model import build
