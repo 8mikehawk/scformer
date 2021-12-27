@@ -4,7 +4,6 @@ from utils import ISIC2018
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 from models import sct_b2
-from utils.eval_semantic_segmentation import eval_semantic_segmentation
 import torch
 import torch.nn.functional as F
 import torch.nn as nn
