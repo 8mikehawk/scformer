@@ -1,0 +1,36 @@
+dataset:
+  train_img_root : /data/segformer/scformer/data/cvc/train/
+  val_img_root : /data/segformer/scformer/data/cvc/val/
+  test_img_root : /data/segformer/scformer/data/cvc/test/
+
+  train_label_root: /data/segformer/scformer/data/cvc/train_labels/
+  val_label_root : /data/segformer/scformer/data/cvc/val_labels/
+  test_label_root : /data/segformer/scformer/data/cvc/test_labels/
+
+  class_num: 2
+
+  crop_size : 
+    w: 256
+    h: 256
+  batch_size : 8
+  num_workers : 8
+
+# sct_b1
+# sct_dw_b1
+# sct_pixel_b1
+# sct_dw_pixel_b1
+
+model:
+  model_name : sct_b1
+
+training:
+  device : cuda
+  lr : 1e-4
+  max_epoch : 10000
+
+other:
+  checkpoint_save_path : /data/segformer/scformer/train_package/cvc/sct_b1_cvc/
+  logger_path : /data/segformer/scformer/train_package/cvc/sct_b1_cvc/sct_b1_cvc.log
+
+test:
+  checkpoint_save_path : /data/segformer/scformer/train_package/cvc/sct_b1_cvc/val_best.pth

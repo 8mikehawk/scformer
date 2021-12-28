@@ -1,0 +1,31 @@
+dataset:
+  train_img_root : /data/segformer/scformer/data/eye/train/
+  val_img_root : /data/segformer/scformer/data/eye/val/
+  test_img_root : /data/segformer/scformer/data/eye/test/
+
+  train_label_root: /data/segformer/scformer/data/eye/train_labels/
+  val_label_root : /data/segformer/scformer/data/eye/val_labels/
+  test_label_root : /data/segformer/scformer/data/eye/test_labels/
+
+  class_num: 2
+
+  crop_size : 
+    w: 512
+    h: 512
+  batch_size : 8
+  num_workers : 8
+
+model:
+  model_name : sct_pixel_b1
+
+training:
+  device : cuda
+  lr : 1e-4
+  max_epoch : 10000
+
+other:
+  checkpoint_save_path : /data/segformer/scformer/train_package/eye/sct_b1_pixel_eye
+  logger_path : /data/segformer/scformer/train_package/eye/sct_b1_pixel_eye/sct_b1_pixel_eye.log
+
+test:
+  checkpoint_save_path : /data/segformer/scformer/train_package/eye/sct_b1_pixel_eye/val_best.pth

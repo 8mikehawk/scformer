@@ -15,6 +15,11 @@ dataset:
   batch_size : 8
   num_workers : 8
 
+# sct_b1
+# sct_dw_b1
+# sct_pixel_b1
+# sct_dw_pixel_b1
+
 model:
   model_name : sct_b1
 
