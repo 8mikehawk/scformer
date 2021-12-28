@@ -1,0 +1,31 @@
+dataset :
+  train_img_root : /mnt/DATA-1/DATA-2/Feilong/scformer/data/ISIC2018_new/train/
+  val_img_root : /mnt/DATA-1/DATA-2/Feilong/scformer/data/ISIC2018_new/val/
+  test_img_root : /mnt/DATA-1/DATA-2/Feilong/scformer/data/ISIC2018_new/test/
+
+  train_label_root: /mnt/DATA-1/DATA-2/Feilong/scformer/data/ISIC2018_new/train_labels/
+  val_label_root : /mnt/DATA-1/DATA-2/Feilong/scformer/data/ISIC2018_new/val_labels/
+  test_label_root : /mnt/DATA-1/DATA-2/Feilong/scformer/data/ISIC2018_new/test_labels/
+
+  class_num: 2
+
+  crop_size : 
+    w: 512
+    h: 512
+  batch_size : 8
+  num_workers : 8
+
+model:
+  model_name : sct_dw_pixel_b1
+
+training:
+  device : cuda
+  lr : 1e-4
+  max_epoch : 10000
+
+other:
+  checkpoint_save_path : /mnt/DATA-1/DATA-2/Feilong/scformer/train_package/sct_b1_dw_pixel_isic1028
+  logger_path : /mnt/DATA-1/DATA-2/Feilong/scformer/train_package/sct_b1_dw_pixel_isic1028/sct_b1_dw_pixel_isic1028.log
+
+test:
+  checkpoint_save_path : /mnt/DATA-1/DATA-2/Feilong/scformer/train_package/sct_b1_dw_pixel_isic1028/val_best.pth
