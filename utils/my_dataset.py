@@ -3,6 +3,13 @@ import numpy as np
 from torch.utils.data import Dataset
 from PIL import Image
 import torch
+import yaml
+import sys
+
+
+# for cvc dataset
+f = open(sys.argv[1])
+config = yaml.safe_load(f)
 
 # dataset for isic2018
 class ISIC2018(Dataset):
@@ -202,7 +209,10 @@ class DataBuilder(Dataset):
 
             img = np.array(img) / 255
             label = np.array(label)
-
+            if 'cvc' in config['dataset']['train_img_root']:
+                # just for cvc start
+                label = label[:,:,0]  
+                # just for cvc end         
             img = torch.as_tensor(img)
             label = torch.as_tensor(label)
 
@@ -219,6 +229,11 @@ class DataBuilder(Dataset):
 
             img = np.array(img) / 255
             label = np.array(label)
+            
+            if 'cvc' in config['dataset']['train_img_root']:
+                # just for cvc start
+                label = label[:,:,0]  
+                # just for cvc end  
 
             img = torch.as_tensor(img)
             label = torch.as_tensor(label)
