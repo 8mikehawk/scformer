@@ -62,10 +62,11 @@ with torch.no_grad():
         y = y.to(device)
         x = model(x)
         pred = F.softmax(x, dim=1)
-        pred = pred.reshape((batch_size, class_num, crop_size[0]*crop_size[1]))
+        print(pred.shape)
+        pred = pred.reshape((pred.shape[0], class_num, crop_size[0]*crop_size[1]))
         pred = torch.argmax(pred, dim=1)
         pred = torch.where(pred == 1, 255, 0)
-        pred = pred.reshape((batch_size, crop_size[0], crop_size[1]))
+        pred = pred.reshape((pred.shape[0], crop_size[0], crop_size[1]))
         break
     out = torch.cat((pred.float(), y.float()), dim=0)
     out = out.unsqueeze(1)
