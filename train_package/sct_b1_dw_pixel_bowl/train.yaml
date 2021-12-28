@@ -1,0 +1,31 @@
+dataset:
+  train_img_root : /data/segformer/scformer/data/data-science-bowl-2018/train/
+  val_img_root : /data/segformer/scformer/data/data-science-bowl-2018/val/
+  test_img_root : /data/segformer/scformer/data/data-science-bowl-2018/test/
+
+  train_label_root: /data/segformer/scformer/data/data-science-bowl-2018/train_labels/
+  val_label_root : /data/segformer/scformer/data/data-science-bowl-2018/val_labels/
+  test_label_root : /data/segformer/scformer/data/data-science-bowl-2018/test_labels/
+
+  class_num: 2
+
+  crop_size : 
+    w: 512
+    h: 512
+  batch_size : 8
+  num_workers : 8
+
+model:
+  model_name : sct_dw_pixel_b1
+
+training:
+  device : cuda
+  lr : 1e-4
+  max_epoch : 10000
+
+other:
+  checkpoint_save_path : /data/segformer/scformer/train_package/sct_b1_dw_pixel_bowl
+  logger_path : /data/segformer/scformer/train_package/sct_b1_dw_pixel_bowl/sct_b1_dw_pixel_bowl.log
+
+test:
+  checkpoint_save_path : /data/segformer/scformer/train_package/sct_b1_dw_pixel_bowl/val_best.pth

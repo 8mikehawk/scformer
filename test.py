@@ -1,7 +1,8 @@
 import configparser
+import io
 from models import sct_b1_pixel, build
 from loguru import logger
-from utils.tools import ISIC2018
+from utils.tools import ISIC2018, mean_iou
 from tqdm import tqdm
 import torch.nn as nn
 import torch.optim as optmi
@@ -54,8 +55,9 @@ model = model.to(device)
 test_ds = DataBuilder(train_img_root, test_img_root, train_label_root, test_label_root, crop_size, mode='val')
 test_loader = DataLoader(test_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers)
 
-progress = tqdm(enumerate(test_loader), desc="testing ...", total=len(test_loader))
 test_dice = 0
+test_iou = 0
+print("testing ....")
 with torch.no_grad():
     for idx, (img, label) in tqdm(enumerate(test_loader)):
         img = img.to(device)
@@ -66,9 +68,31 @@ with torch.no_grad():
         pre_label = [i for i in pre_label]
         true_label = label.data.cpu().numpy()
         true_label = [i for i in true_label]
+        # dice
         all_acc, acc, dice = mean_dice(pre_label, true_label, num_classes = config['dataset']['class_num'], ignore_index = None)
+        # iou
+        all_acc_, acc_, iou = mean_iou(pre_label, true_label, num_classes = config['dataset']['class_num'], ignore_index = None)
         test_dice = dice + test_dice
-        progress.update(1)
+        test_iou = iou + test_iou
+    epoch_iou = test_iou.mean()/(idx+1)    
     epoch_dice = test_dice.mean()/(idx+1)
 
-print('test_dice_score :{:}'.format(epoch_dice))   
+print('| test_dice_score :{:} | test_iou : {:} |'.format(epoch_dice, epoch_iou))   
+
+# test_iou = 0
+# with torch.no_grad():
+#     for idx, (img, label) in tqdm(enumerate(test_loader)):
+#         img = img.to(device)
+#         label = label.to(device)
+#         x = model(img)
+#         pred = F.softmax(x, dim=1)
+#         pre_label = pred.max(dim=1)[1].data.cpu().numpy()
+#         pre_label = [i for i in pre_label]
+#         true_label = label.data.cpu().numpy()
+#         true_label = [i for i in true_label]
+#         all_acc, acc, iou = mean_iou(pre_label, true_label, num_classes = config['dataset']['class_num'], ignore_index = None)
+#         test_iou = iou + test_iou
+#         progress.update(1)
+#     epoch_iou = test_iou.mean()/(idx+1)
+
+# print('test_iou :{:}'.format(epoch_iou))   

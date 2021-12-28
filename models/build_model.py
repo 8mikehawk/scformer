@@ -11,6 +11,7 @@ def build(model_name, class_num=2):
 
     if model_name == "sct_dw_b1":
         model = sct_dw_b1(class_num=class_num)
+        print(model)
         return model
 
     if model_name == "sct_pixel_b1":
@@ -19,4 +20,5 @@ def build(model_name, class_num=2):
 
     if model_name == "sct_dw_pixel_b1":
         model = sct_dw_pixel_b1(class_num=class_num)
-        return model    
+        return model
+
