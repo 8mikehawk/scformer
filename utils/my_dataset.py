@@ -91,6 +91,8 @@ class Kvasir(Dataset):
             img = np.array(img) / 255
             label = np.array(label)
 
+            print(np.max(label))
+
             img = torch.as_tensor(img)
             label = torch.as_tensor(label)
 
@@ -209,14 +211,17 @@ class DataBuilder(Dataset):
 
             img = np.array(img) / 255
             label = np.array(label)
+
             if 'cvc' in config['dataset']['train_img_root']:
                 # just for cvc start
                 label = label[:,:,0]  
                 # just for cvc end         
             img = torch.as_tensor(img)
             label = torch.as_tensor(label)
-
-            img = img.permute(2, 0, 1)
+            if 'Seg' in config['dataset']['train_img_root'] or 'BRATS2015' in config['dataset']['train_img_root']:
+                img = img.unsqueeze(0)
+            else:
+                img = img.permute(2, 0, 1)
 
             return img.float(), label.long()
 
@@ -230,15 +235,17 @@ class DataBuilder(Dataset):
             img = np.array(img) / 255
             label = np.array(label)
             
-            if 'cvc' in config['dataset']['train_img_root']:
+            if 'cvc' in config['dataset']['train_img_root'] and 'ETIS-LaribPolypDB' not in config['dataset']['test_label_root']:
                 # just for cvc start
                 label = label[:,:,0]  
                 # just for cvc end  
 
             img = torch.as_tensor(img)
             label = torch.as_tensor(label)
-
-            img = img.permute(2, 0, 1)
+            if 'Seg' in config['dataset']['train_img_root'] or 'BRATS2015' in config['dataset']['train_img_root']:
+                img = img.unsqueeze(0)
+            else:
+                img = img.permute(2, 0, 1)
 
             return img.float(), label.long()       
 
@@ -255,3 +262,38 @@ class DataBuilder(Dataset):
         file_path_list = [os.path.join(path, img) for img in files_list]
         file_path_list.sort()
         return file_path_list 
+
+
+# dataset fro Kvasir
+class Datareader(Dataset):
+    def __init__(self, img_root, label_root, crop_size):
+        self.img_files = self.read_file(img_root)
+        self.label_files = self.read_file(label_root)
+        self.crop_size = crop_size
+
+    def __getitem__(self, index):
+        img = Image.open(self.img_files[index])
+        label = Image.open(self.label_files[index])
+
+        img = img.resize((self.crop_size[0], self.crop_size[1]))
+        label = label.resize((self.crop_size[0], self.crop_size[1]))
+
+        img = np.array(img) / 255
+        label = np.array(label)
+
+        img = torch.as_tensor(img)
+        label = torch.as_tensor(label)
+
+        img = img.permute(2, 0, 1)
+
+        return img.float(), label.long()     
+
+    def __len__(self):
+        total_img = len(self.img_files)
+        return total_img
+
+    def read_file(self, path):
+        files_list = os.listdir(path)
+        file_path_list = [os.path.join(path, img) for img in files_list]
+        file_path_list.sort()
+        return file_path_list   

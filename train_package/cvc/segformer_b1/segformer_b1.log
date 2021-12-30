@@ -1,0 +1,306 @@
+2021-12-29 15:48:17.118 | INFO     | __main__:<module>:80 - | start training .... |
+2021-12-29 15:48:27.926 | INFO     | __main__:<module>:108 - | epoch : 0 | training done |
+2021-12-29 15:48:28.921 | CRITICAL | __main__:<module>:130 - | epoch : 0 | best_val_dice_score : 0.5446054825725668 |
+2021-12-29 15:48:40.290 | INFO     | __main__:<module>:108 - | epoch : 1 | training done |
+2021-12-29 15:48:41.257 | CRITICAL | __main__:<module>:130 - | epoch : 1 | best_val_dice_score : 0.5558669357427325 |
+2021-12-29 15:48:52.354 | INFO     | __main__:<module>:108 - | epoch : 2 | training done |
+2021-12-29 15:48:53.322 | CRITICAL | __main__:<module>:130 - | epoch : 2 | best_val_dice_score : 0.5845209619477407 |
+2021-12-29 15:49:04.359 | INFO     | __main__:<module>:108 - | epoch : 3 | training done |
+2021-12-29 15:49:05.334 | CRITICAL | __main__:<module>:130 - | epoch : 3 | best_val_dice_score : 0.6651735424675136 |
+2021-12-29 15:49:16.315 | INFO     | __main__:<module>:108 - | epoch : 4 | training done |
+2021-12-29 15:49:17.318 | INFO     | __main__:<module>:133 - | epoch : 4 | val done |
+2021-12-29 15:49:28.041 | INFO     | __main__:<module>:108 - | epoch : 5 | training done |
+2021-12-29 15:49:29.027 | INFO     | __main__:<module>:133 - | epoch : 5 | val done |
+2021-12-29 15:49:39.815 | INFO     | __main__:<module>:108 - | epoch : 6 | training done |
+2021-12-29 15:49:40.798 | INFO     | __main__:<module>:133 - | epoch : 6 | val done |
+2021-12-29 15:49:51.669 | INFO     | __main__:<module>:108 - | epoch : 7 | training done |
+2021-12-29 15:49:52.640 | CRITICAL | __main__:<module>:130 - | epoch : 7 | best_val_dice_score : 0.7947405694388314 |
+2021-12-29 15:50:03.678 | INFO     | __main__:<module>:108 - | epoch : 8 | training done |
+2021-12-29 15:50:04.674 | CRITICAL | __main__:<module>:130 - | epoch : 8 | best_val_dice_score : 0.8013985553016096 |
+2021-12-29 15:50:15.889 | INFO     | __main__:<module>:108 - | epoch : 9 | training done |
+2021-12-29 15:50:16.865 | INFO     | __main__:<module>:133 - | epoch : 9 | val done |
+2021-12-29 15:50:27.610 | INFO     | __main__:<module>:108 - | epoch : 10 | training done |
+2021-12-29 15:50:28.581 | INFO     | __main__:<module>:133 - | epoch : 10 | val done |
+2021-12-29 15:50:39.319 | INFO     | __main__:<module>:108 - | epoch : 11 | training done |
+2021-12-29 15:50:40.307 | INFO     | __main__:<module>:133 - | epoch : 11 | val done |
+2021-12-29 15:50:51.039 | INFO     | __main__:<module>:108 - | epoch : 12 | training done |
+2021-12-29 15:50:52.013 | INFO     | __main__:<module>:133 - | epoch : 12 | val done |
+2021-12-29 15:51:02.762 | INFO     | __main__:<module>:108 - | epoch : 13 | training done |
+2021-12-29 15:51:03.736 | CRITICAL | __main__:<module>:130 - | epoch : 13 | best_val_dice_score : 0.811455336575625 |
+2021-12-29 15:51:14.793 | INFO     | __main__:<module>:108 - | epoch : 14 | training done |
+2021-12-29 15:51:15.764 | INFO     | __main__:<module>:133 - | epoch : 14 | val done |
+2021-12-29 15:51:26.860 | INFO     | __main__:<module>:108 - | epoch : 15 | training done |
+2021-12-29 15:51:28.047 | INFO     | __main__:<module>:133 - | epoch : 15 | val done |
+2021-12-29 15:51:40.755 | INFO     | __main__:<module>:108 - | epoch : 16 | training done |
+2021-12-29 15:51:41.730 | INFO     | __main__:<module>:133 - | epoch : 16 | val done |
+2021-12-29 15:51:52.455 | INFO     | __main__:<module>:108 - | epoch : 17 | training done |
+2021-12-29 15:51:53.474 | CRITICAL | __main__:<module>:130 - | epoch : 17 | best_val_dice_score : 0.8154761290026145 |
+2021-12-29 15:52:04.419 | INFO     | __main__:<module>:108 - | epoch : 18 | training done |
+2021-12-29 15:52:05.391 | CRITICAL | __main__:<module>:130 - | epoch : 18 | best_val_dice_score : 0.8179841526864834 |
+2021-12-29 15:52:16.560 | INFO     | __main__:<module>:108 - | epoch : 19 | training done |
+2021-12-29 15:52:17.580 | INFO     | __main__:<module>:133 - | epoch : 19 | val done |
+2021-12-29 15:52:30.224 | INFO     | __main__:<module>:108 - | epoch : 20 | training done |
+2021-12-29 15:52:31.197 | CRITICAL | __main__:<module>:130 - | epoch : 20 | best_val_dice_score : 0.8234592899517413 |
+2021-12-29 15:52:42.130 | INFO     | __main__:<module>:108 - | epoch : 21 | training done |
+2021-12-29 15:52:43.122 | CRITICAL | __main__:<module>:130 - | epoch : 21 | best_val_dice_score : 0.8269142804261574 |
+2021-12-29 15:52:54.167 | INFO     | __main__:<module>:108 - | epoch : 22 | training done |
+2021-12-29 15:52:55.141 | CRITICAL | __main__:<module>:130 - | epoch : 22 | best_val_dice_score : 0.8272854133212532 |
+2021-12-29 15:53:06.192 | INFO     | __main__:<module>:108 - | epoch : 23 | training done |
+2021-12-29 15:53:07.186 | CRITICAL | __main__:<module>:130 - | epoch : 23 | best_val_dice_score : 0.8317580690372499 |
+2021-12-29 15:53:18.184 | INFO     | __main__:<module>:108 - | epoch : 24 | training done |
+2021-12-29 15:53:19.161 | CRITICAL | __main__:<module>:130 - | epoch : 24 | best_val_dice_score : 0.8473071263155114 |
+2021-12-29 15:53:30.123 | INFO     | __main__:<module>:108 - | epoch : 25 | training done |
+2021-12-29 15:53:31.100 | INFO     | __main__:<module>:133 - | epoch : 25 | val done |
+2021-12-29 15:53:41.880 | INFO     | __main__:<module>:108 - | epoch : 26 | training done |
+2021-12-29 15:53:42.883 | INFO     | __main__:<module>:133 - | epoch : 26 | val done |
+2021-12-29 15:53:53.602 | INFO     | __main__:<module>:108 - | epoch : 27 | training done |
+2021-12-29 15:53:54.639 | INFO     | __main__:<module>:133 - | epoch : 27 | val done |
+2021-12-29 15:54:07.119 | INFO     | __main__:<module>:108 - | epoch : 28 | training done |
+2021-12-29 15:54:08.202 | INFO     | __main__:<module>:133 - | epoch : 28 | val done |
+2021-12-29 15:54:19.276 | INFO     | __main__:<module>:108 - | epoch : 29 | training done |
+2021-12-29 15:54:20.247 | CRITICAL | __main__:<module>:130 - | epoch : 29 | best_val_dice_score : 0.8485783574978518 |
+2021-12-29 15:54:31.256 | INFO     | __main__:<module>:108 - | epoch : 30 | training done |
+2021-12-29 15:54:32.262 | CRITICAL | __main__:<module>:130 - | epoch : 30 | best_val_dice_score : 0.861920237076744 |
+2021-12-29 15:54:43.319 | INFO     | __main__:<module>:108 - | epoch : 31 | training done |
+2021-12-29 15:54:44.300 | INFO     | __main__:<module>:133 - | epoch : 31 | val done |
+2021-12-29 15:54:55.041 | INFO     | __main__:<module>:108 - | epoch : 32 | training done |
+2021-12-29 15:54:56.044 | INFO     | __main__:<module>:133 - | epoch : 32 | val done |
+2021-12-29 15:55:06.755 | INFO     | __main__:<module>:108 - | epoch : 33 | training done |
+2021-12-29 15:55:07.728 | CRITICAL | __main__:<module>:130 - | epoch : 33 | best_val_dice_score : 0.8660202436293125 |
+2021-12-29 15:55:18.718 | INFO     | __main__:<module>:108 - | epoch : 34 | training done |
+2021-12-29 15:55:19.707 | CRITICAL | __main__:<module>:130 - | epoch : 34 | best_val_dice_score : 0.8669432820808485 |
+2021-12-29 15:55:30.755 | INFO     | __main__:<module>:108 - | epoch : 35 | training done |
+2021-12-29 15:55:31.736 | INFO     | __main__:<module>:133 - | epoch : 35 | val done |
+2021-12-29 15:55:42.416 | INFO     | __main__:<module>:108 - | epoch : 36 | training done |
+2021-12-29 15:55:43.388 | INFO     | __main__:<module>:133 - | epoch : 36 | val done |
+2021-12-29 15:55:54.104 | INFO     | __main__:<module>:108 - | epoch : 37 | training done |
+2021-12-29 15:55:55.086 | INFO     | __main__:<module>:133 - | epoch : 37 | val done |
+2021-12-29 15:56:05.850 | INFO     | __main__:<module>:108 - | epoch : 38 | training done |
+2021-12-29 15:56:06.865 | INFO     | __main__:<module>:133 - | epoch : 38 | val done |
+2021-12-29 15:56:17.569 | INFO     | __main__:<module>:108 - | epoch : 39 | training done |
+2021-12-29 15:56:18.550 | INFO     | __main__:<module>:133 - | epoch : 39 | val done |
+2021-12-29 15:56:29.269 | INFO     | __main__:<module>:108 - | epoch : 40 | training done |
+2021-12-29 15:56:30.248 | CRITICAL | __main__:<module>:130 - | epoch : 40 | best_val_dice_score : 0.8891970187095164 |
+2021-12-29 15:56:41.313 | INFO     | __main__:<module>:108 - | epoch : 41 | training done |
+2021-12-29 15:56:42.304 | INFO     | __main__:<module>:133 - | epoch : 41 | val done |
+2021-12-29 15:56:53.021 | INFO     | __main__:<module>:108 - | epoch : 42 | training done |
+2021-12-29 15:56:53.997 | INFO     | __main__:<module>:133 - | epoch : 42 | val done |
+2021-12-29 15:57:04.698 | INFO     | __main__:<module>:108 - | epoch : 43 | training done |
+2021-12-29 15:57:05.709 | INFO     | __main__:<module>:133 - | epoch : 43 | val done |
+2021-12-29 15:57:16.435 | INFO     | __main__:<module>:108 - | epoch : 44 | training done |
+2021-12-29 15:57:17.418 | INFO     | __main__:<module>:133 - | epoch : 44 | val done |
+2021-12-29 15:57:28.123 | INFO     | __main__:<module>:108 - | epoch : 45 | training done |
+2021-12-29 15:57:29.100 | INFO     | __main__:<module>:133 - | epoch : 45 | val done |
+2021-12-29 15:57:39.819 | INFO     | __main__:<module>:108 - | epoch : 46 | training done |
+2021-12-29 15:57:40.805 | CRITICAL | __main__:<module>:130 - | epoch : 46 | best_val_dice_score : 0.8927526635200006 |
+2021-12-29 15:57:51.782 | INFO     | __main__:<module>:108 - | epoch : 47 | training done |
+2021-12-29 15:57:52.794 | INFO     | __main__:<module>:133 - | epoch : 47 | val done |
+2021-12-29 15:58:03.482 | INFO     | __main__:<module>:108 - | epoch : 48 | training done |
+2021-12-29 15:58:04.483 | INFO     | __main__:<module>:133 - | epoch : 48 | val done |
+2021-12-29 15:58:15.246 | INFO     | __main__:<module>:108 - | epoch : 49 | training done |
+2021-12-29 15:58:16.244 | INFO     | __main__:<module>:133 - | epoch : 49 | val done |
+2021-12-29 15:58:27.001 | INFO     | __main__:<module>:108 - | epoch : 50 | training done |
+2021-12-29 15:58:27.992 | CRITICAL | __main__:<module>:130 - | epoch : 50 | best_val_dice_score : 0.8969931410299374 |
+2021-12-29 15:58:39.039 | INFO     | __main__:<module>:108 - | epoch : 51 | training done |
+2021-12-29 15:58:40.017 | CRITICAL | __main__:<module>:130 - | epoch : 51 | best_val_dice_score : 0.9023492815176923 |
+2021-12-29 15:58:51.017 | INFO     | __main__:<module>:108 - | epoch : 52 | training done |
+2021-12-29 15:58:52.004 | INFO     | __main__:<module>:133 - | epoch : 52 | val done |
+2021-12-29 15:59:02.744 | INFO     | __main__:<module>:108 - | epoch : 53 | training done |
+2021-12-29 15:59:03.725 | CRITICAL | __main__:<module>:130 - | epoch : 53 | best_val_dice_score : 0.910526970644383 |
+2021-12-29 15:59:14.731 | INFO     | __main__:<module>:108 - | epoch : 54 | training done |
+2021-12-29 15:59:15.722 | INFO     | __main__:<module>:133 - | epoch : 54 | val done |
+2021-12-29 15:59:26.470 | INFO     | __main__:<module>:108 - | epoch : 55 | training done |
+2021-12-29 15:59:27.467 | INFO     | __main__:<module>:133 - | epoch : 55 | val done |
+2021-12-29 15:59:38.222 | INFO     | __main__:<module>:108 - | epoch : 56 | training done |
+2021-12-29 15:59:39.198 | INFO     | __main__:<module>:133 - | epoch : 56 | val done |
+2021-12-29 15:59:49.929 | INFO     | __main__:<module>:108 - | epoch : 57 | training done |
+2021-12-29 15:59:50.907 | INFO     | __main__:<module>:133 - | epoch : 57 | val done |
+2021-12-29 16:00:01.663 | INFO     | __main__:<module>:108 - | epoch : 58 | training done |
+2021-12-29 16:00:02.681 | INFO     | __main__:<module>:133 - | epoch : 58 | val done |
+2021-12-29 16:00:13.398 | INFO     | __main__:<module>:108 - | epoch : 59 | training done |
+2021-12-29 16:00:14.370 | INFO     | __main__:<module>:133 - | epoch : 59 | val done |
+2021-12-29 16:00:25.104 | INFO     | __main__:<module>:108 - | epoch : 60 | training done |
+2021-12-29 16:00:26.086 | INFO     | __main__:<module>:133 - | epoch : 60 | val done |
+2021-12-29 16:00:36.821 | INFO     | __main__:<module>:108 - | epoch : 61 | training done |
+2021-12-29 16:00:37.805 | INFO     | __main__:<module>:133 - | epoch : 61 | val done |
+2021-12-29 16:00:48.541 | INFO     | __main__:<module>:108 - | epoch : 62 | training done |
+2021-12-29 16:00:49.517 | INFO     | __main__:<module>:133 - | epoch : 62 | val done |
+2021-12-29 16:01:00.194 | INFO     | __main__:<module>:108 - | epoch : 63 | training done |
+2021-12-29 16:01:01.170 | INFO     | __main__:<module>:133 - | epoch : 63 | val done |
+2021-12-29 16:01:11.866 | INFO     | __main__:<module>:108 - | epoch : 64 | training done |
+2021-12-29 16:01:12.845 | INFO     | __main__:<module>:133 - | epoch : 64 | val done |
+2021-12-29 16:01:23.544 | INFO     | __main__:<module>:108 - | epoch : 65 | training done |
+2021-12-29 16:01:24.516 | INFO     | __main__:<module>:133 - | epoch : 65 | val done |
+2021-12-29 16:01:35.259 | INFO     | __main__:<module>:108 - | epoch : 66 | training done |
+2021-12-29 16:01:36.260 | INFO     | __main__:<module>:133 - | epoch : 66 | val done |
+2021-12-29 16:01:46.962 | INFO     | __main__:<module>:108 - | epoch : 67 | training done |
+2021-12-29 16:01:47.945 | INFO     | __main__:<module>:133 - | epoch : 67 | val done |
+2021-12-29 16:01:58.721 | INFO     | __main__:<module>:108 - | epoch : 68 | training done |
+2021-12-29 16:01:59.694 | INFO     | __main__:<module>:133 - | epoch : 68 | val done |
+2021-12-29 16:02:10.409 | INFO     | __main__:<module>:108 - | epoch : 69 | training done |
+2021-12-29 16:02:11.385 | INFO     | __main__:<module>:133 - | epoch : 69 | val done |
+2021-12-29 16:02:22.074 | INFO     | __main__:<module>:108 - | epoch : 70 | training done |
+2021-12-29 16:02:23.068 | INFO     | __main__:<module>:133 - | epoch : 70 | val done |
+2021-12-29 16:02:33.796 | INFO     | __main__:<module>:108 - | epoch : 71 | training done |
+2021-12-29 16:02:34.770 | INFO     | __main__:<module>:133 - | epoch : 71 | val done |
+2021-12-29 16:02:45.538 | INFO     | __main__:<module>:108 - | epoch : 72 | training done |
+2021-12-29 16:02:46.512 | CRITICAL | __main__:<module>:130 - | epoch : 72 | best_val_dice_score : 0.9140134501467352 |
+2021-12-29 16:02:57.460 | INFO     | __main__:<module>:108 - | epoch : 73 | training done |
+2021-12-29 16:02:58.452 | INFO     | __main__:<module>:133 - | epoch : 73 | val done |
+2021-12-29 16:03:09.154 | INFO     | __main__:<module>:108 - | epoch : 74 | training done |
+2021-12-29 16:03:10.128 | CRITICAL | __main__:<module>:130 - | epoch : 74 | best_val_dice_score : 0.9177873221272488 |
+2021-12-29 16:03:21.136 | INFO     | __main__:<module>:108 - | epoch : 75 | training done |
+2021-12-29 16:03:22.121 | CRITICAL | __main__:<module>:130 - | epoch : 75 | best_val_dice_score : 0.9225629661792426 |
+2021-12-29 16:03:33.116 | INFO     | __main__:<module>:108 - | epoch : 76 | training done |
+2021-12-29 16:03:34.083 | INFO     | __main__:<module>:133 - | epoch : 76 | val done |
+2021-12-29 16:03:44.813 | INFO     | __main__:<module>:108 - | epoch : 77 | training done |
+2021-12-29 16:03:45.818 | INFO     | __main__:<module>:133 - | epoch : 77 | val done |
+2021-12-29 16:03:56.558 | INFO     | __main__:<module>:108 - | epoch : 78 | training done |
+2021-12-29 16:03:57.540 | INFO     | __main__:<module>:133 - | epoch : 78 | val done |
+2021-12-29 16:04:08.254 | INFO     | __main__:<module>:108 - | epoch : 79 | training done |
+2021-12-29 16:04:09.258 | INFO     | __main__:<module>:133 - | epoch : 79 | val done |
+2021-12-29 16:04:20.007 | INFO     | __main__:<module>:108 - | epoch : 80 | training done |
+2021-12-29 16:04:20.988 | INFO     | __main__:<module>:133 - | epoch : 80 | val done |
+2021-12-29 16:04:31.711 | INFO     | __main__:<module>:108 - | epoch : 81 | training done |
+2021-12-29 16:04:32.687 | INFO     | __main__:<module>:133 - | epoch : 81 | val done |
+2021-12-29 16:04:43.385 | INFO     | __main__:<module>:108 - | epoch : 82 | training done |
+2021-12-29 16:04:44.353 | INFO     | __main__:<module>:133 - | epoch : 82 | val done |
+2021-12-29 16:04:55.073 | INFO     | __main__:<module>:108 - | epoch : 83 | training done |
+2021-12-29 16:04:56.057 | INFO     | __main__:<module>:133 - | epoch : 83 | val done |
+2021-12-29 16:05:06.772 | INFO     | __main__:<module>:108 - | epoch : 84 | training done |
+2021-12-29 16:05:07.758 | INFO     | __main__:<module>:133 - | epoch : 84 | val done |
+2021-12-29 16:05:18.511 | INFO     | __main__:<module>:108 - | epoch : 85 | training done |
+2021-12-29 16:05:19.491 | INFO     | __main__:<module>:133 - | epoch : 85 | val done |
+2021-12-29 16:05:30.209 | INFO     | __main__:<module>:108 - | epoch : 86 | training done |
+2021-12-29 16:05:31.203 | INFO     | __main__:<module>:133 - | epoch : 86 | val done |
+2021-12-29 16:05:41.917 | INFO     | __main__:<module>:108 - | epoch : 87 | training done |
+2021-12-29 16:05:42.917 | INFO     | __main__:<module>:133 - | epoch : 87 | val done |
+2021-12-29 16:05:53.622 | INFO     | __main__:<module>:108 - | epoch : 88 | training done |
+2021-12-29 16:05:54.606 | CRITICAL | __main__:<module>:130 - | epoch : 88 | best_val_dice_score : 0.9273433170734566 |
+2021-12-29 16:06:05.568 | INFO     | __main__:<module>:108 - | epoch : 89 | training done |
+2021-12-29 16:06:06.575 | INFO     | __main__:<module>:133 - | epoch : 89 | val done |
+2021-12-29 16:06:17.361 | INFO     | __main__:<module>:108 - | epoch : 90 | training done |
+2021-12-29 16:06:18.366 | INFO     | __main__:<module>:133 - | epoch : 90 | val done |
+2021-12-29 16:06:29.106 | INFO     | __main__:<module>:108 - | epoch : 91 | training done |
+2021-12-29 16:06:30.086 | CRITICAL | __main__:<module>:130 - | epoch : 91 | best_val_dice_score : 0.9308659204578879 |
+2021-12-29 16:06:41.098 | INFO     | __main__:<module>:108 - | epoch : 92 | training done |
+2021-12-29 16:06:42.067 | INFO     | __main__:<module>:133 - | epoch : 92 | val done |
+2021-12-29 16:06:52.777 | INFO     | __main__:<module>:108 - | epoch : 93 | training done |
+2021-12-29 16:06:53.773 | INFO     | __main__:<module>:133 - | epoch : 93 | val done |
+2021-12-29 16:07:04.501 | INFO     | __main__:<module>:108 - | epoch : 94 | training done |
+2021-12-29 16:07:05.478 | INFO     | __main__:<module>:133 - | epoch : 94 | val done |
+2021-12-29 16:07:16.236 | INFO     | __main__:<module>:108 - | epoch : 95 | training done |
+2021-12-29 16:07:17.224 | INFO     | __main__:<module>:133 - | epoch : 95 | val done |
+2021-12-29 16:07:27.934 | INFO     | __main__:<module>:108 - | epoch : 96 | training done |
+2021-12-29 16:07:28.909 | CRITICAL | __main__:<module>:130 - | epoch : 96 | best_val_dice_score : 0.9337329217630757 |
+2021-12-29 16:07:39.967 | INFO     | __main__:<module>:108 - | epoch : 97 | training done |
+2021-12-29 16:07:40.952 | INFO     | __main__:<module>:133 - | epoch : 97 | val done |
+2021-12-29 16:07:51.682 | INFO     | __main__:<module>:108 - | epoch : 98 | training done |
+2021-12-29 16:07:52.648 | INFO     | __main__:<module>:133 - | epoch : 98 | val done |
+2021-12-29 16:08:03.347 | INFO     | __main__:<module>:108 - | epoch : 99 | training done |
+2021-12-29 16:08:04.325 | INFO     | __main__:<module>:133 - | epoch : 99 | val done |
+2021-12-29 16:08:15.089 | INFO     | __main__:<module>:108 - | epoch : 100 | training done |
+2021-12-29 16:08:16.063 | INFO     | __main__:<module>:133 - | epoch : 100 | val done |
+2021-12-29 16:08:26.779 | INFO     | __main__:<module>:108 - | epoch : 101 | training done |
+2021-12-29 16:08:27.759 | INFO     | __main__:<module>:133 - | epoch : 101 | val done |
+2021-12-29 16:08:38.470 | INFO     | __main__:<module>:108 - | epoch : 102 | training done |
+2021-12-29 16:08:39.480 | CRITICAL | __main__:<module>:130 - | epoch : 102 | best_val_dice_score : 0.9356735193823125 |
+2021-12-29 16:08:50.494 | INFO     | __main__:<module>:108 - | epoch : 103 | training done |
+2021-12-29 16:08:51.483 | INFO     | __main__:<module>:133 - | epoch : 103 | val done |
+2021-12-29 16:09:02.196 | INFO     | __main__:<module>:108 - | epoch : 104 | training done |
+2021-12-29 16:09:03.174 | INFO     | __main__:<module>:133 - | epoch : 104 | val done |
+2021-12-29 16:09:13.876 | INFO     | __main__:<module>:108 - | epoch : 105 | training done |
+2021-12-29 16:09:14.864 | INFO     | __main__:<module>:133 - | epoch : 105 | val done |
+2021-12-29 16:09:25.592 | INFO     | __main__:<module>:108 - | epoch : 106 | training done |
+2021-12-29 16:09:26.587 | INFO     | __main__:<module>:133 - | epoch : 106 | val done |
+2021-12-29 16:09:37.324 | INFO     | __main__:<module>:108 - | epoch : 107 | training done |
+2021-12-29 16:09:38.309 | INFO     | __main__:<module>:133 - | epoch : 107 | val done |
+2021-12-29 16:09:49.038 | INFO     | __main__:<module>:108 - | epoch : 108 | training done |
+2021-12-29 16:09:50.034 | INFO     | __main__:<module>:133 - | epoch : 108 | val done |
+2021-12-29 16:10:00.770 | INFO     | __main__:<module>:108 - | epoch : 109 | training done |
+2021-12-29 16:10:01.762 | INFO     | __main__:<module>:133 - | epoch : 109 | val done |
+2021-12-29 16:10:12.481 | INFO     | __main__:<module>:108 - | epoch : 110 | training done |
+2021-12-29 16:10:13.449 | INFO     | __main__:<module>:133 - | epoch : 110 | val done |
+2021-12-29 16:10:24.199 | INFO     | __main__:<module>:108 - | epoch : 111 | training done |
+2021-12-29 16:10:25.209 | INFO     | __main__:<module>:133 - | epoch : 111 | val done |
+2021-12-29 16:10:35.962 | INFO     | __main__:<module>:108 - | epoch : 112 | training done |
+2021-12-29 16:10:36.947 | INFO     | __main__:<module>:133 - | epoch : 112 | val done |
+2021-12-29 16:10:47.647 | INFO     | __main__:<module>:108 - | epoch : 113 | training done |
+2021-12-29 16:10:48.619 | INFO     | __main__:<module>:133 - | epoch : 113 | val done |
+2021-12-29 16:10:59.351 | INFO     | __main__:<module>:108 - | epoch : 114 | training done |
+2021-12-29 16:11:00.327 | INFO     | __main__:<module>:133 - | epoch : 114 | val done |
+2021-12-29 16:11:11.037 | INFO     | __main__:<module>:108 - | epoch : 115 | training done |
+2021-12-29 16:11:12.008 | INFO     | __main__:<module>:133 - | epoch : 115 | val done |
+2021-12-29 16:11:22.737 | INFO     | __main__:<module>:108 - | epoch : 116 | training done |
+2021-12-29 16:11:23.732 | INFO     | __main__:<module>:133 - | epoch : 116 | val done |
+2021-12-29 16:11:34.453 | INFO     | __main__:<module>:108 - | epoch : 117 | training done |
+2021-12-29 16:11:35.435 | INFO     | __main__:<module>:133 - | epoch : 117 | val done |
+2021-12-29 16:11:46.153 | INFO     | __main__:<module>:108 - | epoch : 118 | training done |
+2021-12-29 16:11:47.146 | INFO     | __main__:<module>:133 - | epoch : 118 | val done |
+2021-12-29 16:11:57.879 | INFO     | __main__:<module>:108 - | epoch : 119 | training done |
+2021-12-29 16:11:58.866 | INFO     | __main__:<module>:133 - | epoch : 119 | val done |
+2021-12-29 16:12:09.613 | INFO     | __main__:<module>:108 - | epoch : 120 | training done |
+2021-12-29 16:12:10.588 | INFO     | __main__:<module>:133 - | epoch : 120 | val done |
+2021-12-29 16:12:21.318 | INFO     | __main__:<module>:108 - | epoch : 121 | training done |
+2021-12-29 16:12:22.295 | INFO     | __main__:<module>:133 - | epoch : 121 | val done |
+2021-12-29 16:12:33.080 | INFO     | __main__:<module>:108 - | epoch : 122 | training done |
+2021-12-29 16:12:34.055 | INFO     | __main__:<module>:133 - | epoch : 122 | val done |
+2021-12-29 16:12:44.780 | INFO     | __main__:<module>:108 - | epoch : 123 | training done |
+2021-12-29 16:12:45.784 | INFO     | __main__:<module>:133 - | epoch : 123 | val done |
+2021-12-29 16:12:56.503 | INFO     | __main__:<module>:108 - | epoch : 124 | training done |
+2021-12-29 16:12:57.485 | INFO     | __main__:<module>:133 - | epoch : 124 | val done |
+2021-12-29 16:13:08.200 | INFO     | __main__:<module>:108 - | epoch : 125 | training done |
+2021-12-29 16:13:09.180 | INFO     | __main__:<module>:133 - | epoch : 125 | val done |
+2021-12-29 16:13:19.869 | INFO     | __main__:<module>:108 - | epoch : 126 | training done |
+2021-12-29 16:13:20.837 | INFO     | __main__:<module>:133 - | epoch : 126 | val done |
+2021-12-29 16:13:31.562 | INFO     | __main__:<module>:108 - | epoch : 127 | training done |
+2021-12-29 16:13:32.553 | INFO     | __main__:<module>:133 - | epoch : 127 | val done |
+2021-12-29 16:13:43.291 | INFO     | __main__:<module>:108 - | epoch : 128 | training done |
+2021-12-29 16:13:44.269 | INFO     | __main__:<module>:133 - | epoch : 128 | val done |
+2021-12-29 16:13:55.006 | INFO     | __main__:<module>:108 - | epoch : 129 | training done |
+2021-12-29 16:13:55.984 | INFO     | __main__:<module>:133 - | epoch : 129 | val done |
+2021-12-29 16:14:06.726 | INFO     | __main__:<module>:108 - | epoch : 130 | training done |
+2021-12-29 16:14:07.711 | CRITICAL | __main__:<module>:130 - | epoch : 130 | best_val_dice_score : 0.9386320660476574 |
+2021-12-29 16:14:18.770 | INFO     | __main__:<module>:108 - | epoch : 131 | training done |
+2021-12-29 16:14:19.786 | INFO     | __main__:<module>:133 - | epoch : 131 | val done |
+2021-12-29 16:14:30.509 | INFO     | __main__:<module>:108 - | epoch : 132 | training done |
+2021-12-29 16:14:31.501 | INFO     | __main__:<module>:133 - | epoch : 132 | val done |
+2021-12-29 16:14:42.246 | INFO     | __main__:<module>:108 - | epoch : 133 | training done |
+2021-12-29 16:14:43.254 | INFO     | __main__:<module>:133 - | epoch : 133 | val done |
+2021-12-29 16:14:54.004 | INFO     | __main__:<module>:108 - | epoch : 134 | training done |
+2021-12-29 16:14:54.990 | INFO     | __main__:<module>:133 - | epoch : 134 | val done |
+2021-12-29 16:15:05.743 | INFO     | __main__:<module>:108 - | epoch : 135 | training done |
+2021-12-29 16:15:06.723 | INFO     | __main__:<module>:133 - | epoch : 135 | val done |
+2021-12-29 16:15:17.442 | INFO     | __main__:<module>:108 - | epoch : 136 | training done |
+2021-12-29 16:15:18.433 | INFO     | __main__:<module>:133 - | epoch : 136 | val done |
+2021-12-29 16:15:29.184 | INFO     | __main__:<module>:108 - | epoch : 137 | training done |
+2021-12-29 16:15:30.171 | INFO     | __main__:<module>:133 - | epoch : 137 | val done |
+2021-12-29 16:15:40.915 | INFO     | __main__:<module>:108 - | epoch : 138 | training done |
+2021-12-29 16:15:41.903 | INFO     | __main__:<module>:133 - | epoch : 138 | val done |
+2021-12-29 16:15:52.665 | INFO     | __main__:<module>:108 - | epoch : 139 | training done |
+2021-12-29 16:15:53.648 | INFO     | __main__:<module>:133 - | epoch : 139 | val done |
+2021-12-29 16:16:04.381 | INFO     | __main__:<module>:108 - | epoch : 140 | training done |
+2021-12-29 16:16:05.364 | INFO     | __main__:<module>:133 - | epoch : 140 | val done |
+2021-12-29 16:16:16.047 | INFO     | __main__:<module>:108 - | epoch : 141 | training done |
+2021-12-29 16:16:17.023 | INFO     | __main__:<module>:133 - | epoch : 141 | val done |
+2021-12-29 16:16:27.801 | INFO     | __main__:<module>:108 - | epoch : 142 | training done |
+2021-12-29 16:16:28.777 | INFO     | __main__:<module>:133 - | epoch : 142 | val done |
+2021-12-29 16:16:39.544 | INFO     | __main__:<module>:108 - | epoch : 143 | training done |
+2021-12-29 16:16:40.534 | INFO     | __main__:<module>:133 - | epoch : 143 | val done |
+2021-12-29 16:16:51.274 | INFO     | __main__:<module>:108 - | epoch : 144 | training done |
+2021-12-29 16:16:52.257 | INFO     | __main__:<module>:133 - | epoch : 144 | val done |
+2021-12-29 16:17:03.032 | INFO     | __main__:<module>:108 - | epoch : 145 | training done |
+2021-12-29 16:17:04.039 | INFO     | __main__:<module>:133 - | epoch : 145 | val done |
+2021-12-29 16:17:14.782 | INFO     | __main__:<module>:108 - | epoch : 146 | training done |
+2021-12-29 16:17:15.773 | INFO     | __main__:<module>:133 - | epoch : 146 | val done |
+2021-12-29 16:17:26.547 | INFO     | __main__:<module>:108 - | epoch : 147 | training done |
+2021-12-29 16:17:27.532 | INFO     | __main__:<module>:133 - | epoch : 147 | val done |
+2021-12-29 16:17:38.260 | INFO     | __main__:<module>:108 - | epoch : 148 | training done |
+2021-12-29 16:17:39.254 | INFO     | __main__:<module>:133 - | epoch : 148 | val done |
+2021-12-29 16:17:49.962 | INFO     | __main__:<module>:108 - | epoch : 149 | training done |
+2021-12-29 16:17:50.943 | INFO     | __main__:<module>:133 - | epoch : 149 | val done |
+2021-12-29 16:18:01.698 | INFO     | __main__:<module>:108 - | epoch : 150 | training done |
+2021-12-29 16:18:02.684 | INFO     | __main__:<module>:133 - | epoch : 150 | val done |
+2021-12-29 16:18:13.435 | INFO     | __main__:<module>:108 - | epoch : 151 | training done |
+2021-12-29 16:18:14.432 | INFO     | __main__:<module>:133 - | epoch : 151 | val done |
+2021-12-29 16:18:25.186 | INFO     | __main__:<module>:108 - | epoch : 152 | training done |

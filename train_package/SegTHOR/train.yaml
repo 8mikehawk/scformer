@@ -1,0 +1,37 @@
+dataset:
+  train_img_root : /data/segformer/scformer/data/SegTHOR/train/
+  val_img_root : /data/segformer/scformer/data/SegTHOR/val/
+  test_img_root : /data/segformer/scformer/data/SegTHOR/test/
+
+  train_label_root: /data/segformer/scformer/data/SegTHOR/train_labels/
+  val_label_root : /data/segformer/scformer/data/SegTHOR/val_labels/
+  test_label_root : /data/segformer/scformer/data/SegTHOR/test_labels/
+
+  class_num: 5
+
+  crop_size : 
+    w: 512
+    h: 512
+  batch_size : 16
+  # maximum is 8 for A100
+  num_workers : 8
+
+# sct_b1
+# sct_dw_b1
+# sct_pixel_b1
+# sct_dw_pixel_b1
+
+model:
+  model_name : sct_b1
+
+training:
+  device : cuda
+  lr : 1e-4
+  max_epoch : 100000
+
+other:
+  checkpoint_save_path : /data/segformer/scformer/train_package/SegTHOR
+  logger_path : /data/segformer/scformer/train_package/SegTHOR/SegTHOR.log
+
+test:
+  checkpoint_save_path : /data/segformer/scformer/train_package/SegTHOR/val_best.pth

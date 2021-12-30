@@ -184,7 +184,7 @@ class MitEncoder(Module):
 
 class Decoder(Module):
 
-    def __init__(self, dims, dim, class_num=2):
+    def __init__(self, dims, dim, class_num=5):
         super(Decoder, self).__init__()
 
         self.class_num = class_num

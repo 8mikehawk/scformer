@@ -12,7 +12,11 @@ from torch.utils.data import DataLoader
 import torch
 import os
 import sys
+import numpy as np
 import yaml
+
+np.seterr(divide='ignore',invalid='ignore')
+
 
 f = open(sys.argv[1])
 config = yaml.safe_load(f)
@@ -25,7 +29,7 @@ config = yaml.safe_load(f)
 # model = model.to(device)
 
 device = config['training']['device']
-model = build(model_name=config['model']['model_name'])
+model = build(model_name=config['model']['model_name'], class_num=config['dataset']['class_num'])
 model = model.to(device)
 
 
@@ -75,57 +79,51 @@ logger.add(config['other']['logger_path'])
 # start training
 logger.info(f"| start training .... |")
 best_val_dice = [0]
+
 for epoch in tqdm(range(max_epoch)):
-    # train_dice = 0
+    train_dice = 0
     for idx, (img, label) in tqdm(enumerate(train_loader)):
-        
         model = model.train()
         img = img.to(device)
+
         label = label.to(device)
         out = model(img)
-        out_ = F.softmax(out, dim=1)
         out = F.log_softmax(out, dim=1)
-
         loss = criterion(out, label)
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-    # 先不测试train的准确率，为了减少时间
-    #     pre_label = out_.max(dim=1)[1].data.cpu().numpy()
-    #     pre_label = [i for i in pre_label]
+     # 先不测试train的准确率，为了减少时间
+#        pre_label = out_.max(dim=1)[1].data.cpu().numpy()
+#        pre_label = [i for i in pre_label]
+#        true_label = label.data.cpu().numpy()
+#        true_label = [i for i in true_label]
+#
+#        all_acc, acc, dice = mean_dice(pre_label, true_label, num_classes = config['dataset']['class_num'], ignore_index = None)
+#
+#        train_dice = dice + train_dice
+#    print('train_dice_score :{:}'.format(train_dice.mean()/(idx+1)))   
 
-    #     true_label = label.data.cpu().numpy()
-    #     true_label = [i for i in true_label]
-
-    #     all_acc, acc, dice = mean_dice(pre_label, true_label, num_classes = 2, ignore_index = None)
-
-    #     train_dice = dice + train_dice     
-    # print('train_dice_score :{:}'.format(train_dice.mean()/(idx+1)))   
-
-    # print("train epoch done") 
+    print("train epoch done") 
     logger.info(f"| epoch : {epoch} | training done |")
 
 
     # evaluate ...
     val_dice = 0
     with torch.no_grad():
-        for idx, (img, label) in enumerate(val_loader):
+        for idx, (img, label) in tqdm(enumerate(val_loader)):
             img = img.to(device)
             label = label.to(device)
             x = model(img)
             pred = F.softmax(x, dim=1)
-
+            # print(pred.shape, img.shape)
             pre_label = pred.max(dim=1)[1].data.cpu().numpy()
             pre_label = [i for i in pre_label]
-
             true_label = label.data.cpu().numpy()
             true_label = [i for i in true_label]
-
-            all_acc, acc, dice = mean_dice(pre_label, true_label, num_classes = 2, ignore_index = None)
-
+            all_acc, acc, dice = mean_dice(pre_label, true_label, num_classes = config['dataset']['class_num'], ignore_index = None)
             val_dice = dice + val_dice
         epoch_dice = val_dice.mean()/(idx+1)
-        print('val_dice_score :{:}'.format(epoch_dice))   
         if max(best_val_dice) <=  epoch_dice:
             best_val_dice.append(epoch_dice)
             # print('best_val_dice_score :{:}'.format(max(best_val_dice)))

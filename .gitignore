@@ -6,3 +6,4 @@ predicr_results/
 .vscode/
 models/checkpoints/
 train_package/**/*.pth
+pretrain/

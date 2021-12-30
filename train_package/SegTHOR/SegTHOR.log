@@ -1,0 +1,5 @@
+2021-12-29 10:42:57.769 | INFO     | __main__:<module>:80 - | start training .... |
+2021-12-29 10:50:24.142 | INFO     | __main__:<module>:108 - | epoch : 0 | training done |
+2021-12-29 10:50:43.207 | CRITICAL | __main__:<module>:133 - | epoch : 0 | best_val_dice_score : 0.18668764199119023 |
+2021-12-29 10:58:08.662 | INFO     | __main__:<module>:108 - | epoch : 1 | training done |
+2021-12-29 10:58:27.650 | CRITICAL | __main__:<module>:133 - | epoch : 1 | best_val_dice_score : 0.19696886751474846 |

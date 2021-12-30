@@ -1,0 +1,31 @@
+dataset :
+  train_img_root : /data/segformer/scformer/data/Kvasir-SEG/images/train/
+  val_img_root : /data/segformer/scformer/data/Kvasir-SEG/images/val/
+  test_img_root : /data/segformer/scformer/data/Kvasir-SEG/images/test/
+
+  train_label_root: /data/segformer/scformer/data/Kvasir-SEG/mask_/train/
+  val_label_root : /data/segformer/scformer/data/Kvasir-SEG/mask_/val/
+  test_label_root : /data/segformer/scformer/data/Kvasir-SEG/mask_/test/
+
+  class_num: 2
+
+  crop_size : 
+    w: 512
+    h: 512
+  batch_size : 8
+  num_workers : 8
+
+model:
+  model_name : sct_dw_b1
+
+training:
+  device : cuda
+  lr : 1e-4
+  max_epoch : 10000
+
+other:
+  checkpoint_save_path : /data/segformer/scformer/train_package/kvasir/sct_dw_b1_Kvasir
+  logger_path : /data/segformer/scformer/train_package/kvasir/sct_dw_b1_Kvasir/sct_b1_dw_pixel_isic1028.log
+
+test:
+  checkpoint_save_path : /data/segformer/scformer/train_package/kvasir/sct_dw_b1_Kvasir/val_best.pth

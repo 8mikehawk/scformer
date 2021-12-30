@@ -1,17 +1,17 @@
 dataset:
   train_img_root : /data/segformer/scformer/data/cvc/train/
   val_img_root : /data/segformer/scformer/data/cvc/val/
-  test_img_root : /data/segformer/scformer/data/ETIS-LaribPolypDB/test/
+  test_img_root : /data/segformer/scformer/data/cvc/test/
 
   train_label_root: /data/segformer/scformer/data/cvc/train_labels/
   val_label_root : /data/segformer/scformer/data/cvc/val_labels/
-  test_label_root : /data/segformer/scformer/data/ETIS-LaribPolypDB/test_labels/
+  test_label_root : /data/segformer/scformer/data/cvc/test_labels/
 
   class_num: 2
 
   crop_size : 
-    w: 512
-    h: 512
+    w: 256
+    h: 256
   batch_size : 8
   num_workers : 8
 
@@ -21,7 +21,7 @@ dataset:
 # sct_dw_pixel_b1
 
 model:
-  model_name : sct_b1
+  model_name : segformer
 
 training:
   device : cuda
@@ -29,8 +29,8 @@ training:
   max_epoch : 10000
 
 other:
-  checkpoint_save_path : /data/segformer/scformer/train_package/cvc/sct_b1_cvc/
-  logger_path : /data/segformer/scformer/train_package/cvc/sct_b1_cvc/sct_b1_cvc.log
+  checkpoint_save_path : /data/segformer/scformer/train_package/cvc/segformer_b1
+  logger_path : /data/segformer/scformer/train_package/cvc/segformer_b1/segformer_b1.log
 
 test:
-  checkpoint_save_path : /data/segformer/scformer/train_package/cvc/sct_b1_cvc/val_best.pth
+  checkpoint_save_path : /data/segformer/scformer/train_package/cvc/segformer_b1/val_best.pth

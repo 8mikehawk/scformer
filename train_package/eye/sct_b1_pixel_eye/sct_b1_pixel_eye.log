@@ -2039,3 +2039,8 @@
 2021-12-28 11:10:53.879 | INFO     | __main__:<module>:135 - | epoch : 1018 | val done |
 2021-12-28 11:10:56.110 | INFO     | __main__:<module>:106 - | epoch : 1019 | training done |
 2021-12-28 11:10:56.646 | INFO     | __main__:<module>:135 - | epoch : 1019 | val done |
+2021-12-28 20:05:00.035 | INFO     | __main__:<module>:77 - | start training .... |
+2021-12-28 20:05:01.861 | INFO     | __main__:<module>:105 - | epoch : 0 | training done |
+2021-12-28 20:05:02.393 | CRITICAL | __main__:<module>:131 - | epoch : 0 | best_val_dice_score : 0.34741681575450345 |
+2021-12-28 20:05:04.454 | INFO     | __main__:<module>:105 - | epoch : 1 | training done |
+2021-12-28 20:05:04.978 | CRITICAL | __main__:<module>:131 - | epoch : 1 | best_val_dice_score : 0.3486830454533237 |

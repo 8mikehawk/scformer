@@ -1,0 +1,31 @@
+dataset:
+  train_img_root : /data/segformer/scformer/data/BRATS2015_Training/images/
+  val_img_root : /data/segformer/scformer/data/data-science-bowl-2018/val/
+  test_img_root : /data/segformer/scformer/data/BRATS2015_Training/test/
+
+  train_label_root: /data/segformer/scformer/data/BRATS2015_Training/labels/
+  val_label_root : /data/segformer/scformer/data/data-science-bowl-2018/val_labels/
+  test_label_root : /data/segformer/scformer/data/BRATS2015_Training/test/
+
+  class_num: 9
+
+  crop_size : 
+    w: 384
+    h: 384
+  batch_size : 32
+  num_workers : 8
+
+model:
+  model_name : sct_b1
+
+training:
+  device : cuda
+  lr : 1e-4
+  max_epoch : 10000
+
+other:
+  checkpoint_save_path : /data/segformer/scformer/train_package/BrainTS/sct_b1_dw_BrainTS
+  logger_path : /data/segformer/scformer/train_package/BrainTS/sct_b1_dw_BrainTS/sct_b1_data_BrainTS.log
+
+test:
+  checkpoint_save_path : /data/segformer/scformer/train_package/BrainTS/sct_b1_dw_BrainTS/val_best.pth

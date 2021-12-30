@@ -1,7 +1,7 @@
 import configparser
 from models import sct_b1_pixel, build
 from loguru import logger
-from utils.tools import ISIC2018
+from utils.tools import ISIC2018, Colorize
 from tqdm import tqdm
 import torch.nn as nn
 import torch.optim as optmi
@@ -14,6 +14,8 @@ import os
 import sys
 from torchvision.utils import save_image
 import yaml
+from PIL import Image
+import numpy as np
 
 f = open(sys.argv[1])
 config = yaml.safe_load(f)
@@ -44,7 +46,7 @@ class_num = config['dataset']['class_num']
 # 定义模型
 # model = build_model(cf.get("model", "name"), cf.get("dataset", "class_num"))
 device = config['training']['device']
-model = build(model_name=config['model']['model_name'])
+model = build(model_name=config['model']['model_name'], class_num=config['dataset']['class_num'])
 if device == "cpu":
     model.load_state_dict(torch.load(config['test']['checkpoint_save_path']), map_location=torch.device('cpu'))
 else:
@@ -62,6 +64,8 @@ with torch.no_grad():
         y = y.to(device)
         x = model(x)
         pred = F.softmax(x, dim=1)
+        # result = np.argmax(pred.detach().cpu().numpy(), axis=1)
+
         pred = pred.reshape((pred.shape[0], class_num, crop_size[0]*crop_size[1]))
         pred = torch.argmax(pred, dim=1)
         pred = torch.where(pred == 1, 255, 0)
