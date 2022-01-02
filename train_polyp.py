@@ -7,6 +7,8 @@ import torch.nn.functional as F
 from utils.tools import mean_dice
 from utils import DataBuilder, Datareader
 from torch.utils.data import DataLoader
+from torchvision.transforms import Compose 
+from torchvision import transforms
 import torch
 import os
 import sys
@@ -26,11 +28,24 @@ config = yaml.safe_load(f)
 # model = sct_b1_pixel(class_num=int(cf.get("dataset", "class_num")))
 # model = model.to(device)
 
+
 device = config['training']['device']
 model = build(model_name=config['model']['model_name'], class_num=config['dataset']['class_num'])
-model = model.to(device)
+model.to(device)
 
-# model.load(torch.load_state("/data/segformer/scformer/pretrain/mit_b2.pth"))
+# argumentation
+
+#train_transform = Compose([
+#    transforms.RandomHorizontalFlip(p=0.5),
+#    transforms.RandomResizedCrop(config['dataset']['crop_size']['w'], scale=(0.08, 1.0), ratio=(0.5, 2))
+#])
+
+
+#train_transform = Compose([ColorJitter(brightness=0.1, contrast=0.1, saturation=0.1), RandomHorizontalFlip(0.5)])
+
+
+# continue
+# model.load_state(torch.load("/data/segformer/scformer/train_package/polyp_collection/sct_b2_pixel_dw/val_best.pth"))
 
 
 # 定义模型
@@ -77,15 +92,19 @@ print(config['other']['logger_path'])
 logger.add(config['other']['logger_path'])
 
 # start training
-logger.info(f"| start training .... |")
+logger.info(f"| start training .... | current model {config['model']['model_name']} |")
 best_val_dice = [0]
 
 for epoch in tqdm(range(max_epoch)):
     train_dice = 0
     for idx, (img, label) in tqdm(enumerate(train_loader)):
         model = model.train()
-        img = img.to(device)
 
+        #data argumentation
+#        sample = {'image': img, 'label': label}
+#        img, label = train_transform(sample)
+
+        img = img.to(device)
         label = label.to(device)
         out = model(img)
         out = F.log_softmax(out, dim=1)
@@ -102,9 +121,9 @@ for epoch in tqdm(range(max_epoch)):
 #        all_acc, acc, dice = mean_dice(pre_label, true_label, num_classes = config['dataset']['class_num'], ignore_index = None)
 #
 #        train_dice = dice + train_dice
-#    print('train_dice_score :{:}'.format(train_dice.mean()/(idx+1)))   
+#    print('train_dice_score :{:}'.format(train_dice.mean()/(idx+1)))
 
-    print("train epoch done") 
+    print("train epoch done")
     logger.info(f"| epoch : {epoch} | training done |")
 
     val_cvc_300 = 0
@@ -231,6 +250,8 @@ for epoch in tqdm(range(max_epoch)):
         val_Kvasir = val_dice.mean()/(idx+1)
 
     mean_total = (val_cvc_300 + val_cvc_clinicDB + val_cvc_colonDB + val_etis + val_Kvasir) / 5
+    # mean_total = 0.2 * val_cvc_300 + 0.2 * val_cvc_clinicDB + 0.2 * val_cvc_colonDB + 0.2 * val_etis + val_Kvasir
+    logger.info(f"| epoch : {epoch} | CVC-300 : {val_cvc_300} | CVC-ClinicDB : {val_cvc_clinicDB} | CVC-ColonDB : {val_cvc_colonDB} | ETIS-LaribPolypDB : {val_etis} | Kvasir : {val_Kvasir} |")
     if max(best_val_dice) <=  mean_total:
         best_val_dice.append(mean_total)
         print('best_val_dice_score :{:}'.format(max(best_val_dice)))
@@ -238,4 +259,4 @@ for epoch in tqdm(range(max_epoch)):
         logger.critical(f"| epoch : {epoch} | best_val_dice_score : {max(best_val_dice)} |")
         torch.save(model.state_dict(), os.path.join(checkpoint_save_path, "val_best.pth"))
     else:
-        logger.info(f"| epoch : {epoch} | val done |")    
+        logger.info(f"| epoch : {epoch} | val done |")

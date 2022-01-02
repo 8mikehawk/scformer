@@ -1,0 +1,47 @@
+dataset:
+  train_img_root : /data/segformer/scformer/data/polyp/TrainDataset/images/
+  train_label_root: /data/segformer/scformer/data/polyp/TrainDataset/masks_new/
+
+  test_CVC-300_img : /data/segformer/scformer/data/polyp/TestDataset/CVC-300/images/
+  test_CVC-300_label : /data/segformer/scformer/data/polyp/TestDataset/CVC-300/masks_new/
+
+  test_CVC-ClinicDB_img : /data/segformer/scformer/data/polyp/TestDataset/CVC-ClinicDB/images/
+  test_CVC-ClinicDB_label : /data/segformer/scformer/data/polyp/TestDataset/CVC-ClinicDB/masks_new/
+
+  test_CVC-ColonDB_img : /data/segformer/scformer/data/polyp/TestDataset/CVC-ColonDB/images/
+  test_CVC-ColonDB_label : /data/segformer/scformer/data/polyp/TestDataset/CVC-ColonDB/masks_new/
+
+  test_ETIS-LaribPolypDB_img : /data/segformer/scformer/data/polyp/TestDataset/ETIS-LaribPolypDB/images/
+  test_ETIS-LaribPolypDB_label : /data/segformer/scformer/data/polyp/TestDataset/ETIS-LaribPolypDB/masks_new/
+
+  test_Kvasir_img : /data/segformer/scformer/data/polyp/TestDataset/Kvasir/images/
+  test_Kvasir_label : /data/segformer/scformer/data/polyp/TestDataset/Kvasir/masks_new/
+
+  class_num: 2
+
+  crop_size : 
+    w: 352
+    h: 352
+  batch_size : 8
+  num_workers : 8
+
+# sct_b1
+# sct_dw_b1
+# sct_pixel_b1
+# sct_dw_pixel_b1
+# sct_b0_pretrained
+
+model:
+  model_name : srm_b2_pixel
+
+training:
+  device : cuda
+  lr : 1e-4
+  max_epoch : 200
+
+other:
+  checkpoint_save_path : /data/segformer/scformer/train_package/polyp_collection/srm_b2_pixel
+  logger_path : /data/segformer/scformer/train_package/polyp_collection/srm_b2_pixel/srm_b2_pixel.log
+
+test:
+  checkpoint_save_path : /data/segformer/scformer/train_package/polyp_collection/srm_b2_pixel/val_best.pth

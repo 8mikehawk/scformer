@@ -192,6 +192,7 @@ class OverlapPatchEmbed(nn.Module):
         return x, H, W
 
 
+
 class MixVisionTransformer(nn.Module):
     def __init__(self, img_size=224, patch_size=16, in_chans=3, num_classes=1000, embed_dims=[64, 128, 256, 512],
                  num_heads=[1, 2, 4, 8], mlp_ratios=[4, 4, 4, 4], qkv_bias=False, qk_scale=None, drop_rate=0.,
@@ -244,11 +245,34 @@ class MixVisionTransformer(nn.Module):
             sr_ratio=sr_ratios[3])
             for i in range(depths[3])])
         self.norm4 = norm_layer(embed_dims[3])
-
+        
+        self.conv = nn.Conv2d(3,32,3,1,1)
+        self.pw = nn.Conv2d(1568,32,1,1)
+        
         # classification head
-#        self.head = nn.Linear(embed_dims[3], num_classes) if num_classes > 0 else nn.Identity()
+        # self.head = nn.Linear(embed_dims[3], num_classes) if num_classes > 0 else nn.Identity()
 
+        self.apply(self._init_weights)
 
+    def _init_weights(self, m):
+        if isinstance(m, nn.Linear):
+            trunc_normal_(m.weight, std=.02)
+            if isinstance(m, nn.Linear) and m.bias is not None:
+                nn.init.constant_(m.bias, 0)
+        elif isinstance(m, nn.LayerNorm):
+            nn.init.constant_(m.bias, 0)
+            nn.init.constant_(m.weight, 1.0)
+        elif isinstance(m, nn.Conv2d):
+            fan_out = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
+            fan_out //= m.groups
+            m.weight.data.normal_(0, math.sqrt(2.0 / fan_out))
+            if m.bias is not None:
+                m.bias.data.zero_()
+
+    def init_weights(self, pretrained=None):
+        if isinstance(pretrained, str):
+            logger = get_root_logger()
+            load_checkpoint(self, pretrained, map_location='cpu', strict=False, logger=logger)
 
     def reset_drop_path(self, drop_path_rate):
         dpr = [x.item() for x in torch.linspace(0, drop_path_rate, sum(self.depths))]
@@ -286,14 +310,24 @@ class MixVisionTransformer(nn.Module):
         B = x.shape[0]
         outs = []
 
+
+        x1 = self.conv(x)
+        x2 = torch.nn.functional.unfold(x1,kernel_size =7,dilation = 1,stride = 4, padding = 7//2)
+        x3 = x2.view(x1.shape[0],-1,x1.shape[2]//4,x1.shape[3]//4) # ([1, 3136, 88, 88])        
+        x3 = self.pw(x3)#[1, 64, 88, 88])
+
+
         # stage 1
         x, H, W = self.patch_embed1(x)
+        x3 = x3.view(x.shape[0],-1,x.shape[2])
+        x = x+x3
+
         for i, blk in enumerate(self.block1):
             x = blk(x, H, W)
         x = self.norm1(x)
         x = x.reshape(B, H, W, -1).permute(0, 3, 1, 2).contiguous()
         outs.append(x)
-        
+
         # stage 2
         x, H, W = self.patch_embed2(x)
         for i, blk in enumerate(self.block2):
@@ -301,7 +335,6 @@ class MixVisionTransformer(nn.Module):
         x = self.norm2(x)
         x = x.reshape(B, H, W, -1).permute(0, 3, 1, 2).contiguous()
         outs.append(x)
-        
 
         # stage 3
         x, H, W = self.patch_embed3(x)
@@ -323,9 +356,8 @@ class MixVisionTransformer(nn.Module):
 
     def forward(self, x):
         x = self.forward_features(x)
-        
-#        x = self.head(x[3])
-        
+        # x = self.head(x)
+
         return x
 
 
@@ -333,7 +365,22 @@ class DWConv(nn.Module):
     def __init__(self, dim=768):
         super(DWConv, self).__init__()
         self.dwconv = nn.Conv2d(dim, dim, 3, 1, 1, bias=True, groups=dim)
+        self.apply(self._init_weights)
 
+    def _init_weights(self, m):
+        if isinstance(m, nn.Linear):
+            trunc_normal_(m.weight, std=.02)
+            if isinstance(m, nn.Linear) and m.bias is not None:
+                nn.init.constant_(m.bias, 0)
+        elif isinstance(m, nn.LayerNorm):
+            nn.init.constant_(m.bias, 0)
+            nn.init.constant_(m.weight, 1.0)
+        elif isinstance(m, nn.Conv2d):
+            fan_out = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
+            fan_out //= m.groups
+            m.weight.data.normal_(0, math.sqrt(2.0 / fan_out))
+            if m.bias is not None:
+                m.bias.data.zero_()
     def forward(self, x, H, W):
         B, N, C = x.shape
         x = x.transpose(1, 2).view(B, C, H, W)
@@ -345,9 +392,9 @@ class DWConv(nn.Module):
 
 
 
-class mit_h0(MixVisionTransformer):
+class mit_b0(MixVisionTransformer):
     def __init__(self, **kwargs):
-        super(mit_h0, self).__init__(
+        super(mit_b0, self).__init__(
             patch_size=4, embed_dims=[32, 64, 160, 256], num_heads=[1, 2, 5, 8], mlp_ratios=[4, 4, 4, 4],
             qkv_bias=True, norm_layer=partial(nn.LayerNorm, eps=1e-6), depths=[2, 2, 2, 2], sr_ratios=[8, 4, 2, 1],
             drop_rate=0.0, drop_path_rate=0.1)
@@ -394,8 +441,8 @@ class mit_b5(MixVisionTransformer):
 
 
 
-model = mit_b2()
-pretrained_dict=torch.load('/data/segformer/scformer/pretrain/mit_b2.pth')
+model = mit_b0()
+pretrained_dict=torch.load('/data/segformer/scformer/pretrain/mit_b0.pth')
 model_dict = model.state_dict()
 pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict}
 model_dict.update(pretrained_dict)
@@ -414,7 +461,7 @@ from torch.nn import Module, ModuleList, Upsample
 from mmcv.cnn import ConvModule
 from torch.nn import Sequential, Conv2d, UpsamplingBilinear2d
 import torch.nn as nn
-
+        
 class Decoder(Module):
 
     def __init__(self, dims, dim, class_num=2):
@@ -446,19 +493,20 @@ class Decoder(Module):
         fused = self.Conv2d(fused)
 
         return fused
-
+              
 
 class sct_b0(nn.Module):
     def __init__(self,class_num=2, **kwargs):
     
         super(sct_b0, self).__init__()
         self.class_num = class_num
-        self.backbone = mit_b0()
+        self.backbone = model
         self.decode_head = Decoder(dims=[32, 64, 160, 256], dim=256, class_num=class_num)
         
     def forward(self, x):
+######################################load_weight
         features = self.backbone(x)
-
+#####################################
         features = self.decode_head(features)
         up = UpsamplingBilinear2d(scale_factor=4)
         features = up(features)
@@ -481,14 +529,14 @@ class sct_b1(nn.Module):
         return features
 
 
+
 class sct_b2(nn.Module):
     def __init__(self,class_num=2, **kwargs):
     
         super(sct_b2, self).__init__()
         self.class_num = class_num
-######################################load_weight
-        self.backbone = model
-#####################################
+
+        self.backbone = mit_b2()
         self.decode_head = Decoder(dims=[64, 128, 320, 512], dim=768, class_num=class_num)
     def forward(self, x):
         features = self.backbone(x)
@@ -546,7 +594,17 @@ class sct_b5(nn.Module):
         return features
 
 
-MitEncoder = sct_b2(class_num=2)
-from torchinfo import summary
-summary = summary(MitEncoder, (8, 3, 512, 512))
+#MitEncoder = sct_b0(class_num=2)
+##MitEncoder = MitEncoder.to('cpu')
+#from torchinfo import summary
+#summary = summary(MitEncoder, (1, 3, 352, 352))
+
+#from thop import profile
+#import torch
+#
+#input = torch.randn(1, 3, 512, 512).to('cpu')
+#macs, params = profile(MitEncoder, inputs=(input, ))
+#print('macs:',macs)
+#print('params:',params)
+#
 

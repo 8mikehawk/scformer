@@ -180,8 +180,7 @@ class MitEncoder(Module):
         x2 = torch.nn.functional.unfold(x1,kernel_size =7,dilation = 1,stride = 4, padding = 7//2)
         x3 = x2.view(x1.shape[0],-1,x1.shape[2]//4,x1.shape[3]//4)
         x3 = self.pw(x3) # ([8, 64, 128, 128])
-        x3 = self.chw2hwc(x3)         
-
+        x3 = self.chw2hwc(x3)
         
         for embed, stage in zip(self.embeds, self.stages):
             x = embed(x)  # [2, 128, 128, 64]
@@ -374,6 +373,6 @@ class sct_b5(nn.Module):
 
         return features
                
-#model = sct_b1()
-#from torchinfo import summary
-#summary = summary(model, (8, 3, 512, 512))
+model = sct_b1()
+from torchinfo import summary
+summary = summary(model, (8, 3, 512, 512))

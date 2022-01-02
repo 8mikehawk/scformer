@@ -19,6 +19,7 @@ dataset:
 # sct_dw_b1
 # sct_pixel_b1
 # sct_dw_pixel_b1
+# sct_b0_pretrained
 
 model:
   model_name : sct_b1

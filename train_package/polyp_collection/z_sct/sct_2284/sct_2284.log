@@ -1,0 +1,425 @@
+2021-12-31 16:53:03.427 | INFO     | __main__:<module>:83 - | start training .... | current model sct_2284 |
+2021-12-31 16:54:16.599 | INFO     | __main__:<module>:111 - | epoch : 0 | training done |
+2021-12-31 16:54:39.898 | INFO     | __main__:<module>:240 - | epoch : 0 | CVC-300 : 0.47335496520247555 | CVC-ClinicDB : 0.5774093773522118 | CVC-ColonDB : 0.5119386775900604 | ETIS-LaribPolypDB : 0.48470299591754756 | Kvasir : 0.6355513546314899 |
+2021-12-31 16:54:39.899 | CRITICAL | __main__:<module>:241 - | epoch : 0 | best_val_dice_score : 0.536591474138757 |
+2021-12-31 16:55:41.835 | INFO     | __main__:<module>:111 - | epoch : 1 | training done |
+2021-12-31 16:56:05.307 | INFO     | __main__:<module>:240 - | epoch : 1 | CVC-300 : 0.4999514644643789 | CVC-ClinicDB : 0.6453570395116743 | CVC-ColonDB : 0.5303629544518847 | ETIS-LaribPolypDB : 0.5011204562481338 | Kvasir : 0.6596796237980628 |
+2021-12-31 16:56:05.307 | CRITICAL | __main__:<module>:241 - | epoch : 1 | best_val_dice_score : 0.5672943076948269 |
+2021-12-31 16:57:19.304 | INFO     | __main__:<module>:111 - | epoch : 2 | training done |
+2021-12-31 16:57:42.823 | INFO     | __main__:<module>:240 - | epoch : 2 | CVC-300 : 0.5006899345877889 | CVC-ClinicDB : 0.6545665274737387 | CVC-ColonDB : 0.5285607071838266 | ETIS-LaribPolypDB : 0.5179748301416356 | Kvasir : 0.6684868834329896 |
+2021-12-31 16:57:42.824 | CRITICAL | __main__:<module>:241 - | epoch : 2 | best_val_dice_score : 0.5740557765639959 |
+2021-12-31 16:58:45.067 | INFO     | __main__:<module>:111 - | epoch : 3 | training done |
+2021-12-31 16:59:08.555 | INFO     | __main__:<module>:240 - | epoch : 3 | CVC-300 : 0.5052241083987407 | CVC-ClinicDB : 0.687702819689153 | CVC-ColonDB : 0.5412283940100211 | ETIS-LaribPolypDB : 0.52335451364857 | Kvasir : 0.6919175771671349 |
+2021-12-31 16:59:08.555 | CRITICAL | __main__:<module>:241 - | epoch : 3 | best_val_dice_score : 0.589885482582724 |
+2021-12-31 17:00:22.373 | INFO     | __main__:<module>:111 - | epoch : 4 | training done |
+2021-12-31 17:00:45.714 | INFO     | __main__:<module>:240 - | epoch : 4 | CVC-300 : 0.6097860877025275 | CVC-ClinicDB : 0.7585006571965414 | CVC-ColonDB : 0.6053558940835625 | ETIS-LaribPolypDB : 0.5922684118733063 | Kvasir : 0.7083673727623514 |
+2021-12-31 17:00:45.715 | CRITICAL | __main__:<module>:241 - | epoch : 4 | best_val_dice_score : 0.654855684723658 |
+2021-12-31 17:01:47.880 | INFO     | __main__:<module>:111 - | epoch : 5 | training done |
+2021-12-31 17:02:11.203 | INFO     | __main__:<module>:240 - | epoch : 5 | CVC-300 : 0.6113448417406522 | CVC-ClinicDB : 0.7527068523127538 | CVC-ColonDB : 0.6303052918369098 | ETIS-LaribPolypDB : 0.5746426629893097 | Kvasir : 0.7647716806734797 |
+2021-12-31 17:02:11.203 | CRITICAL | __main__:<module>:241 - | epoch : 5 | best_val_dice_score : 0.666754265910621 |
+2021-12-31 17:03:24.939 | INFO     | __main__:<module>:111 - | epoch : 6 | training done |
+2021-12-31 17:03:48.504 | INFO     | __main__:<module>:244 - | epoch : 6 | val done |
+2021-12-31 17:04:53.666 | INFO     | __main__:<module>:111 - | epoch : 7 | training done |
+2021-12-31 17:05:16.370 | INFO     | __main__:<module>:240 - | epoch : 7 | CVC-300 : 0.6281210706545397 | CVC-ClinicDB : 0.8043620858553953 | CVC-ColonDB : 0.6380179337129083 | ETIS-LaribPolypDB : 0.5763969211307484 | Kvasir : 0.7493741965526313 |
+2021-12-31 17:05:16.370 | CRITICAL | __main__:<module>:241 - | epoch : 7 | best_val_dice_score : 0.6792544415812445 |
+2021-12-31 17:06:30.265 | INFO     | __main__:<module>:111 - | epoch : 8 | training done |
+2021-12-31 17:06:53.845 | INFO     | __main__:<module>:240 - | epoch : 8 | CVC-300 : 0.6733982779975067 | CVC-ClinicDB : 0.8140743751103419 | CVC-ColonDB : 0.6765181229449763 | ETIS-LaribPolypDB : 0.6413912020186447 | Kvasir : 0.7822830317000828 |
+2021-12-31 17:06:53.846 | CRITICAL | __main__:<module>:241 - | epoch : 8 | best_val_dice_score : 0.7175330019543106 |
+2021-12-31 17:08:02.549 | INFO     | __main__:<module>:111 - | epoch : 9 | training done |
+2021-12-31 17:08:24.886 | INFO     | __main__:<module>:244 - | epoch : 9 | val done |
+2021-12-31 17:09:38.419 | INFO     | __main__:<module>:111 - | epoch : 10 | training done |
+2021-12-31 17:10:02.063 | INFO     | __main__:<module>:244 - | epoch : 10 | val done |
+2021-12-31 17:11:14.136 | INFO     | __main__:<module>:111 - | epoch : 11 | training done |
+2021-12-31 17:11:36.044 | INFO     | __main__:<module>:240 - | epoch : 11 | CVC-300 : 0.6887142300597968 | CVC-ClinicDB : 0.8277859758982642 | CVC-ColonDB : 0.6908659433885885 | ETIS-LaribPolypDB : 0.6072935706593279 | Kvasir : 0.8096883634753845 |
+2021-12-31 17:11:36.045 | CRITICAL | __main__:<module>:241 - | epoch : 11 | best_val_dice_score : 0.7248696166962724 |
+2021-12-31 17:12:50.114 | INFO     | __main__:<module>:111 - | epoch : 12 | training done |
+2021-12-31 17:13:13.595 | INFO     | __main__:<module>:240 - | epoch : 12 | CVC-300 : 0.7089784730822855 | CVC-ClinicDB : 0.8397092457938464 | CVC-ColonDB : 0.6724250032144066 | ETIS-LaribPolypDB : 0.6839027427043688 | Kvasir : 0.7952536039401271 |
+2021-12-31 17:13:13.595 | CRITICAL | __main__:<module>:241 - | epoch : 12 | best_val_dice_score : 0.7400538137470069 |
+2021-12-31 17:14:27.409 | INFO     | __main__:<module>:111 - | epoch : 13 | training done |
+2021-12-31 17:14:48.505 | INFO     | __main__:<module>:244 - | epoch : 13 | val done |
+2021-12-31 17:15:58.656 | INFO     | __main__:<module>:111 - | epoch : 14 | training done |
+2021-12-31 17:16:22.165 | INFO     | __main__:<module>:240 - | epoch : 14 | CVC-300 : 0.7757108687383603 | CVC-ClinicDB : 0.8306077291132921 | CVC-ColonDB : 0.7057860688460833 | ETIS-LaribPolypDB : 0.6848903703773531 | Kvasir : 0.8292865851259894 |
+2021-12-31 17:16:22.165 | CRITICAL | __main__:<module>:241 - | epoch : 14 | best_val_dice_score : 0.7652563244402156 |
+2021-12-31 17:17:35.766 | INFO     | __main__:<module>:111 - | epoch : 15 | training done |
+2021-12-31 17:17:58.334 | INFO     | __main__:<module>:244 - | epoch : 15 | val done |
+2021-12-31 17:19:04.722 | INFO     | __main__:<module>:111 - | epoch : 16 | training done |
+2021-12-31 17:19:28.290 | INFO     | __main__:<module>:244 - | epoch : 16 | val done |
+2021-12-31 17:20:41.601 | INFO     | __main__:<module>:111 - | epoch : 17 | training done |
+2021-12-31 17:21:05.328 | INFO     | __main__:<module>:244 - | epoch : 17 | val done |
+2021-12-31 17:22:08.030 | INFO     | __main__:<module>:111 - | epoch : 18 | training done |
+2021-12-31 17:22:31.546 | INFO     | __main__:<module>:244 - | epoch : 18 | val done |
+2021-12-31 17:23:44.872 | INFO     | __main__:<module>:111 - | epoch : 19 | training done |
+2021-12-31 17:24:08.533 | INFO     | __main__:<module>:240 - | epoch : 19 | CVC-300 : 0.789075089519376 | CVC-ClinicDB : 0.8709683948680329 | CVC-ColonDB : 0.7184603431722673 | ETIS-LaribPolypDB : 0.6764678464138459 | Kvasir : 0.7935669795716069 |
+2021-12-31 17:24:08.533 | CRITICAL | __main__:<module>:241 - | epoch : 19 | best_val_dice_score : 0.7697077307090258 |
+2021-12-31 17:25:10.684 | INFO     | __main__:<module>:111 - | epoch : 20 | training done |
+2021-12-31 17:25:34.647 | INFO     | __main__:<module>:244 - | epoch : 20 | val done |
+2021-12-31 17:26:47.880 | INFO     | __main__:<module>:111 - | epoch : 21 | training done |
+2021-12-31 17:27:11.515 | INFO     | __main__:<module>:240 - | epoch : 21 | CVC-300 : 0.7395588346483128 | CVC-ClinicDB : 0.8556738090821419 | CVC-ColonDB : 0.7413725537029885 | ETIS-LaribPolypDB : 0.6882282458827405 | Kvasir : 0.8257025937546549 |
+2021-12-31 17:27:11.516 | CRITICAL | __main__:<module>:241 - | epoch : 21 | best_val_dice_score : 0.7701072074141677 |
+2021-12-31 17:28:13.592 | INFO     | __main__:<module>:111 - | epoch : 22 | training done |
+2021-12-31 17:28:37.094 | INFO     | __main__:<module>:240 - | epoch : 22 | CVC-300 : 0.797547690880245 | CVC-ClinicDB : 0.8728907088701046 | CVC-ColonDB : 0.6989808171473585 | ETIS-LaribPolypDB : 0.7207978421199064 | Kvasir : 0.8473368206723199 |
+2021-12-31 17:28:37.095 | CRITICAL | __main__:<module>:241 - | epoch : 22 | best_val_dice_score : 0.7875107759379868 |
+2021-12-31 17:29:51.056 | INFO     | __main__:<module>:111 - | epoch : 23 | training done |
+2021-12-31 17:30:14.456 | INFO     | __main__:<module>:244 - | epoch : 23 | val done |
+2021-12-31 17:31:17.371 | INFO     | __main__:<module>:111 - | epoch : 24 | training done |
+2021-12-31 17:31:40.835 | INFO     | __main__:<module>:244 - | epoch : 24 | val done |
+2021-12-31 17:32:54.388 | INFO     | __main__:<module>:111 - | epoch : 25 | training done |
+2021-12-31 17:33:17.925 | INFO     | __main__:<module>:244 - | epoch : 25 | val done |
+2021-12-31 17:34:24.378 | INFO     | __main__:<module>:111 - | epoch : 26 | training done |
+2021-12-31 17:34:47.112 | INFO     | __main__:<module>:244 - | epoch : 26 | val done |
+2021-12-31 17:36:00.610 | INFO     | __main__:<module>:111 - | epoch : 27 | training done |
+2021-12-31 17:36:24.333 | INFO     | __main__:<module>:244 - | epoch : 27 | val done |
+2021-12-31 17:37:33.666 | INFO     | __main__:<module>:111 - | epoch : 28 | training done |
+2021-12-31 17:37:54.941 | INFO     | __main__:<module>:240 - | epoch : 28 | CVC-300 : 0.7918774053492317 | CVC-ClinicDB : 0.8853504996542114 | CVC-ColonDB : 0.7229447193021431 | ETIS-LaribPolypDB : 0.7180514055274033 | Kvasir : 0.8531862076422356 |
+2021-12-31 17:37:54.941 | CRITICAL | __main__:<module>:241 - | epoch : 28 | best_val_dice_score : 0.7942820474950449 |
+2021-12-31 17:39:09.241 | INFO     | __main__:<module>:111 - | epoch : 29 | training done |
+2021-12-31 17:39:32.825 | INFO     | __main__:<module>:240 - | epoch : 29 | CVC-300 : 0.8413120619303781 | CVC-ClinicDB : 0.9097412844235545 | CVC-ColonDB : 0.7238455747000719 | ETIS-LaribPolypDB : 0.7558456599799308 | Kvasir : 0.8500456656485771 |
+2021-12-31 17:39:32.825 | CRITICAL | __main__:<module>:241 - | epoch : 29 | best_val_dice_score : 0.8161580493365024 |
+2021-12-31 17:40:46.758 | INFO     | __main__:<module>:111 - | epoch : 30 | training done |
+2021-12-31 17:41:08.365 | INFO     | __main__:<module>:244 - | epoch : 30 | val done |
+2021-12-31 17:42:20.405 | INFO     | __main__:<module>:111 - | epoch : 31 | training done |
+2021-12-31 17:42:44.102 | INFO     | __main__:<module>:244 - | epoch : 31 | val done |
+2021-12-31 17:43:57.473 | INFO     | __main__:<module>:111 - | epoch : 32 | training done |
+2021-12-31 17:44:19.342 | INFO     | __main__:<module>:244 - | epoch : 32 | val done |
+2021-12-31 17:45:27.421 | INFO     | __main__:<module>:111 - | epoch : 33 | training done |
+2021-12-31 17:45:51.090 | INFO     | __main__:<module>:244 - | epoch : 33 | val done |
+2021-12-31 17:47:04.535 | INFO     | __main__:<module>:111 - | epoch : 34 | training done |
+2021-12-31 17:47:27.152 | INFO     | __main__:<module>:244 - | epoch : 34 | val done |
+2021-12-31 17:48:32.089 | INFO     | __main__:<module>:111 - | epoch : 35 | training done |
+2021-12-31 17:48:55.940 | INFO     | __main__:<module>:244 - | epoch : 35 | val done |
+2021-12-31 17:50:09.248 | INFO     | __main__:<module>:111 - | epoch : 36 | training done |
+2021-12-31 17:50:33.106 | INFO     | __main__:<module>:244 - | epoch : 36 | val done |
+2021-12-31 17:51:34.799 | INFO     | __main__:<module>:111 - | epoch : 37 | training done |
+2021-12-31 17:51:58.287 | INFO     | __main__:<module>:244 - | epoch : 37 | val done |
+2021-12-31 17:53:11.785 | INFO     | __main__:<module>:111 - | epoch : 38 | training done |
+2021-12-31 17:53:35.348 | INFO     | __main__:<module>:244 - | epoch : 38 | val done |
+2021-12-31 17:54:37.310 | INFO     | __main__:<module>:111 - | epoch : 39 | training done |
+2021-12-31 17:55:00.770 | INFO     | __main__:<module>:244 - | epoch : 39 | val done |
+2021-12-31 17:56:14.233 | INFO     | __main__:<module>:111 - | epoch : 40 | training done |
+2021-12-31 17:56:37.892 | INFO     | __main__:<module>:240 - | epoch : 40 | CVC-300 : 0.8342652075102709 | CVC-ClinicDB : 0.9166739337938121 | CVC-ColonDB : 0.7319771674936874 | ETIS-LaribPolypDB : 0.7345271522308028 | Kvasir : 0.8700597375030247 |
+2021-12-31 17:56:37.893 | CRITICAL | __main__:<module>:241 - | epoch : 40 | best_val_dice_score : 0.8175006397063195 |
+2021-12-31 17:57:40.094 | INFO     | __main__:<module>:111 - | epoch : 41 | training done |
+2021-12-31 17:58:03.900 | INFO     | __main__:<module>:244 - | epoch : 41 | val done |
+2021-12-31 17:59:17.321 | INFO     | __main__:<module>:111 - | epoch : 42 | training done |
+2021-12-31 17:59:41.029 | INFO     | __main__:<module>:244 - | epoch : 42 | val done |
+2021-12-31 18:00:45.584 | INFO     | __main__:<module>:111 - | epoch : 43 | training done |
+2021-12-31 18:01:04.260 | INFO     | __main__:<module>:244 - | epoch : 43 | val done |
+2021-12-31 18:01:39.531 | INFO     | __main__:<module>:111 - | epoch : 44 | training done |
+2021-12-31 18:01:57.665 | INFO     | __main__:<module>:244 - | epoch : 44 | val done |
+2021-12-31 18:02:32.876 | INFO     | __main__:<module>:111 - | epoch : 45 | training done |
+2021-12-31 18:02:51.013 | INFO     | __main__:<module>:244 - | epoch : 45 | val done |
+2021-12-31 18:03:26.250 | INFO     | __main__:<module>:111 - | epoch : 46 | training done |
+2021-12-31 18:03:44.354 | INFO     | __main__:<module>:244 - | epoch : 46 | val done |
+2021-12-31 18:04:19.682 | INFO     | __main__:<module>:111 - | epoch : 47 | training done |
+2021-12-31 18:04:37.764 | INFO     | __main__:<module>:244 - | epoch : 47 | val done |
+2021-12-31 18:05:13.053 | INFO     | __main__:<module>:111 - | epoch : 48 | training done |
+2021-12-31 18:05:31.184 | INFO     | __main__:<module>:244 - | epoch : 48 | val done |
+2021-12-31 18:06:06.481 | INFO     | __main__:<module>:111 - | epoch : 49 | training done |
+2021-12-31 18:06:24.626 | INFO     | __main__:<module>:244 - | epoch : 49 | val done |
+2021-12-31 18:06:59.886 | INFO     | __main__:<module>:111 - | epoch : 50 | training done |
+2021-12-31 18:07:17.997 | INFO     | __main__:<module>:240 - | epoch : 50 | CVC-300 : 0.8362316921938511 | CVC-ClinicDB : 0.9234898113231735 | CVC-ColonDB : 0.7283703834698046 | ETIS-LaribPolypDB : 0.7572489787675242 | Kvasir : 0.8733670151331441 |
+2021-12-31 18:07:17.998 | CRITICAL | __main__:<module>:241 - | epoch : 50 | best_val_dice_score : 0.8237415761774993 |
+2021-12-31 18:07:53.787 | INFO     | __main__:<module>:111 - | epoch : 51 | training done |
+2021-12-31 18:08:12.043 | INFO     | __main__:<module>:244 - | epoch : 51 | val done |
+2021-12-31 18:08:47.414 | INFO     | __main__:<module>:111 - | epoch : 52 | training done |
+2021-12-31 18:09:05.587 | INFO     | __main__:<module>:244 - | epoch : 52 | val done |
+2021-12-31 18:09:40.877 | INFO     | __main__:<module>:111 - | epoch : 53 | training done |
+2021-12-31 18:09:58.991 | INFO     | __main__:<module>:244 - | epoch : 53 | val done |
+2021-12-31 18:10:34.203 | INFO     | __main__:<module>:111 - | epoch : 54 | training done |
+2021-12-31 18:10:52.316 | INFO     | __main__:<module>:244 - | epoch : 54 | val done |
+2021-12-31 18:11:27.685 | INFO     | __main__:<module>:111 - | epoch : 55 | training done |
+2021-12-31 18:11:45.815 | INFO     | __main__:<module>:244 - | epoch : 55 | val done |
+2021-12-31 18:12:21.327 | INFO     | __main__:<module>:111 - | epoch : 56 | training done |
+2021-12-31 18:12:39.482 | INFO     | __main__:<module>:244 - | epoch : 56 | val done |
+2021-12-31 18:13:14.862 | INFO     | __main__:<module>:111 - | epoch : 57 | training done |
+2021-12-31 18:13:32.931 | INFO     | __main__:<module>:240 - | epoch : 57 | CVC-300 : 0.8139028122507409 | CVC-ClinicDB : 0.9247296868321015 | CVC-ColonDB : 0.7616701419971229 | ETIS-LaribPolypDB : 0.7469043496286848 | Kvasir : 0.883268084444069 |
+2021-12-31 18:13:32.931 | CRITICAL | __main__:<module>:241 - | epoch : 57 | best_val_dice_score : 0.8260950150305438 |
+2021-12-31 18:14:08.790 | INFO     | __main__:<module>:111 - | epoch : 58 | training done |
+2021-12-31 18:14:26.888 | INFO     | __main__:<module>:244 - | epoch : 58 | val done |
+2021-12-31 18:15:02.248 | INFO     | __main__:<module>:111 - | epoch : 59 | training done |
+2021-12-31 18:15:20.341 | INFO     | __main__:<module>:244 - | epoch : 59 | val done |
+2021-12-31 18:15:55.576 | INFO     | __main__:<module>:111 - | epoch : 60 | training done |
+2021-12-31 18:16:13.626 | INFO     | __main__:<module>:240 - | epoch : 60 | CVC-300 : 0.8218339186242201 | CVC-ClinicDB : 0.9201857610934338 | CVC-ColonDB : 0.7620154179955723 | ETIS-LaribPolypDB : 0.7618410902405923 | Kvasir : 0.8892727849406743 |
+2021-12-31 18:16:13.627 | CRITICAL | __main__:<module>:241 - | epoch : 60 | best_val_dice_score : 0.8310297945788985 |
+2021-12-31 18:16:49.559 | INFO     | __main__:<module>:111 - | epoch : 61 | training done |
+2021-12-31 18:17:07.722 | INFO     | __main__:<module>:244 - | epoch : 61 | val done |
+2021-12-31 18:17:43.041 | INFO     | __main__:<module>:111 - | epoch : 62 | training done |
+2021-12-31 18:18:01.145 | INFO     | __main__:<module>:244 - | epoch : 62 | val done |
+2021-12-31 18:18:36.457 | INFO     | __main__:<module>:111 - | epoch : 63 | training done |
+2021-12-31 18:18:54.534 | INFO     | __main__:<module>:244 - | epoch : 63 | val done |
+2021-12-31 18:19:29.826 | INFO     | __main__:<module>:111 - | epoch : 64 | training done |
+2021-12-31 18:19:47.967 | INFO     | __main__:<module>:244 - | epoch : 64 | val done |
+2021-12-31 18:20:23.217 | INFO     | __main__:<module>:111 - | epoch : 65 | training done |
+2021-12-31 18:20:41.404 | INFO     | __main__:<module>:244 - | epoch : 65 | val done |
+2021-12-31 18:21:16.664 | INFO     | __main__:<module>:111 - | epoch : 66 | training done |
+2021-12-31 18:21:34.771 | INFO     | __main__:<module>:244 - | epoch : 66 | val done |
+2021-12-31 18:22:10.008 | INFO     | __main__:<module>:111 - | epoch : 67 | training done |
+2021-12-31 18:22:28.132 | INFO     | __main__:<module>:244 - | epoch : 67 | val done |
+2021-12-31 18:23:03.409 | INFO     | __main__:<module>:111 - | epoch : 68 | training done |
+2021-12-31 18:23:21.490 | INFO     | __main__:<module>:244 - | epoch : 68 | val done |
+2021-12-31 18:23:56.774 | INFO     | __main__:<module>:111 - | epoch : 69 | training done |
+2021-12-31 18:24:14.869 | INFO     | __main__:<module>:244 - | epoch : 69 | val done |
+2021-12-31 18:24:50.110 | INFO     | __main__:<module>:111 - | epoch : 70 | training done |
+2021-12-31 18:25:08.255 | INFO     | __main__:<module>:244 - | epoch : 70 | val done |
+2021-12-31 18:25:43.577 | INFO     | __main__:<module>:111 - | epoch : 71 | training done |
+2021-12-31 18:26:01.700 | INFO     | __main__:<module>:244 - | epoch : 71 | val done |
+2021-12-31 18:26:37.029 | INFO     | __main__:<module>:111 - | epoch : 72 | training done |
+2021-12-31 18:26:55.142 | INFO     | __main__:<module>:244 - | epoch : 72 | val done |
+2021-12-31 18:27:30.360 | INFO     | __main__:<module>:111 - | epoch : 73 | training done |
+2021-12-31 18:27:48.530 | INFO     | __main__:<module>:244 - | epoch : 73 | val done |
+2021-12-31 18:28:23.751 | INFO     | __main__:<module>:111 - | epoch : 74 | training done |
+2021-12-31 18:28:41.898 | INFO     | __main__:<module>:244 - | epoch : 74 | val done |
+2021-12-31 18:29:17.184 | INFO     | __main__:<module>:111 - | epoch : 75 | training done |
+2021-12-31 18:29:35.336 | INFO     | __main__:<module>:244 - | epoch : 75 | val done |
+2021-12-31 18:30:10.546 | INFO     | __main__:<module>:111 - | epoch : 76 | training done |
+2021-12-31 18:30:28.718 | INFO     | __main__:<module>:244 - | epoch : 76 | val done |
+2021-12-31 18:31:04.059 | INFO     | __main__:<module>:111 - | epoch : 77 | training done |
+2021-12-31 18:31:22.214 | INFO     | __main__:<module>:244 - | epoch : 77 | val done |
+2021-12-31 18:31:57.436 | INFO     | __main__:<module>:111 - | epoch : 78 | training done |
+2021-12-31 18:32:15.650 | INFO     | __main__:<module>:244 - | epoch : 78 | val done |
+2021-12-31 18:32:50.946 | INFO     | __main__:<module>:111 - | epoch : 79 | training done |
+2021-12-31 18:33:09.126 | INFO     | __main__:<module>:244 - | epoch : 79 | val done |
+2021-12-31 18:33:44.493 | INFO     | __main__:<module>:111 - | epoch : 80 | training done |
+2021-12-31 18:34:02.656 | INFO     | __main__:<module>:244 - | epoch : 80 | val done |
+2021-12-31 18:34:37.925 | INFO     | __main__:<module>:111 - | epoch : 81 | training done |
+2021-12-31 18:34:56.017 | INFO     | __main__:<module>:244 - | epoch : 81 | val done |
+2021-12-31 18:35:31.358 | INFO     | __main__:<module>:111 - | epoch : 82 | training done |
+2021-12-31 18:35:49.584 | INFO     | __main__:<module>:244 - | epoch : 82 | val done |
+2021-12-31 18:36:24.861 | INFO     | __main__:<module>:111 - | epoch : 83 | training done |
+2021-12-31 18:36:42.962 | INFO     | __main__:<module>:244 - | epoch : 83 | val done |
+2021-12-31 18:37:18.252 | INFO     | __main__:<module>:111 - | epoch : 84 | training done |
+2021-12-31 18:37:36.344 | INFO     | __main__:<module>:240 - | epoch : 84 | CVC-300 : 0.8379464491968422 | CVC-ClinicDB : 0.9389740044940194 | CVC-ColonDB : 0.7701539845644044 | ETIS-LaribPolypDB : 0.7715965684783109 | Kvasir : 0.8800521834710284 |
+2021-12-31 18:37:36.344 | CRITICAL | __main__:<module>:241 - | epoch : 84 | best_val_dice_score : 0.839744638040921 |
+2021-12-31 18:38:12.094 | INFO     | __main__:<module>:111 - | epoch : 85 | training done |
+2021-12-31 18:38:30.221 | INFO     | __main__:<module>:244 - | epoch : 85 | val done |
+2021-12-31 18:39:05.535 | INFO     | __main__:<module>:111 - | epoch : 86 | training done |
+2021-12-31 18:39:23.646 | INFO     | __main__:<module>:244 - | epoch : 86 | val done |
+2021-12-31 18:39:58.853 | INFO     | __main__:<module>:111 - | epoch : 87 | training done |
+2021-12-31 18:40:17.084 | INFO     | __main__:<module>:244 - | epoch : 87 | val done |
+2021-12-31 18:40:52.394 | INFO     | __main__:<module>:111 - | epoch : 88 | training done |
+2021-12-31 18:41:10.526 | INFO     | __main__:<module>:244 - | epoch : 88 | val done |
+2021-12-31 18:41:45.921 | INFO     | __main__:<module>:111 - | epoch : 89 | training done |
+2021-12-31 18:42:03.944 | INFO     | __main__:<module>:244 - | epoch : 89 | val done |
+2021-12-31 18:42:39.227 | INFO     | __main__:<module>:111 - | epoch : 90 | training done |
+2021-12-31 18:42:57.412 | INFO     | __main__:<module>:244 - | epoch : 90 | val done |
+2021-12-31 18:43:32.755 | INFO     | __main__:<module>:111 - | epoch : 91 | training done |
+2021-12-31 18:43:50.907 | INFO     | __main__:<module>:244 - | epoch : 91 | val done |
+2021-12-31 18:44:26.131 | INFO     | __main__:<module>:111 - | epoch : 92 | training done |
+2021-12-31 18:44:44.329 | INFO     | __main__:<module>:244 - | epoch : 92 | val done |
+2021-12-31 18:45:19.521 | INFO     | __main__:<module>:111 - | epoch : 93 | training done |
+2021-12-31 18:45:37.644 | INFO     | __main__:<module>:244 - | epoch : 93 | val done |
+2021-12-31 18:46:13.031 | INFO     | __main__:<module>:111 - | epoch : 94 | training done |
+2021-12-31 18:46:31.212 | INFO     | __main__:<module>:244 - | epoch : 94 | val done |
+2021-12-31 18:47:06.462 | INFO     | __main__:<module>:111 - | epoch : 95 | training done |
+2021-12-31 18:47:24.568 | INFO     | __main__:<module>:244 - | epoch : 95 | val done |
+2021-12-31 18:47:59.794 | INFO     | __main__:<module>:111 - | epoch : 96 | training done |
+2021-12-31 18:48:17.931 | INFO     | __main__:<module>:244 - | epoch : 96 | val done |
+2021-12-31 18:48:53.171 | INFO     | __main__:<module>:111 - | epoch : 97 | training done |
+2021-12-31 18:49:11.202 | INFO     | __main__:<module>:244 - | epoch : 97 | val done |
+2021-12-31 18:49:46.445 | INFO     | __main__:<module>:111 - | epoch : 98 | training done |
+2021-12-31 18:50:04.510 | INFO     | __main__:<module>:244 - | epoch : 98 | val done |
+2021-12-31 18:50:39.819 | INFO     | __main__:<module>:111 - | epoch : 99 | training done |
+2021-12-31 18:50:57.963 | INFO     | __main__:<module>:244 - | epoch : 99 | val done |
+2021-12-31 18:51:33.184 | INFO     | __main__:<module>:111 - | epoch : 100 | training done |
+2021-12-31 18:51:51.409 | INFO     | __main__:<module>:244 - | epoch : 100 | val done |
+2021-12-31 18:52:26.633 | INFO     | __main__:<module>:111 - | epoch : 101 | training done |
+2021-12-31 18:52:44.724 | INFO     | __main__:<module>:244 - | epoch : 101 | val done |
+2021-12-31 18:53:20.012 | INFO     | __main__:<module>:111 - | epoch : 102 | training done |
+2021-12-31 18:53:38.108 | INFO     | __main__:<module>:244 - | epoch : 102 | val done |
+2021-12-31 18:54:13.403 | INFO     | __main__:<module>:111 - | epoch : 103 | training done |
+2021-12-31 18:54:31.476 | INFO     | __main__:<module>:244 - | epoch : 103 | val done |
+2021-12-31 18:55:06.751 | INFO     | __main__:<module>:111 - | epoch : 104 | training done |
+2021-12-31 18:55:24.910 | INFO     | __main__:<module>:244 - | epoch : 104 | val done |
+2021-12-31 18:56:00.189 | INFO     | __main__:<module>:111 - | epoch : 105 | training done |
+2021-12-31 18:56:18.386 | INFO     | __main__:<module>:244 - | epoch : 105 | val done |
+2021-12-31 18:56:53.727 | INFO     | __main__:<module>:111 - | epoch : 106 | training done |
+2021-12-31 18:57:11.890 | INFO     | __main__:<module>:244 - | epoch : 106 | val done |
+2021-12-31 18:57:47.141 | INFO     | __main__:<module>:111 - | epoch : 107 | training done |
+2021-12-31 18:58:05.256 | INFO     | __main__:<module>:244 - | epoch : 107 | val done |
+2021-12-31 18:58:40.507 | INFO     | __main__:<module>:111 - | epoch : 108 | training done |
+2021-12-31 18:58:58.789 | INFO     | __main__:<module>:244 - | epoch : 108 | val done |
+2021-12-31 18:59:34.062 | INFO     | __main__:<module>:111 - | epoch : 109 | training done |
+2021-12-31 18:59:52.148 | INFO     | __main__:<module>:244 - | epoch : 109 | val done |
+2021-12-31 19:00:27.485 | INFO     | __main__:<module>:111 - | epoch : 110 | training done |
+2021-12-31 19:00:45.718 | INFO     | __main__:<module>:244 - | epoch : 110 | val done |
+2021-12-31 19:01:21.065 | INFO     | __main__:<module>:111 - | epoch : 111 | training done |
+2021-12-31 19:01:39.218 | INFO     | __main__:<module>:244 - | epoch : 111 | val done |
+2021-12-31 19:02:14.506 | INFO     | __main__:<module>:111 - | epoch : 112 | training done |
+2021-12-31 19:02:32.670 | INFO     | __main__:<module>:244 - | epoch : 112 | val done |
+2021-12-31 19:03:08.031 | INFO     | __main__:<module>:111 - | epoch : 113 | training done |
+2021-12-31 19:03:26.140 | INFO     | __main__:<module>:244 - | epoch : 113 | val done |
+2021-12-31 19:04:01.340 | INFO     | __main__:<module>:111 - | epoch : 114 | training done |
+2021-12-31 19:04:19.418 | INFO     | __main__:<module>:244 - | epoch : 114 | val done |
+2021-12-31 19:04:54.702 | INFO     | __main__:<module>:111 - | epoch : 115 | training done |
+2021-12-31 19:05:12.897 | INFO     | __main__:<module>:240 - | epoch : 115 | CVC-300 : 0.8650742299417709 | CVC-ClinicDB : 0.9401407827964782 | CVC-ColonDB : 0.7774394672019741 | ETIS-LaribPolypDB : 0.7727655011788467 | Kvasir : 0.8729403359117647 |
+2021-12-31 19:05:12.897 | CRITICAL | __main__:<module>:241 - | epoch : 115 | best_val_dice_score : 0.845672063406167 |
+2021-12-31 19:05:48.721 | INFO     | __main__:<module>:111 - | epoch : 116 | training done |
+2021-12-31 19:06:06.717 | INFO     | __main__:<module>:244 - | epoch : 116 | val done |
+2021-12-31 19:06:41.979 | INFO     | __main__:<module>:111 - | epoch : 117 | training done |
+2021-12-31 19:07:00.098 | INFO     | __main__:<module>:244 - | epoch : 117 | val done |
+2021-12-31 19:07:35.298 | INFO     | __main__:<module>:111 - | epoch : 118 | training done |
+2021-12-31 19:07:53.523 | INFO     | __main__:<module>:244 - | epoch : 118 | val done |
+2021-12-31 19:08:28.746 | INFO     | __main__:<module>:111 - | epoch : 119 | training done |
+2021-12-31 19:08:46.814 | INFO     | __main__:<module>:244 - | epoch : 119 | val done |
+2021-12-31 19:09:21.964 | INFO     | __main__:<module>:111 - | epoch : 120 | training done |
+2021-12-31 19:09:40.249 | INFO     | __main__:<module>:244 - | epoch : 120 | val done |
+2021-12-31 19:10:15.537 | INFO     | __main__:<module>:111 - | epoch : 121 | training done |
+2021-12-31 19:10:33.612 | INFO     | __main__:<module>:244 - | epoch : 121 | val done |
+2021-12-31 19:11:08.927 | INFO     | __main__:<module>:111 - | epoch : 122 | training done |
+2021-12-31 19:11:27.030 | INFO     | __main__:<module>:244 - | epoch : 122 | val done |
+2021-12-31 19:12:02.281 | INFO     | __main__:<module>:111 - | epoch : 123 | training done |
+2021-12-31 19:12:20.390 | INFO     | __main__:<module>:244 - | epoch : 123 | val done |
+2021-12-31 19:12:55.700 | INFO     | __main__:<module>:111 - | epoch : 124 | training done |
+2021-12-31 19:13:13.774 | INFO     | __main__:<module>:244 - | epoch : 124 | val done |
+2021-12-31 19:13:49.008 | INFO     | __main__:<module>:111 - | epoch : 125 | training done |
+2021-12-31 19:14:07.114 | INFO     | __main__:<module>:244 - | epoch : 125 | val done |
+2021-12-31 19:14:42.374 | INFO     | __main__:<module>:111 - | epoch : 126 | training done |
+2021-12-31 19:15:00.561 | INFO     | __main__:<module>:244 - | epoch : 126 | val done |
+2021-12-31 19:15:35.817 | INFO     | __main__:<module>:111 - | epoch : 127 | training done |
+2021-12-31 19:15:53.937 | INFO     | __main__:<module>:244 - | epoch : 127 | val done |
+2021-12-31 19:16:29.349 | INFO     | __main__:<module>:111 - | epoch : 128 | training done |
+2021-12-31 19:16:47.580 | INFO     | __main__:<module>:244 - | epoch : 128 | val done |
+2021-12-31 19:17:22.846 | INFO     | __main__:<module>:111 - | epoch : 129 | training done |
+2021-12-31 19:17:41.022 | INFO     | __main__:<module>:244 - | epoch : 129 | val done |
+2021-12-31 19:18:16.294 | INFO     | __main__:<module>:111 - | epoch : 130 | training done |
+2021-12-31 19:18:34.514 | INFO     | __main__:<module>:244 - | epoch : 130 | val done |
+2021-12-31 19:19:09.793 | INFO     | __main__:<module>:111 - | epoch : 131 | training done |
+2021-12-31 19:19:27.957 | INFO     | __main__:<module>:244 - | epoch : 131 | val done |
+2021-12-31 19:20:03.201 | INFO     | __main__:<module>:111 - | epoch : 132 | training done |
+2021-12-31 19:20:21.367 | INFO     | __main__:<module>:244 - | epoch : 132 | val done |
+2021-12-31 19:20:56.634 | INFO     | __main__:<module>:111 - | epoch : 133 | training done |
+2021-12-31 19:21:14.795 | INFO     | __main__:<module>:244 - | epoch : 133 | val done |
+2021-12-31 19:21:50.155 | INFO     | __main__:<module>:111 - | epoch : 134 | training done |
+2021-12-31 19:22:08.207 | INFO     | __main__:<module>:244 - | epoch : 134 | val done |
+2021-12-31 19:22:43.506 | INFO     | __main__:<module>:111 - | epoch : 135 | training done |
+2021-12-31 19:23:01.560 | INFO     | __main__:<module>:244 - | epoch : 135 | val done |
+2021-12-31 19:23:36.904 | INFO     | __main__:<module>:111 - | epoch : 136 | training done |
+2021-12-31 19:23:54.969 | INFO     | __main__:<module>:244 - | epoch : 136 | val done |
+2021-12-31 19:24:30.307 | INFO     | __main__:<module>:111 - | epoch : 137 | training done |
+2021-12-31 19:24:48.481 | INFO     | __main__:<module>:244 - | epoch : 137 | val done |
+2021-12-31 19:25:23.701 | INFO     | __main__:<module>:111 - | epoch : 138 | training done |
+2021-12-31 19:25:41.881 | INFO     | __main__:<module>:244 - | epoch : 138 | val done |
+2021-12-31 19:26:17.168 | INFO     | __main__:<module>:111 - | epoch : 139 | training done |
+2021-12-31 19:26:35.282 | INFO     | __main__:<module>:244 - | epoch : 139 | val done |
+2021-12-31 19:27:10.578 | INFO     | __main__:<module>:111 - | epoch : 140 | training done |
+2021-12-31 19:27:28.682 | INFO     | __main__:<module>:244 - | epoch : 140 | val done |
+2021-12-31 19:28:03.973 | INFO     | __main__:<module>:111 - | epoch : 141 | training done |
+2021-12-31 19:28:22.126 | INFO     | __main__:<module>:244 - | epoch : 141 | val done |
+2021-12-31 19:28:57.330 | INFO     | __main__:<module>:111 - | epoch : 142 | training done |
+2021-12-31 19:29:15.478 | INFO     | __main__:<module>:244 - | epoch : 142 | val done |
+2021-12-31 19:29:50.813 | INFO     | __main__:<module>:111 - | epoch : 143 | training done |
+2021-12-31 19:30:08.942 | INFO     | __main__:<module>:244 - | epoch : 143 | val done |
+2021-12-31 19:30:44.237 | INFO     | __main__:<module>:111 - | epoch : 144 | training done |
+2021-12-31 19:31:02.424 | INFO     | __main__:<module>:244 - | epoch : 144 | val done |
+2021-12-31 19:31:37.695 | INFO     | __main__:<module>:111 - | epoch : 145 | training done |
+2021-12-31 19:31:55.779 | INFO     | __main__:<module>:244 - | epoch : 145 | val done |
+2021-12-31 19:32:31.190 | INFO     | __main__:<module>:111 - | epoch : 146 | training done |
+2021-12-31 19:32:49.363 | INFO     | __main__:<module>:244 - | epoch : 146 | val done |
+2021-12-31 19:33:24.712 | INFO     | __main__:<module>:111 - | epoch : 147 | training done |
+2021-12-31 19:33:42.832 | INFO     | __main__:<module>:244 - | epoch : 147 | val done |
+2021-12-31 19:34:18.064 | INFO     | __main__:<module>:111 - | epoch : 148 | training done |
+2021-12-31 19:34:36.254 | INFO     | __main__:<module>:244 - | epoch : 148 | val done |
+2021-12-31 19:35:11.451 | INFO     | __main__:<module>:111 - | epoch : 149 | training done |
+2021-12-31 19:35:29.622 | INFO     | __main__:<module>:244 - | epoch : 149 | val done |
+2021-12-31 19:36:04.951 | INFO     | __main__:<module>:111 - | epoch : 150 | training done |
+2021-12-31 19:36:23.031 | INFO     | __main__:<module>:244 - | epoch : 150 | val done |
+2021-12-31 19:36:58.303 | INFO     | __main__:<module>:111 - | epoch : 151 | training done |
+2021-12-31 19:37:16.513 | INFO     | __main__:<module>:244 - | epoch : 151 | val done |
+2021-12-31 19:37:51.897 | INFO     | __main__:<module>:111 - | epoch : 152 | training done |
+2021-12-31 19:38:10.012 | INFO     | __main__:<module>:244 - | epoch : 152 | val done |
+2021-12-31 19:38:45.280 | INFO     | __main__:<module>:111 - | epoch : 153 | training done |
+2021-12-31 19:39:03.407 | INFO     | __main__:<module>:244 - | epoch : 153 | val done |
+2021-12-31 19:39:38.837 | INFO     | __main__:<module>:111 - | epoch : 154 | training done |
+2021-12-31 19:39:56.978 | INFO     | __main__:<module>:244 - | epoch : 154 | val done |
+2021-12-31 19:40:32.254 | INFO     | __main__:<module>:111 - | epoch : 155 | training done |
+2021-12-31 19:40:50.380 | INFO     | __main__:<module>:244 - | epoch : 155 | val done |
+2021-12-31 19:41:25.763 | INFO     | __main__:<module>:111 - | epoch : 156 | training done |
+2021-12-31 19:41:43.907 | INFO     | __main__:<module>:244 - | epoch : 156 | val done |
+2021-12-31 19:42:19.230 | INFO     | __main__:<module>:111 - | epoch : 157 | training done |
+2021-12-31 19:42:37.522 | INFO     | __main__:<module>:244 - | epoch : 157 | val done |
+2021-12-31 19:43:12.820 | INFO     | __main__:<module>:111 - | epoch : 158 | training done |
+2021-12-31 19:43:31.009 | INFO     | __main__:<module>:244 - | epoch : 158 | val done |
+2021-12-31 19:44:06.298 | INFO     | __main__:<module>:111 - | epoch : 159 | training done |
+2021-12-31 19:44:24.431 | INFO     | __main__:<module>:244 - | epoch : 159 | val done |
+2021-12-31 19:44:59.672 | INFO     | __main__:<module>:111 - | epoch : 160 | training done |
+2021-12-31 19:45:17.789 | INFO     | __main__:<module>:244 - | epoch : 160 | val done |
+2021-12-31 19:45:53.065 | INFO     | __main__:<module>:111 - | epoch : 161 | training done |
+2021-12-31 19:46:11.251 | INFO     | __main__:<module>:244 - | epoch : 161 | val done |
+2021-12-31 19:46:46.579 | INFO     | __main__:<module>:111 - | epoch : 162 | training done |
+2021-12-31 19:47:04.691 | INFO     | __main__:<module>:244 - | epoch : 162 | val done |
+2021-12-31 19:47:39.992 | INFO     | __main__:<module>:111 - | epoch : 163 | training done |
+2021-12-31 19:47:58.160 | INFO     | __main__:<module>:244 - | epoch : 163 | val done |
+2021-12-31 19:48:33.478 | INFO     | __main__:<module>:111 - | epoch : 164 | training done |
+2021-12-31 19:48:51.795 | INFO     | __main__:<module>:244 - | epoch : 164 | val done |
+2021-12-31 19:49:27.071 | INFO     | __main__:<module>:111 - | epoch : 165 | training done |
+2021-12-31 19:49:45.181 | INFO     | __main__:<module>:244 - | epoch : 165 | val done |
+2021-12-31 19:50:20.474 | INFO     | __main__:<module>:111 - | epoch : 166 | training done |
+2021-12-31 19:50:38.596 | INFO     | __main__:<module>:240 - | epoch : 166 | CVC-300 : 0.8550366175211714 | CVC-ClinicDB : 0.953465695998186 | CVC-ColonDB : 0.7718276849563924 | ETIS-LaribPolypDB : 0.7665322598738681 | Kvasir : 0.8909781189350912 |
+2021-12-31 19:50:38.596 | CRITICAL | __main__:<module>:241 - | epoch : 166 | best_val_dice_score : 0.8475680754569417 |
+2021-12-31 19:51:14.521 | INFO     | __main__:<module>:111 - | epoch : 167 | training done |
+2021-12-31 19:51:32.679 | INFO     | __main__:<module>:244 - | epoch : 167 | val done |
+2021-12-31 19:52:07.919 | INFO     | __main__:<module>:111 - | epoch : 168 | training done |
+2021-12-31 19:52:26.105 | INFO     | __main__:<module>:244 - | epoch : 168 | val done |
+2021-12-31 19:53:01.440 | INFO     | __main__:<module>:111 - | epoch : 169 | training done |
+2021-12-31 19:53:19.663 | INFO     | __main__:<module>:244 - | epoch : 169 | val done |
+2021-12-31 19:53:55.025 | INFO     | __main__:<module>:111 - | epoch : 170 | training done |
+2021-12-31 19:54:13.165 | INFO     | __main__:<module>:244 - | epoch : 170 | val done |
+2021-12-31 19:54:48.451 | INFO     | __main__:<module>:111 - | epoch : 171 | training done |
+2021-12-31 19:55:06.610 | INFO     | __main__:<module>:244 - | epoch : 171 | val done |
+2021-12-31 19:55:41.800 | INFO     | __main__:<module>:111 - | epoch : 172 | training done |
+2021-12-31 19:55:59.954 | INFO     | __main__:<module>:244 - | epoch : 172 | val done |
+2021-12-31 19:56:35.206 | INFO     | __main__:<module>:111 - | epoch : 173 | training done |
+2021-12-31 19:56:53.404 | INFO     | __main__:<module>:244 - | epoch : 173 | val done |
+2021-12-31 19:57:28.634 | INFO     | __main__:<module>:111 - | epoch : 174 | training done |
+2021-12-31 19:57:46.864 | INFO     | __main__:<module>:244 - | epoch : 174 | val done |
+2021-12-31 19:58:22.060 | INFO     | __main__:<module>:111 - | epoch : 175 | training done |
+2021-12-31 19:58:40.297 | INFO     | __main__:<module>:244 - | epoch : 175 | val done |
+2021-12-31 19:59:15.576 | INFO     | __main__:<module>:111 - | epoch : 176 | training done |
+2021-12-31 19:59:33.770 | INFO     | __main__:<module>:244 - | epoch : 176 | val done |
+2021-12-31 20:00:08.982 | INFO     | __main__:<module>:111 - | epoch : 177 | training done |
+2021-12-31 20:00:27.227 | INFO     | __main__:<module>:244 - | epoch : 177 | val done |
+2021-12-31 20:01:02.472 | INFO     | __main__:<module>:111 - | epoch : 178 | training done |
+2021-12-31 20:01:20.733 | INFO     | __main__:<module>:240 - | epoch : 178 | CVC-300 : 0.8570808042865563 | CVC-ClinicDB : 0.9503797551000448 | CVC-ColonDB : 0.777565837612891 | ETIS-LaribPolypDB : 0.7655447733998978 | Kvasir : 0.9001836382168594 |
+2021-12-31 20:01:20.733 | CRITICAL | __main__:<module>:241 - | epoch : 178 | best_val_dice_score : 0.8501509617232499 |
+2021-12-31 20:01:56.585 | INFO     | __main__:<module>:111 - | epoch : 179 | training done |
+2021-12-31 20:02:14.749 | INFO     | __main__:<module>:244 - | epoch : 179 | val done |
+2021-12-31 20:02:49.973 | INFO     | __main__:<module>:111 - | epoch : 180 | training done |
+2021-12-31 20:03:08.165 | INFO     | __main__:<module>:244 - | epoch : 180 | val done |
+2021-12-31 20:03:43.490 | INFO     | __main__:<module>:111 - | epoch : 181 | training done |
+2021-12-31 20:04:01.667 | INFO     | __main__:<module>:244 - | epoch : 181 | val done |
+2021-12-31 20:04:36.936 | INFO     | __main__:<module>:111 - | epoch : 182 | training done |
+2021-12-31 20:04:55.074 | INFO     | __main__:<module>:244 - | epoch : 182 | val done |
+2021-12-31 20:05:30.304 | INFO     | __main__:<module>:111 - | epoch : 183 | training done |
+2021-12-31 20:05:48.428 | INFO     | __main__:<module>:244 - | epoch : 183 | val done |
+2021-12-31 20:06:23.725 | INFO     | __main__:<module>:111 - | epoch : 184 | training done |
+2021-12-31 20:06:41.998 | INFO     | __main__:<module>:244 - | epoch : 184 | val done |
+2021-12-31 20:07:17.247 | INFO     | __main__:<module>:111 - | epoch : 185 | training done |
+2021-12-31 20:07:35.367 | INFO     | __main__:<module>:244 - | epoch : 185 | val done |
+2021-12-31 20:08:10.708 | INFO     | __main__:<module>:111 - | epoch : 186 | training done |
+2021-12-31 20:08:28.934 | INFO     | __main__:<module>:244 - | epoch : 186 | val done |
+2021-12-31 20:09:04.132 | INFO     | __main__:<module>:111 - | epoch : 187 | training done |
+2021-12-31 20:09:22.285 | INFO     | __main__:<module>:244 - | epoch : 187 | val done |
+2021-12-31 20:09:57.651 | INFO     | __main__:<module>:111 - | epoch : 188 | training done |
+2021-12-31 20:10:15.871 | INFO     | __main__:<module>:244 - | epoch : 188 | val done |
+2021-12-31 20:10:51.166 | INFO     | __main__:<module>:111 - | epoch : 189 | training done |
+2021-12-31 20:11:09.374 | INFO     | __main__:<module>:244 - | epoch : 189 | val done |
+2021-12-31 20:11:44.644 | INFO     | __main__:<module>:111 - | epoch : 190 | training done |
+2021-12-31 20:12:02.793 | INFO     | __main__:<module>:244 - | epoch : 190 | val done |
+2021-12-31 20:12:38.015 | INFO     | __main__:<module>:111 - | epoch : 191 | training done |
+2021-12-31 20:12:56.171 | INFO     | __main__:<module>:244 - | epoch : 191 | val done |
+2021-12-31 20:13:31.499 | INFO     | __main__:<module>:111 - | epoch : 192 | training done |
+2021-12-31 20:13:49.769 | INFO     | __main__:<module>:244 - | epoch : 192 | val done |
+2021-12-31 20:14:25.147 | INFO     | __main__:<module>:111 - | epoch : 193 | training done |
+2021-12-31 20:14:43.311 | INFO     | __main__:<module>:244 - | epoch : 193 | val done |
+2021-12-31 20:15:18.560 | INFO     | __main__:<module>:111 - | epoch : 194 | training done |
+2021-12-31 20:15:36.750 | INFO     | __main__:<module>:244 - | epoch : 194 | val done |
+2021-12-31 20:16:12.055 | INFO     | __main__:<module>:111 - | epoch : 195 | training done |
+2021-12-31 20:16:30.242 | INFO     | __main__:<module>:244 - | epoch : 195 | val done |
+2021-12-31 20:17:05.444 | INFO     | __main__:<module>:111 - | epoch : 196 | training done |
+2021-12-31 20:17:23.664 | INFO     | __main__:<module>:244 - | epoch : 196 | val done |
+2021-12-31 20:17:58.942 | INFO     | __main__:<module>:111 - | epoch : 197 | training done |
+2021-12-31 20:18:17.224 | INFO     | __main__:<module>:244 - | epoch : 197 | val done |
+2021-12-31 20:18:52.467 | INFO     | __main__:<module>:111 - | epoch : 198 | training done |
+2021-12-31 20:19:10.620 | INFO     | __main__:<module>:244 - | epoch : 198 | val done |
+2021-12-31 20:19:45.960 | INFO     | __main__:<module>:111 - | epoch : 199 | training done |
+2021-12-31 20:20:04.117 | INFO     | __main__:<module>:244 - | epoch : 199 | val done |

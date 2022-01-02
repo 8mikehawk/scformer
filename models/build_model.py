@@ -1,44 +1,37 @@
-from .sct import sct_b1
-from .sct_dw import sct_b1 as sct_dw_b1
-from .sct_pixel import sct_b1 as sct_pixel_b1
-from .sct_dw_pixel import sct_b1 as sct_dw_pixel_b1
-from .segformer import sct_b1 as b1
-from .segformer_b2 import sct_b2 as segformer_b2
-from .segformer_b2_without import sct_b2 as segformer_b2_without
-from .sct import sct_b4
+from .segformer_b2_pretrained_original import sct_b2 as segformer_b2_pretrained_original
 
+
+from .srm import sct_b2 as srm
+from .srm_fully_conv import sct_b2 as srm_fully_conv
+from .srm_b2_pixel import sct_b2 as srm_b2_pixel
+from .srm_b2_skip import sct_b2 as srm_b2_skip
+
+from .feilong_test import sct_b2 as feilong_test
 
 def build(model_name, class_num=2):
-    if model_name == "sct_b1":
-        model = sct_b1(class_num=class_num)
+
+    if model_name == "segformer_b2_pretrained_original":
+        model = segformer_b2_pretrained_original(class_num=class_num)
+        return model
+        
+    if model_name == "srm":
+        model = srm(class_num=class_num)
+        return model
+        
+    if model_name == "srm_fully_conv":
+        model = srm_fully_conv(class_num=class_num)
         return model
 
-    if model_name == "sct_dw_b1":
-        model = sct_dw_b1(class_num=class_num)
-        print(model)
+
+    if model_name == "srm_b2_pixel":
+        model = srm_b2_pixel(class_num=class_num)
+        return model
+        
+    if model_name == "srm_b2_skip":
+        model = srm_b2_skip(class_num=class_num)
         return model
 
-    if model_name == "sct_pixel_b1":
-        model = sct_pixel_b1(class_num=class_num)
+    if model_name == "feilong_test":
+        model = feilong_test(class_num=class_num)
         return model
-
-    if model_name == "sct_dw_pixel_b1":
-        model = sct_dw_pixel_b1(class_num=class_num)
-        return model
-
-    if model_name == "segformer":
-        model = b1(class_num=class_num)
-        return model
-
-    if model_name == "segformer_b2":
-        model = segformer_b2(class_num=class_num)
-        return model        
-
-    if model_name == "sct_b4":
-        model = sct_b4(class_num=class_num)
-        return model
-
-    if model_name == "segformer_b2_without":
-        model = segformer_b2_without(class_num=class_num)
-        return model
-
+                

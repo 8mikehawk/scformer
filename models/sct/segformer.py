@@ -209,54 +209,14 @@ class Decoder(Module):
         fuse = []
 
         for feature, layer in zip(features, self.layers):
+            print(feature.shape)
             fuse.append(layer(feature))
+
 
         fuse = torch.cat(fuse, dim=1)  # [1, 3072, 128, 128]
         fuse = self.conv_fuse(fuse)  # [1, 768, 128, 128]
         fuse = self.conv2(fuse)  # [1, 768, 128, 128]
         return fuse
-
-
-
-class sct_b0(nn.Module):
-    def __init__(self,class_num=2, **kwargs):
-    
-        super(sct_b0, self).__init__()
-        self.class_num = class_num
-        self.backbone = MitEncoder(in_dim=3, dims=(32, 64, 160, 256),
-                                   num_heads=(1, 2, 5, 8), expansions=(4, 4, 4, 4),
-                                   reductions=(8, 4, 2, 1), depths=(2, 2, 2, 2), qkv_bias=True, drop=0, aff_drop=0,
-                                   path_drop=.1, norm_cfg=dict(type='LN', eps=1e-6), act_cfg=dict(type='GELU'))
-
-        self.decode_head = Decoder(dims=[32, 64, 160, 256], dim=256, class_num=class_num)
-    def forward(self, x):
-        features = self.backbone(x)
-
-        features = self.decode_head(features)
-        up = UpsamplingBilinear2d(scale_factor=4)
-        features = up(features)
-        return features
-
-
-class sct_b1(nn.Module):
-    def __init__(self,class_num=2, **kwargs):
-    
-        super(sct_b1, self).__init__()
-        self.class_num = class_num
-        self.backbone = MitEncoder(in_dim=3, dims=(64, 128, 320, 512),
-                                   num_heads=(1, 2, 5, 8), expansions=(4, 4, 4, 4),
-                                   reductions=(8, 4, 2, 1), depths=(8, 4, 2, 2), qkv_bias=True, drop=0, aff_drop=0,
-                                   path_drop=.1, norm_cfg=dict(type='LN', eps=1e-6), act_cfg=dict(type='GELU'))
-
-        self.decode_head = Decoder(dims=[64, 128, 320, 512], dim=512, class_num=class_num)
-    def forward(self, x):
-        features = self.backbone(x)
-
-        features = self.decode_head(features)
-        up = UpsamplingBilinear2d(scale_factor=4)
-        features = up(features)
-        return features
-
 
 class sct_b2(nn.Module):
     def __init__(self,class_num=2, **kwargs):
@@ -276,68 +236,11 @@ class sct_b2(nn.Module):
         up = UpsamplingBilinear2d(scale_factor=4)
         features = up(features)
         return features
-
-class sct_b3(nn.Module):
-    def __init__(self,class_num=2, **kwargs):
-    
-        super(sct_b3, self).__init__()
-        self.class_num = class_num
-        self.backbone = MitEncoder(in_dim=3, dims=(64, 128, 320, 512),
-                                   num_heads=(1, 2, 5, 8), expansions=(4, 4, 4, 4),
-                                   reductions=(8, 4, 2, 1), depths=(3, 4, 18, 3), qkv_bias=True, drop=0, aff_drop=0,
-                                   path_drop=.1, norm_cfg=dict(type='LN', eps=1e-6), act_cfg=dict(type='GELU'))
-
-        self.decode_head = Decoder(dims=[64, 128, 320, 512], dim=768, class_num=class_num)
-    def forward(self, x):
-        features = self.backbone(x)
-
-        features = self.decode_head(features)
-        up = UpsamplingBilinear2d(scale_factor=4)
-        features = up(features)
-        # print(features.shape)
-        return features
-
-class sct_b4(nn.Module):
-    def __init__(self,class_num=2, **kwargs):
-    
-        super(sct_b4, self).__init__()
-        self.class_num = class_num
-        self.backbone = MitEncoder(in_dim=3, dims=(64, 128, 320, 512),
-                                   num_heads=(1, 2, 5, 8), expansions=(4, 4, 4, 4),
-                                   reductions=(8, 4, 2, 1), depths=(3, 8, 27, 3), qkv_bias=True, drop=0, aff_drop=0,
-                                   path_drop=.1, norm_cfg=dict(type='LN', eps=1e-6), act_cfg=dict(type='GELU'))
-
-        self.decode_head = Decoder(dims=[64, 128, 320, 512], dim=768, class_num=class_num)
-    def forward(self, x):
-        features = self.backbone(x)
-
-        features = self.decode_head(features)
-        up = UpsamplingBilinear2d(scale_factor=4)
-        features = up(features)
-        # print(features.shape)
-        return features
-
-class sct_b5(nn.Module):
-    def __init__(self,class_num=2, **kwargs):
-    
-        super(sct_b5, self).__init__()
-        self.class_num = class_num
-        self.backbone = MitEncoder(in_dim=3, dims=(64, 128, 320, 512),
-                                   num_heads=(1, 2, 5, 8), expansions=(4, 4, 4, 4),
-                                   reductions=(8, 4, 2, 1), depths=(3, 6, 40, 3), qkv_bias=True, drop=0, aff_drop=0,
-                                   path_drop=.1, norm_cfg=dict(type='LN', eps=1e-6), act_cfg=dict(type='GELU'))
-
-        self.decode_head = Decoder(dims=[64, 128, 320, 512], dim=768, class_num=class_num)
-    def forward(self, x):
-        features = self.backbone(x)
-
-        features = self.decode_head(features)
-        up = UpsamplingBilinear2d(scale_factor=4)
-        features = up(features)
-
-        return features
                
 
-#from torchinfo import summary
-#MitEncoder = sct_b1(class_num=2)
-#summary = summary(MitEncoder, (8, 3, 512, 512))
+import torch
+
+x = torch.rand((1, 3, 512, 512))
+model = sct_b2()
+
+result = model(x)

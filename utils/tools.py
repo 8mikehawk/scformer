@@ -3,7 +3,6 @@ import utils
 from utils import ISIC2018
 from torch.utils.data import DataLoader
 from tqdm import tqdm
-from models import sct_b2
 import torch
 import torch.nn.functional as F
 import torch.nn as nn
@@ -11,23 +10,6 @@ import torch.optim as optmi
 import os
 import pdb
 import numpy as np
-from models import sct_b2
-
-def build_model(name, class_num):
-  if name == "sct_b2":
-    model = sct_b2(class_num=class_num)
-    return model
-
-
-def build_dataset(name, train_img_root, val_img_root, train_label_root, val_label_root, crop_size, batch_size, num_workers):
-    if name == "ISIC2018":
-        train_ds = ISIC2018(train_img_root, val_img_root, train_label_root, val_label_root, crop_size, mode='train')
-        val_ds = ISIC2018(train_img_root, val_img_root, train_label_root, val_label_root, crop_size, mode='val')
-
-        train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers)
-        val_loader = DataLoader(val_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers)   
-
-        return train_loader, val_loader     
 
 
 
@@ -286,7 +268,10 @@ def legacy_mean_iou(results, gt_seg_maps, num_classes, ignore_index):
 
     return all_acc, acc, iou
 
- 
+
+
+
+
 class Colorize:
     def __init__(self, n):
         self.cmap = self.colormap(256)

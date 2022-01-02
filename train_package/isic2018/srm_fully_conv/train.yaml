@@ -1,0 +1,31 @@
+dataset :
+  train_img_root : /data/ISIC2018_copy/train/
+  val_img_root : /data/ISIC2018_copy/val/
+  test_img_root : /data/ISIC2018_copy/test/
+
+  train_label_root: /data/ISIC2018_copy/train_labels/
+  val_label_root : /data/ISIC2018_copy/val_labels/
+  test_label_root : /data/ISIC2018_copy/test_labels/
+
+  class_num: 2
+
+  crop_size : 
+    w: 512
+    h: 512
+  batch_size : 8
+  num_workers : 8
+
+model:
+  model_name : srm_fully_conv
+
+training:
+  device : cuda
+  lr : 1e-4
+  max_epoch : 10000
+
+other:
+  checkpoint_save_path : /data/segformer/scformer/train_package/isic2018/srm_fully_conv/
+  logger_path : /data/segformer/scformer/train_package/isic2018/srm/srm_fully_conv.log
+
+test:
+  checkpoint_save_path : /data/segformer/scformer/train_package/isic2018/srm_fully_conv/val_best.pth
