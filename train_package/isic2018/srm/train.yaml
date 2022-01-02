@@ -16,7 +16,7 @@ dataset :
   num_workers : 8
 
 model:
-  model_name : srm_fully_conv
+  model_name : srm
 
 training:
   device : cuda
@@ -24,8 +24,8 @@ training:
   max_epoch : 10000
 
 other:
-  checkpoint_save_path : /data/segformer/scformer/train_package/isic2018/srm_fully_conv/
-  logger_path : /data/segformer/scformer/train_package/isic2018/srm_fully_conv/srm_fully_conv.log
+  checkpoint_save_path : /data/segformer/scformer/train_package/isic2018/srm/
+  logger_path : /data/segformer/scformer/train_package/isic2018/srm/srm_fully_conv.log
 
 test:
-  checkpoint_save_path : /data/segformer/scformer/train_package/isic2018/srm_fully_conv/val_best.pth
+  checkpoint_save_path : /data/segformer/scformer/train_package/isic2018/srm/val_best.pth

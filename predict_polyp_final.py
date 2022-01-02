@@ -71,9 +71,23 @@ if int(num_of_dataset) == 0:
             pred = F.softmax(x, dim=1)
             pred = torch.argmax(pred, dim=1)
             pred = torch.where(pred == 1, 255, 0)
+
+            # convert pred into 3-dim statr
+            pred_ = torch.cat((pred, pred), dim=1)
+            pred_ = torch.cat((pred_, pred), dim=1)
+            pred_ = pred_.reshape((8, 3, 352, 352))
+            # convert pred into 3-dim end
+
+            # convert label into 3-dim statr
+            label_ = torch.cat((label, label), dim=1)
+            label_ = torch.cat((label_, label), dim=1)
+            label_ = label_.reshape((8, 3, 352, 352))
+            # convert label into 3-dim end        
+
             break
-        out = torch.cat((pred.float(), label.float()), dim=0)
-        out = out.unsqueeze(1)
+        out = torch.cat((pred_.float(), label_.float()), dim=0)
+        out = torch.cat((out, img), dim=0)
+        # out = out.unsqueeze(1)
         save_image(out, "result.png")
 
 # CVC-ClinicDB
@@ -90,11 +104,9 @@ if int(num_of_dataset) == 1:
             pred = F.softmax(x, dim=1)
             pred = torch.argmax(pred, dim=1)
             pred = torch.where(pred == 1, 255, 0)
-            print(pred.shape)
             break
         out = torch.cat((pred.float(), label.float()), dim=0)
         out = out.unsqueeze(1)
-        print(out.shape)
         save_image(out, "result.png")
 
 # CVC-ColonDB
@@ -112,11 +124,9 @@ if int(num_of_dataset) == 2:
             pred = F.softmax(x, dim=1)
             pred = torch.argmax(pred, dim=1)
             pred = torch.where(pred == 1, 255, 0)
-            print(pred.shape)
             break
         out = torch.cat((pred.float(), label.float()), dim=0)
         out = out.unsqueeze(1)
-        print(out.shape)
         save_image(out, "result.png")
 
 # ETIS-LaribPolypDB
@@ -133,11 +143,9 @@ if int(num_of_dataset) == 3:
             pred = F.softmax(x, dim=1)
             pred = torch.argmax(pred, dim=1)
             pred = torch.where(pred == 1, 255, 0)
-            print(pred.shape)
             break
         out = torch.cat((pred.float(), label.float()), dim=0)
         out = out.unsqueeze(1)
-        print(out.shape)
         save_image(out, "result.png")
 
 # Kvasir
@@ -154,93 +162,7 @@ if int(num_of_dataset) == 4:
             pred = F.softmax(x, dim=1)
             pred = torch.argmax(pred, dim=1)
             pred = torch.where(pred == 1, 255, 0)
-            print(pred.shape)
             break
         out = torch.cat((pred.float(), label.float()), dim=0)
         out = out.unsqueeze(1)
-        print(out.shape)
         save_image(out, "result.png")
-
-
-
-# # CVC-ClinicDB
-# val_ds = Datareader(config['dataset']['test_CVC-ClinicDB_img'], config['dataset']['test_CVC-ClinicDB_label'], crop_size)
-# val_loader = DataLoader(val_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers)
-# # evaluate CVC-ClinicDB
-# val_dice = 0
-# with torch.no_grad():
-#     for idx, (img, label) in tqdm(enumerate(val_loader)):
-#         img = img.to(device)
-#         label = label.to(device)
-#         x = model(img)
-#         pred = F.softmax(x, dim=1)
-#         # print(pred.shape, img.shape)
-#         pre_label = pred.max(dim=1)[1].data.cpu().numpy()
-#         pre_label = [i for i in pre_label]
-#         true_label = label.data.cpu().numpy()
-#         true_label = [i for i in true_label]
-#         all_acc, acc, dice = mean_dice(pre_label, true_label, num_classes = config['dataset']['class_num'], ignore_index = None)
-#         val_dice = dice + val_dice
-#     val_cvc_clinicDB = val_dice.mean()/(idx+1)
-# print("CVC-ColonDB")
-# # CVC-ColonDB
-# val_ds = Datareader(config['dataset']['test_CVC-ColonDB_img'], config['dataset']['test_CVC-ColonDB_label'], crop_size)
-# val_loader = DataLoader(val_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers)
-# # evaluate CVC-ColonDB
-# val_dice = 0
-# with torch.no_grad():
-#     for idx, (img, label) in tqdm(enumerate(val_loader)):
-#         img = img.to(device)
-#         label = label.to(device)
-#         x = model(img)
-#         pred = F.softmax(x, dim=1)
-#         # print(pred.shape, img.shape)
-#         pre_label = pred.max(dim=1)[1].data.cpu().numpy()
-#         pre_label = [i for i in pre_label]
-#         true_label = label.data.cpu().numpy()
-#         true_label = [i for i in true_label]
-#         all_acc, acc, dice = mean_dice(pre_label, true_label, num_classes = config['dataset']['class_num'], ignore_index = None)
-#         val_dice = dice + val_dice
-#     val_cvc_colonDB = val_dice.mean()/(idx+1)
-# print("evaluating ETIS-LaribPolypDB")
-# # ETIS-LaribPolypDB
-# val_ds = Datareader(config['dataset']['test_ETIS-LaribPolypDB_img'], config['dataset']['test_ETIS-LaribPolypDB_label'], crop_size)
-# val_loader = DataLoader(val_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers)
-# # evaluate ETIS-LaribPolypDB
-# val_dice = 0
-# with torch.no_grad():
-#     for idx, (img, label) in tqdm(enumerate(val_loader)):
-#         img = img.to(device)
-#         label = label.to(device)
-#         x = model(img)
-#         pred = F.softmax(x, dim=1)
-#         # print(pred.shape, img.shape)
-#         pre_label = pred.max(dim=1)[1].data.cpu().numpy()
-#         pre_label = [i for i in pre_label]
-#         true_label = label.data.cpu().numpy()
-#         true_label = [i for i in true_label]
-#         all_acc, acc, dice = mean_dice(pre_label, true_label, num_classes = config['dataset']['class_num'], ignore_index = None)
-#         val_dice = dice + val_dice
-#     val_etis = val_dice.mean()/(idx+1)
-# print("evaluating Kvasir")
-# # Kvasir
-# val_ds = Datareader(config['dataset']['test_Kvasir_img'], config['dataset']['test_Kvasir_label'], crop_size)
-# val_loader = DataLoader(val_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers)
-# # evaluate Kvasir
-# val_dice = 0
-# with torch.no_grad():
-#     for idx, (img, label) in tqdm(enumerate(val_loader)):
-#         img = img.to(device)
-#         label = label.to(device)
-#         x = model(img)
-#         pred = F.softmax(x, dim=1)
-#         # print(pred.shape, img.shape)
-#         pre_label = pred.max(dim=1)[1].data.cpu().numpy()
-#         pre_label = [i for i in pre_label]
-#         true_label = label.data.cpu().numpy()
-#         true_label = [i for i in true_label]
-#         all_acc, acc, dice = mean_dice(pre_label, true_label, num_classes = config['dataset']['class_num'], ignore_index = None)
-#         val_dice = dice + val_dice
-#     val_Kvasir = val_dice.mean()/(idx+1)
-
-# print(save_tensor[0].shape)
