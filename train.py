@@ -1,9 +1,9 @@
 import configparser
 from models import build
 from loguru import logger
-from utils.tools import ISIC2018
 from tqdm import tqdm
 import torch.nn as nn
+from utils.PolynomialLRDecay import PolynomialLRDecay
 import torch.optim as optmi
 import torch.nn.functional as F
 from utils.tools import mean_dice
@@ -71,6 +71,8 @@ val_loader = DataLoader(val_ds, batch_size=batch_size, shuffle=True, num_workers
 # optimizer
 criterion = nn.NLLLoss().to(device)
 optimizer = optmi.AdamW(model.parameters(), lr=lr)
+#scheduler = PolynomialLRDecay(optimizer, max_decay_steps=2, end_learning_rate=0.01, power=2.0)###poly
+
 
 # logger
 print(config['other']['logger_path'])
@@ -79,9 +81,9 @@ logger.add(config['other']['logger_path'])
 # start training
 logger.info(f"| start training .... |")
 best_val_dice = [0]
-
 for epoch in tqdm(range(max_epoch)):
     train_dice = 0
+#    scheduler.step(epoch)###poly
     for idx, (img, label) in tqdm(enumerate(train_loader)):
         model = model.train()
         img = img.to(device)

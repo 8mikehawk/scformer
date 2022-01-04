@@ -1,15 +1,17 @@
 import os
 import numpy as np
+from numpy.random.mtrand import seed
 from torch.utils.data import Dataset
 from PIL import Image
 import torch
 import yaml
 import sys
+import albumentations as A
 
 
 # for cvc dataset
-f = open(sys.argv[1])
-config = yaml.safe_load(f)
+# f = open(sys.argv[1])
+# config = yaml.safe_load(f)
 
 # dataset for isic2018
 class ISIC2018(Dataset):
@@ -17,7 +19,7 @@ class ISIC2018(Dataset):
         self.train_img_files = self.read_file(train_img_root)
         self.val_img_files = self.read_file(val_img_root)
         self.train_label_files = self.read_file(train_label_root)
-        self.val_label_files = self.read_file(val_label_root)      
+        self.val_label_files = self.read_file(val_label_root)
         self.mode = mode
         self.crop_size = crop_size
 
@@ -52,9 +54,10 @@ class ISIC2018(Dataset):
             img = torch.as_tensor(img)
             label = torch.as_tensor(label)
 
+            print(img.shape)
             img = img.permute(2, 0, 1)
 
-            return img.float(), label.long()       
+            return img.float(), label.long()
 
     def __len__(self):
         if self.mode == 'train':
@@ -68,7 +71,7 @@ class ISIC2018(Dataset):
         files_list = os.listdir(path)
         file_path_list = [os.path.join(path, img) for img in files_list]
         file_path_list.sort()
-        return file_path_list        
+        return file_path_list
 
 # dataset fro Kvasir
 class Kvasir(Dataset):
@@ -115,7 +118,7 @@ class Kvasir(Dataset):
 
             img = img.permute(2, 0, 1)
 
-            return img.float(), label.long()       
+            return img.float(), label.long()
 
     def __len__(self):
         if self.mode == 'train':
@@ -129,8 +132,8 @@ class Kvasir(Dataset):
         files_list = os.listdir(path)
         file_path_list = [os.path.join(path, img) for img in files_list]
         file_path_list.sort()
-        return file_path_list   
-        
+        return file_path_list
+
 # dataset fro CVC-ClinicDB
 class CVC(Dataset):
     def __init__(self, train_img_root, val_img_root, train_label_root, val_label_root, crop_size, mode='train'):
@@ -174,7 +177,7 @@ class CVC(Dataset):
 
             img = img.permute(2, 0, 1)
 
-            return img.float(), label.long()       
+            return img.float(), label.long()
 
     def __len__(self):
         if self.mode == 'train':
@@ -188,9 +191,9 @@ class CVC(Dataset):
         files_list = os.listdir(path)
         file_path_list = [os.path.join(path, img) for img in files_list]
         file_path_list.sort()
-        return file_path_list  
+        return file_path_list
 
-        
+
 # build dataset
 class DataBuilder(Dataset):
     def __init__(self, train_img_root, val_img_root, train_label_root, val_label_root, crop_size, mode='train'):
@@ -214,8 +217,8 @@ class DataBuilder(Dataset):
 
             if 'cvc' in config['dataset']['train_img_root']:
                 # just for cvc start
-                label = label[:,:,0]  
-                # just for cvc end         
+                label = label[:,:,0]
+                # just for cvc end
             img = torch.as_tensor(img)
             label = torch.as_tensor(label)
             if 'Seg' in config['dataset']['train_img_root'] or 'BRATS2015' in config['dataset']['train_img_root']:
@@ -234,11 +237,11 @@ class DataBuilder(Dataset):
 
             img = np.array(img) / 255
             label = np.array(label)
-            
+
             if 'cvc' in config['dataset']['train_img_root'] and 'ETIS-LaribPolypDB' not in config['dataset']['test_label_root']:
                 # just for cvc start
-                label = label[:,:,0]  
-                # just for cvc end  
+                label = label[:,:,0]
+                # just for cvc end
 
             img = torch.as_tensor(img)
             label = torch.as_tensor(label)
@@ -247,7 +250,7 @@ class DataBuilder(Dataset):
             else:
                 img = img.permute(2, 0, 1)
 
-            return img.float(), label.long()       
+            return img.float(), label.long()
 
     def __len__(self):
         if self.mode == 'train':
@@ -261,7 +264,7 @@ class DataBuilder(Dataset):
         files_list = os.listdir(path)
         file_path_list = [os.path.join(path, img) for img in files_list]
         file_path_list.sort()
-        return file_path_list 
+        return file_path_list
 
 
 # dataset fro Kvasir
@@ -286,7 +289,7 @@ class Datareader(Dataset):
 
         img = img.permute(2, 0, 1)
 
-        return img.float(), label.long()     
+        return img.float(), label.long()
 
     def __len__(self):
         total_img = len(self.img_files)
@@ -296,4 +299,78 @@ class Datareader(Dataset):
         files_list = os.listdir(path)
         file_path_list = [os.path.join(path, img) for img in files_list]
         file_path_list.sort()
-        return file_path_list   
+        return file_path_list
+
+# final version of dataset
+import cv2
+
+class CustomDataSet(Dataset):
+    def __init__(self, img_path, label_path, crop_size, transformation=False):
+        self.img_path = img_path
+        self.label_path = label_path
+
+        self.img_files = self.read_file(self.img_path)
+        self.label_files = self.read_file(self.label_path)
+        
+        self.crop_size = crop_size
+
+        self.transformation = transformation
+        
+
+    def __getitem__(self, index):
+
+        img = Image.open(self.img_files[index])
+        label = Image.open(self.label_files[index])
+
+        img = img.resize((self.crop_size[0], self.crop_size[1]))
+        label = label.resize((self.crop_size[0], self.crop_size[1]))
+        if self.transformation:
+            img, label = self.img_transform(img, label)        
+        
+        img = np.array(img) / 255
+        label = np.array(label)
+
+        img = torch.as_tensor(img)
+        label = torch.as_tensor(label)
+
+        if 'cvc' in config['dataset']['train_img_root']:
+            # just for cvc start
+            label = label[:, :, 0]
+            # just for cvc end
+        img = torch.as_tensor(img)
+        label = torch.as_tensor(label)
+        if 'Seg' in config['dataset']['train_img_root'] or 'BRATS2015' in config['dataset']['train_img_root']:
+            img = img.unsqueeze(0)
+        else:
+            img = img.permute(2, 0, 1)
+
+        return img.float(), label.long()
+
+    def __len__(self):
+        total_img = len(self.img_files)
+        return total_img
+
+
+    def read_file(self, path):
+        files_list = os.listdir(path)
+        file_path_list = [os.path.join(path, img) for img in files_list]
+        file_path_list.sort()
+        return file_path_list
+     
+    def img_transform(self, img, label):
+        label = np.array(label)
+        img = np.array(img)
+        transform = A.Compose([
+            A.VerticalFlip(p=0.5), 
+            A.HorizontalFlip(p=0.5),
+            A.RandomScale(scale_limit=(0.75, 1.25), interpolation=cv2.INTER_CUBIC, p=0.5),
+        ])(image=img, mask=label)
+                            
+        img = transform['image']
+        label = transform['mask']
+        
+        return img, label
+
+
+
+        

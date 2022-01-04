@@ -19,8 +19,6 @@ dataset:
 
   class_num: 2
 
-  transformation: True
-
   crop_size : 
     w: 352
     h: 352
@@ -34,7 +32,7 @@ dataset:
 # sct_b0_pretrained
 
 model:
-  model_name : srm_b2_pixel
+  model_name : scale_model
 
 training:
   device : cuda
@@ -42,8 +40,8 @@ training:
   max_epoch : 200
 
 other:
-  checkpoint_save_path : /data/segformer/scformer/train_package/polyp_collection/srm_b2_pixel
-  logger_path : /data/segformer/scformer/train_package/polyp_collection/srm_b2_pixel/srm_b2_pixel.log
+  checkpoint_save_path : /data/segformer/scformer/train_package/polyp_collection/scale_model/
+  logger_path : /data/segformer/scformer/train_package/polyp_collection/scale_model/feilong_test.log
 
 test:
-  checkpoint_save_path : /data/segformer/scformer/train_package/polyp_collection/srm_b2_pixel/val_best.pth
+  checkpoint_save_path : /data/segformer/scformer/train_package/polyp_collection/scale_model/val_best.pth

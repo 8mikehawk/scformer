@@ -5,7 +5,7 @@ import torch.nn as nn
 import torch.optim as optmi
 import torch.nn.functional as F
 from utils.tools import mean_dice
-from utils import DataBuilder, Datareader
+from utils import DataBuilder, Datareader, CustomDataSet
 from torch.utils.data import DataLoader
 from torchvision.transforms import Compose 
 from torchvision import transforms
@@ -75,13 +75,9 @@ lr = float(
     config['training']['lr']
 )
 
-train_ds = Datareader(train_img_root, train_label_root, crop_size)
-
-# train_ds = DataBuilder(train_img_root, val_img_root, train_label_root, val_label_root, crop_size, mode='train')
-# val_ds = DataBuilder(train_img_root, val_img_root, train_label_root, val_label_root, crop_size, mode='val')
+train_ds = CustomDataSet(train_img_root, train_label_root, crop_size, transformation=config['dataset']['transformation'])
 
 train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers)
-# val_loader = DataLoader(val_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers)
 
 # optimizer
 criterion = nn.NLLLoss().to(device)
@@ -98,12 +94,8 @@ best_val_dice = [0]
 for epoch in tqdm(range(max_epoch)):
     train_dice = 0
     for idx, (img, label) in tqdm(enumerate(train_loader)):
+#        print(img.shape, label.shape)
         model = model.train()
-
-        #data argumentation
-#        sample = {'image': img, 'label': label}
-#        img, label = train_transform(sample)
-
         img = img.to(device)
         label = label.to(device)
         out = model(img)

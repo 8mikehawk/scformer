@@ -1,6 +1,6 @@
 import models
 import utils
-from utils import ISIC2018
+# from utils import ISIC2018
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 import torch

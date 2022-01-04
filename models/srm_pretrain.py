@@ -1,15 +1,14 @@
-import warnings
-
+# ---------------------------------------------------------------
+# Copyright (c) 2021, NVIDIA Corporation. All rights reserved.
+#
+# This work is licensed under the NVIDIA Source Code License
+# ---------------------------------------------------------------
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 from functools import partial
-from torch.nn import Sequential, Conv2d, UpsamplingBilinear2d
 from timm.models.layers import DropPath, to_2tuple, trunc_normal_
-from timm.models.registry import register_model
-from timm.models.vision_transformer import _cfg
 import math
-import cv2
+import torch.nn.functional as F
 
 
 class Mlp(nn.Module):
@@ -128,6 +127,23 @@ class Block(nn.Module):
         mlp_hidden_dim = int(dim * mlp_ratio)
         self.mlp = Mlp(in_features=dim, hidden_features=mlp_hidden_dim, act_layer=act_layer, drop=drop)
 
+        self.apply(self._init_weights)
+
+    def _init_weights(self, m):
+        if isinstance(m, nn.Linear):
+            trunc_normal_(m.weight, std=.02)
+            if isinstance(m, nn.Linear) and m.bias is not None:
+                nn.init.constant_(m.bias, 0)
+        elif isinstance(m, nn.LayerNorm):
+            nn.init.constant_(m.bias, 0)
+            nn.init.constant_(m.weight, 1.0)
+        elif isinstance(m, nn.Conv2d):
+            fan_out = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
+            fan_out //= m.groups
+            m.weight.data.normal_(0, math.sqrt(2.0 / fan_out))
+            if m.bias is not None:
+                m.bias.data.zero_()
+
     def forward(self, x, H, W):
         x = x + self.drop_path(self.attn(self.norm1(x), H, W))
         x = x + self.drop_path(self.mlp(self.norm2(x), H, W))
@@ -148,8 +164,26 @@ class OverlapPatchEmbed(nn.Module):
         self.patch_size = patch_size
         self.H, self.W = img_size[0] // patch_size[0], img_size[1] // patch_size[1]
         self.num_patches = self.H * self.W
-        self.proj = nn.Conv2d(in_chans, embed_dim, kernel_size=patch_size, stride=stride, padding=(patch_size[0] // 2, patch_size[1] // 2))
+        self.proj = nn.Conv2d(in_chans, embed_dim, kernel_size=patch_size, stride=stride,
+                              padding=(patch_size[0] // 2, patch_size[1] // 2))
         self.norm = nn.LayerNorm(embed_dim)
+
+        self.apply(self._init_weights)
+
+    def _init_weights(self, m):
+        if isinstance(m, nn.Linear):
+            trunc_normal_(m.weight, std=.02)
+            if isinstance(m, nn.Linear) and m.bias is not None:
+                nn.init.constant_(m.bias, 0)
+        elif isinstance(m, nn.LayerNorm):
+            nn.init.constant_(m.bias, 0)
+            nn.init.constant_(m.weight, 1.0)
+        elif isinstance(m, nn.Conv2d):
+            fan_out = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
+            fan_out //= m.groups
+            m.weight.data.normal_(0, math.sqrt(2.0 / fan_out))
+            if m.bias is not None:
+                m.bias.data.zero_()
 
     def forward(self, x):
         x = self.proj(x)
@@ -158,6 +192,7 @@ class OverlapPatchEmbed(nn.Module):
         x = self.norm(x)
 
         return x, H, W
+
 
 class MixVisionTransformer(nn.Module):
     def __init__(self, img_size=224, patch_size=16, in_chans=3, num_classes=1000, embed_dims=[64, 128, 256, 512],
@@ -170,7 +205,10 @@ class MixVisionTransformer(nn.Module):
 
         # patch_embed
         self.patch_embed1 = OverlapPatchEmbed(img_size=img_size, patch_size=7, stride=4, in_chans=in_chans,
-                                              embed_dim=embed_dims[0])
+                                              embed_dim=embed_dims[0]//2)
+
+        self.patch_embed_scale_1 = OverlapPatchEmbed(img_size = img_size//2, patch_size=3, stride=2, in_chans=3, embed_dim = embed_dims[0]//2)
+
         self.patch_embed2 = OverlapPatchEmbed(img_size=img_size // 4, patch_size=3, stride=2, in_chans=embed_dims[0],
                                               embed_dim=embed_dims[1])
         self.patch_embed3 = OverlapPatchEmbed(img_size=img_size // 8, patch_size=3, stride=2, in_chans=embed_dims[1],
@@ -211,10 +249,9 @@ class MixVisionTransformer(nn.Module):
             sr_ratio=sr_ratios[3])
             for i in range(depths[3])])
         self.norm4 = norm_layer(embed_dims[3])
-        
-        
+
         # classification head
-        # self.head = nn.Linear(embed_dims[3], num_classes) if num_classes > 0 else nn.Identity()
+        self.head = nn.Linear(embed_dims[3], num_classes) if num_classes > 0 else nn.Identity()
 
         self.apply(self._init_weights)
 
@@ -233,10 +270,6 @@ class MixVisionTransformer(nn.Module):
             if m.bias is not None:
                 m.bias.data.zero_()
 
-    def init_weights(self, pretrained=None):
-        if isinstance(pretrained, str):
-            logger = get_root_logger()
-            load_checkpoint(self, pretrained, map_location='cpu', strict=False, logger=logger)
 
     def reset_drop_path(self, drop_path_rate):
         dpr = [x.item() for x in torch.linspace(0, drop_path_rate, sum(self.depths))]
@@ -271,14 +304,15 @@ class MixVisionTransformer(nn.Module):
         self.head = nn.Linear(self.embed_dim, num_classes) if num_classes > 0 else nn.Identity()
 
     def forward_features(self, x):
-        B = x.shape[0]
+        B, C, H, W = x.shape
         outs = []
-
-
+        scale_1 = F.interpolate(x, size=H // 2, mode='bilinear', align_corners=False)
 
         # stage 1
         x, H, W = self.patch_embed1(x)
-        
+        scale_1, H1, W1 = self.patch_embed_scale_1(scale_1)
+        x = torch.cat([scale_1, x], dim=2)
+
         for i, blk in enumerate(self.block1):
             x = blk(x, H, W)
         x = self.norm1(x)
@@ -306,15 +340,14 @@ class MixVisionTransformer(nn.Module):
         for i, blk in enumerate(self.block4):
             x = blk(x, H, W)
         x = self.norm4(x)
-        x = x.reshape(B, H, W, -1).permute(0, 3, 1, 2).contiguous()
+        # x = x.reshape(B, H, W, -1).permute(0, 3, 1, 2).contiguous()
         outs.append(x)
 
-        return outs
+        return x.mean(dim=1)
 
     def forward(self, x):
         x = self.forward_features(x)
-        # x = self.head(x)
-
+        x = self.head(x)
         return x
 
 
@@ -351,7 +384,7 @@ class mit_b1(MixVisionTransformer):
 class mit_b2(MixVisionTransformer):
     def __init__(self, **kwargs):
         super(mit_b2, self).__init__(
-            patch_size=4, embed_dims=[64, 128, 320, 512], num_heads=[1, 2, 5, 8], mlp_ratios=[4, 4, 4, 4],
+            patch_size=4, embed_dims=[64, 128, 320, 512], num_heads=[2, 4, 10, 16], mlp_ratios=[4, 4, 4, 4],
             qkv_bias=True, norm_layer=partial(nn.LayerNorm, eps=1e-6), depths=[3, 4, 6, 3], sr_ratios=[8, 4, 2, 1],
             drop_rate=0.0, drop_path_rate=0.1)
 
@@ -380,242 +413,16 @@ class mit_b5(MixVisionTransformer):
             drop_rate=0.0, drop_path_rate=0.1)
 
 
-model = mit_b2()
-#pretrained_dict=torch.load('/data/segformer/scformer/pretrain/mit_b2.pth')
-#model_dict = model.state_dict()
-#pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict}
-#model_dict.update(pretrained_dict)
-#model.load_state_dict(model_dict)
+# MitEncoder = mit_b2()
+# MitEncoder = MitEncoder.to('cpu')
+# from torchinfo import summary
+# summary = summary(MitEncoder, (1, 3, 352, 352))
 
-##########################################################################################backbone############################################################################################
+# from thop import profile
+# import torch
 
-from einops import rearrange
-from torch.nn import *
-from mmcv.cnn import build_activation_layer, build_norm_layer
-from timm.models.layers import DropPath
-from einops.layers.torch import Rearrange
-import numpy as np
-import torch
-from torch.nn import Module, ModuleList, Upsample
-from mmcv.cnn import ConvModule
-from torch.nn import Sequential, Conv2d, UpsamplingBilinear2d
-import torch.nn as nn
-
-
-def resize(input,
-           size=None,
-           scale_factor=None,
-           mode='nearest',
-           align_corners=None,
-           warning=True):
-    if warning:
-        if size is not None and align_corners:
-            input_h, input_w = tuple(int(x) for x in input.shape[2:])
-            output_h, output_w = tuple(int(x) for x in size)
-            if output_h > input_h or output_w > output_h:
-                if ((output_h > 1 and output_w > 1 and input_h > 1
-                     and input_w > 1) and (output_h - 1) % (input_h - 1)
-                        and (output_w - 1) % (input_w - 1)):
-                    warnings.warn(
-                        f'When align_corners={align_corners}, '
-                        'the output would more aligned if '
-                        f'input size {(input_h, input_w)} is `x+1` and '
-                        f'out size {(output_h, output_w)} is `nx+1`')
-    return F.interpolate(input, size, scale_factor, mode, align_corners)
-
-
-class MLP(nn.Module):
-    """
-    Linear Embedding
-    """
-
-    def __init__(self, input_dim=512, embed_dim=768):
-        super().__init__()
-        self.proj = nn.Linear(input_dim, embed_dim)
-
-    def forward(self, x):
-        x = x.flatten(2).transpose(1, 2)
-        x = self.proj(x)
-        return x
-
-
-class conv(nn.Module):
-    """
-    Linear Embedding
-    """
-
-    def __init__(self, input_dim=512, embed_dim=768):
-        super().__init__()
-
-        self.proj = nn.Sequential(nn.Conv2d(input_dim, embed_dim, 3, padding=1, bias=False),nn.SiLU(),
-            nn.Conv2d(embed_dim, embed_dim, 3, padding=1, bias=False), nn.SiLU())
-
-    def forward(self, x):
-        x = self.proj(x)
-        x = x.flatten(2).transpose(1, 2)
-        return x
-
-
-class Decoder(Module):
-    """
-    SegFormer: Simple and Efficient Design for Semantic Segmentation with Transformers
-    """
-
-    def __init__(self, dims, dim, class_num=2):
-        super(Decoder, self).__init__()
-        self.num_classes = class_num
-
-        c1_in_channels, c2_in_channels, c3_in_channels, c4_in_channels = dims[0], dims[1], dims[2], dims[3]
-        embedding_dim = 128
-
-        self.linear_c4 = conv(input_dim=c4_in_channels, embed_dim=embedding_dim)
-        self.linear_c3 = conv(input_dim=c3_in_channels, embed_dim=embedding_dim)
-        self.linear_c2 = conv(input_dim=c2_in_channels, embed_dim=embedding_dim)
-        self.linear_c1 = conv(input_dim=c1_in_channels, embed_dim=embedding_dim)
-
-        self.linear_fuse = ConvModule(in_channels=embedding_dim * 4, out_channels=embedding_dim, kernel_size=1,norm_cfg=dict(type='BN', requires_grad=True))
-        self.linear_fuse34 = ConvModule(in_channels=embedding_dim * 2, out_channels=embedding_dim, kernel_size=1,norm_cfg=dict(type='BN', requires_grad=True))
-        self.linear_fuse2 = ConvModule(in_channels=embedding_dim * 2, out_channels=embedding_dim, kernel_size=1,norm_cfg=dict(type='BN', requires_grad=True))
-        self.linear_fuse1 = ConvModule(in_channels=embedding_dim * 2, out_channels=embedding_dim, kernel_size=1,norm_cfg=dict(type='BN', requires_grad=True))
-
-        self.linear_pred = Conv2d(embedding_dim, self.num_classes, kernel_size=1)
-        self.dropout = nn.Dropout(0.1)
-
-    def forward(self, inputs):
-
-        c1, c2, c3, c4 = inputs
-        ############## MLP decoder on C1-C4 ###########
-        n, _, h, w = c4.shape
-
-        _c4 = self.linear_c4(c4).permute(0, 2, 1).reshape(n, -1, c4.shape[2], c4.shape[3])
-        _c4 = resize(_c4, size=c1.size()[2:], mode='bilinear', align_corners=False)
-        _c3 = self.linear_c3(c3).permute(0, 2, 1).reshape(n, -1, c3.shape[2], c3.shape[3])
-        _c3 = resize(_c3, size=c1.size()[2:], mode='bilinear', align_corners=False)
-        _c2 = self.linear_c2(c2).permute(0, 2, 1).reshape(n, -1, c2.shape[2], c2.shape[3])
-        _c2 = resize(_c2, size=c1.size()[2:], mode='bilinear', align_corners=False)
-        _c1 = self.linear_c1(c1).permute(0, 2, 1).reshape(n, -1, c1.shape[2], c1.shape[3])
-
-#        L34 = self.linear_fuse34(torch.cat([_c4, _c3], dim=1))
-#        L2 = self.linear_fuse2(torch.cat([L34, _c2], dim=1))
-#        _cc = self.linear_fuse1(torch.cat([L2, _c1], dim=1))
-        
-        _c = self.linear_fuse(torch.cat([_c4, _c3, _c2, _c1], dim=1))
-        x = self.dropout(_c)
-        x = self.linear_pred(x)
-        return x
-
-class sct_b0(nn.Module):
-    def __init__(self, class_num=2, **kwargs):
-        super(sct_b0, self).__init__()
-        self.class_num = class_num
-        self.backbone = mit_b0()
-        self.decode_head = Decoder(dims=[32, 64, 160, 256], dim=256, class_num=class_num)
-
-    def forward(self, x):
-        features = self.backbone(x)
-
-        features = self.decode_head(features)
-        up = UpsamplingBilinear2d(scale_factor=4)
-        features = up(features)
-        return features
-
-
-class sct_b1(nn.Module):
-    def __init__(self, class_num=2, **kwargs):
-        super(sct_b1, self).__init__()
-        self.class_num = class_num
-        self.backbone = mit_b1()
-        self.decode_head = Decoder(dims=[64, 128, 320, 512], dim=512, class_num=class_num)
-
-    def forward(self, x):
-        features = self.backbone(x)
-
-        features = self.decode_head(features)
-        up = UpsamplingBilinear2d(scale_factor=4)
-        features = up(features)
-        return features
-
-
-class sct_b2(nn.Module):
-    def __init__(self, class_num=2, **kwargs):
-        super(sct_b2, self).__init__()
-        self.class_num = class_num
-        ######################################load_weight
-        self.backbone = model
-        #####################################
-        self.decode_head = Decoder(dims=[64, 128, 320, 512], dim=768, class_num=class_num)
-
-    def forward(self, x):
-        features = self.backbone(x)
-
-        features = self.decode_head(features)
-        up = UpsamplingBilinear2d(scale_factor=4)
-        features = up(features)
-        return features
-
-
-class sct_b3(nn.Module):
-    def __init__(self, class_num=2, **kwargs):
-        super(sct_b3, self).__init__()
-        self.class_num = class_num
-        self.backbone = mit_b3()
-        self.decode_head = Decoder(dims=[64, 128, 320, 512], dim=768, class_num=class_num)
-
-    def forward(self, x):
-        features = self.backbone(x)
-
-        features = self.decode_head(features)
-        up = UpsamplingBilinear2d(scale_factor=4)
-        features = up(features)
-        # print(features.shape)
-        return features
-
-
-class sct_b4(nn.Module):
-    def __init__(self, class_num=2, **kwargs):
-        super(sct_b4, self).__init__()
-        self.class_num = class_num
-        self.backbone = mit_b4()
-        self.decode_head = Decoder(dims=[64, 128, 320, 512], dim=768, class_num=class_num)
-
-    def forward(self, x):
-        features = self.backbone(x)
-
-        features = self.decode_head(features)
-        up = UpsamplingBilinear2d(scale_factor=4)
-        features = up(features)
-        # print(features.shape)
-        return features
-
-
-class sct_b5(nn.Module):
-    def __init__(self, class_num=2, **kwargs):
-        super(sct_b5, self).__init__()
-        self.class_num = class_num
-        self.backbone = mit_b5()
-        self.decode_head = Decoder(dims=[64, 128, 320, 512], dim=768, class_num=class_num)
-
-    def forward(self, x):
-        features = self.backbone(x)
-        features = self.decode_head(features)
-        up = UpsamplingBilinear2d(scale_factor=4)
-        features = up(features)
-        return features
-
-
-#MitEncoder = sct_b2(class_num=2)
-#MitEncoder = MitEncoder.to('cuda')
-#from torchinfo import summary
-#
-##summary(MitEncoder, (1, 3, 512, 512))
-#
-#
-#from thop import profile
-#import torch
-#
-#input = torch.randn(1, 3, 352, 352).to('cuda')
-#macs, params = profile(MitEncoder, inputs=(input, ))
-#print('macs:',macs/1000000000)
-#print('params:',params/1000000)
-
+# input = torch.randn(1, 3, 352, 352).to('cpu')
+# macs, params = profile(MitEncoder, inputs=(input, ))
+# print('macs:',macs)
+# print('params:',params)
 

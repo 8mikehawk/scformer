@@ -325,12 +325,12 @@ class mit_b5(MixVisionTransformer):
             drop_rate=0.0, drop_path_rate=0.1)
 
 
-#model = mit_b2()
-#pretrained_dict=torch.load('/data/segformer/scformer/pretrain/mit_b2.pth')
-#model_dict = model.state_dict()
-#pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict}
-#model_dict.update(pretrained_dict)
-#model.load_state_dict(model_dict)
+model = mit_b2()
+pretrained_dict=torch.load('/data/segformer/scformer/pretrain/mit_b2.pth')
+model_dict = model.state_dict()
+pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict}
+model_dict.update(pretrained_dict)
+model.load_state_dict(model_dict)
 
 ##########################################################################################backbone############################################################################################
 

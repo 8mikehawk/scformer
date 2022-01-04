@@ -1,8 +1,8 @@
 import configparser
 import io
-from models import sct_b1_pixel, build
+from models import build
 from loguru import logger
-from utils.tools import ISIC2018, mean_iou
+from utils.tools import mean_iou
 from tqdm import tqdm
 import torch.nn as nn
 import torch.optim as optmi

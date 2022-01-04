@@ -92,4 +92,3 @@
 2022-01-02 22:09:20.439 | INFO     | __main__:<module>:133 - | epoch : 44 | val done |
 2022-01-02 22:11:32.425 | INFO     | __main__:<module>:108 - | epoch : 45 | training done |
 2022-01-02 22:11:38.468 | INFO     | __main__:<module>:133 - | epoch : 45 | val done |
-2022-01-03 01:18:57.087 | INFO     | __main__:<module>:80 - | start training .... |

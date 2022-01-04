@@ -410,3 +410,6 @@
 2022-01-02 06:46:38.902 | INFO     | __main__:<module>:244 - | epoch : 198 | val done |
 2022-01-02 06:47:22.461 | INFO     | __main__:<module>:111 - | epoch : 199 | training done |
 2022-01-02 06:47:36.629 | INFO     | __main__:<module>:244 - | epoch : 199 | val done |
+2022-01-04 12:02:58.402 | INFO     | __main__:<module>:91 - | start training .... | current model srm_b2_pixel |
+2022-01-04 12:04:51.247 | INFO     | __main__:<module>:91 - | start training .... | current model srm_b2_pixel |
+2022-01-04 12:05:38.835 | INFO     | __main__:<module>:91 - | start training .... | current model srm_b2_pixel |

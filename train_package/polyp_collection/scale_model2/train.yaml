@@ -17,9 +17,9 @@ dataset:
   test_Kvasir_img : /data/segformer/scformer/data/polyp/TestDataset/Kvasir/images/
   test_Kvasir_label : /data/segformer/scformer/data/polyp/TestDataset/Kvasir/masks_new/
 
-  class_num: 2
+  transformation : False
 
-  transformation: True
+  class_num: 2
 
   crop_size : 
     w: 352
@@ -34,7 +34,7 @@ dataset:
 # sct_b0_pretrained
 
 model:
-  model_name : srm_b2_pixel
+  model_name : scale_model2
 
 training:
   device : cuda
@@ -42,8 +42,8 @@ training:
   max_epoch : 200
 
 other:
-  checkpoint_save_path : /data/segformer/scformer/train_package/polyp_collection/srm_b2_pixel
-  logger_path : /data/segformer/scformer/train_package/polyp_collection/srm_b2_pixel/srm_b2_pixel.log
+  checkpoint_save_path : /data/segformer/scformer/train_package/polyp_collection/scale_model2/
+  logger_path : /data/segformer/scformer/train_package/polyp_collection/scale_model2/feilong_test.log
 
 test:
-  checkpoint_save_path : /data/segformer/scformer/train_package/polyp_collection/srm_b2_pixel/val_best.pth
+  checkpoint_save_path : /data/segformer/scformer/train_package/polyp_collection/scale_model2/val_best.pth
