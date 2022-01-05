@@ -17,8 +17,10 @@ model = mit_b2()
 
 model = model.to(device)
 
+model.load_state_dict(torch.load("/data/segformer/scformer/train_package/imageNet_pretrain/train_7.pth"))
+
 batch_size = 256
-num_works = 128
+num_works = 8
 lr = 1e-4
 
 logger.add("/data/segformer/scformer/train_package/imageNet_pretrain/imageNet.log")
@@ -52,12 +54,12 @@ for epoch in range(100000000000000):
         optimizer.step() 
         if idx % 20 == 0 and idx != 0:
             # print(loss.item() / idx)
-            torch.save(model.state_dict(), "/data/segformer/scformer/train_package/imageNet_pretrain/train.pth")
+            # torch.save(model.state_dict(), "/data/segformer/scformer/train_package/imageNet_pretrain/train.pth")
             logger.info(f"| Epoch {epoch} | batch {idx} | loss : {loss.item() / idx}|")
     print(loss)  
-    logger.critical(f"| Epoch {epoch} | batch {idx} | loss : {loss.item() / idx} |")
-    torch.save(model.state_dict(), "/data/segformer/scformer/train_package/imageNet_pretrain/train.pth")
-    if (loss / idx) > max(best_loss):
+    # logger.critical(f"| Epoch {epoch} | batch {idx} | loss : {loss.item() / idx} |")
+    # torch.save(model.state_dict(), "/data/segformer/scformer/train_package/imageNet_pretrain/train.pth")
+    if (loss / idx) < max(best_loss):
         best_loss.append((loss / idx))
         logger.critical(f"| Epoch {epoch} | best training loss : {max(best_loss)} |")
-        torch.save(model.state_dict(), "/data/segformer/scformer/train_package/imageNet_pretrain/train.pth")
+        torch.save(model.state_dict(), "/data/segformer/scformer/train_package/imageNet_pretrain/train_best.pth")

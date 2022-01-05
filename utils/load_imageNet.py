@@ -1,5 +1,6 @@
 from torch.utils.data import Dataset
 import albumentations as A
+from torchvision import transforms
 from PIL import Image
 import numpy as np
 import torch
@@ -28,10 +29,7 @@ class ImageNetLoader(Dataset):
 
             img = img.resize((224, 224))
 
-            img = np.array(img) / 255
-
-            # img = torch.as_tensor(img)
-            # label = torch.as_tensor(label)
+            img = np.array(img) 
             
             if len(img.shape) != 3:
                 img = np.repeat(img, 3)
@@ -43,6 +41,8 @@ class ImageNetLoader(Dataset):
             label = torch.as_tensor(label)
 
             img = img.permute(2, 0, 1)
+
+            img = self.transformation(img)
 
             return img.float(), label.long()
 
@@ -52,10 +52,7 @@ class ImageNetLoader(Dataset):
 
             img = img.resize((224, 224))
 
-            img = np.array(img) / 255
-
-            # img = torch.as_tensor(img)
-            # label = torch.as_tensor(label)
+            img = np.array(img)
             
             if len(img.shape) != 3:
                 img = np.repeat(img, 3)
@@ -67,6 +64,8 @@ class ImageNetLoader(Dataset):
             label = torch.as_tensor(label)
 
             img = img.permute(2, 0, 1)
+
+            img = self.transformation(img)
 
             return img.float(), label.long()
 
@@ -97,6 +96,20 @@ class ImageNetLoader(Dataset):
         self.train_label = np.array(self.train_label)
         self.val_label = np.array(self.val_label)
         self.val_img = np.array(self.val_img)
+    
+    def transformation(self, img):
+        train_transformer = transforms.Compose([
+            transforms.ToPILImage(),
+            transforms.RandomRotation(45),
+            transforms.Resize(224),
+            transforms.RandomHorizontalFlip(p=0.5),
+            transforms.ToTensor(),
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+        ])
+
+        img = train_transformer(img)
+
+        return img
         
     
 if __name__ == '__main__':
