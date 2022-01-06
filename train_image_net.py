@@ -56,7 +56,7 @@ for epoch in range(100000000000000):
             # print(loss.item() / idx)
             torch.save(model.state_dict(), "/data/segformer/scformer/train_package/imageNet_pretrain/train.pth")
             logger.info(f"| Epoch {epoch} | batch {idx} | loss : {loss.item() / idx}|")
-    logger.critical(f"| Epoch {epoch} | batch {idx} | loss : {loss.item() / idx}|")
+    # logger.critical(f"| Epoch {epoch} | batch {idx} | loss : {loss.item() / idx}|")
     # logger.critical(f"| Epoch {epoch} | batch {idx} | loss : {loss.item() / idx} |")
     # torch.save(model.state_dict(), "/data/segformer/scformer/train_package/imageNet_pretrain/train.pth")
     if (loss / idx) < min(best_loss):

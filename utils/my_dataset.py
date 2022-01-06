@@ -8,12 +8,10 @@ import yaml
 import sys
 import albumentations as A
 
+f = open(sys.argv[1])
+config = yaml.safe_load(f)
 
-# for cvc dataset
-# f = open(sys.argv[1])
-# config = yaml.safe_load(f)
-
-# dataset for isic2018
+# Datareaderset for isic2018
 class ISIC2018(Dataset):
     def __init__(self, train_img_root, val_img_root, train_label_root, val_label_root, crop_size, mode='train'):
         self.train_img_files = self.read_file(train_img_root)
