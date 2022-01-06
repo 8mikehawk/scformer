@@ -25,11 +25,36 @@ dataset:
   batch_size : 16
   num_workers : 8
 
-# sct_b1
-# sct_dw_b1
-# sct_pixel_b1
-# sct_dw_pixel_b1
-# sct_b0_pretrained
+
+Train_transform_list:
+  resize: 
+      size: [352, 352]
+  random_scale_crop:
+      range: [0.75, 1.25]
+  random_flip:
+      lr: True
+      ud: True
+  random_rotate:
+      range: [0, 359]
+  random_image_enhance:
+      methods: ['contrast', 'sharpness', 'brightness']
+  random_dilation_erosion:
+      kernel_range: [2, 5]
+  tonumpy: NULL
+  normalize: 
+      mean: [0.485, 0.456, 0.406]
+      std: [0.229, 0.224, 0.225]
+  totensor: NULL
+
+Val_transform_list:
+  resize: 
+      size: [352, 352]
+  tonumpy: NULL
+  normalize: 
+      mean: [0.485, 0.456, 0.406]
+      std: [0.229, 0.224, 0.225]
+  totensor: NULL
+
 
 model:
   model_name : srm
@@ -42,7 +67,7 @@ training:
 
 other:
   checkpoint_save_path : /data/segformer/scformer/train_package/polyp_collection/srm
-  logger_path : /data/segformer/scformer/train_package/polyp_collection/srm/feilong.log
+  logger_path : /data/segformer/scformer/train_package/polyp_collection/srm/srm.log
 
 test:
   checkpoint_save_path : /data/segformer/scformer/train_package/polyp_collection/srm/val_best.pth

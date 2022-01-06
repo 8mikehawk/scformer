@@ -233,3 +233,17 @@
 2022-01-06 21:59:16.315 | INFO     | __main__:<module>:214 - | epoch : 111 | val done |
 2022-01-06 22:00:12.919 | INFO     | __main__:<module>:84 - | epoch : 112 | training done | loss: 0.008332881298693981 |
 2022-01-06 22:00:30.982 | INFO     | __main__:<module>:214 - | epoch : 112 | val done |
+2022-01-06 22:01:29.683 | INFO     | __main__:<module>:84 - | epoch : 113 | training done | loss: 0.008081868454650209 |
+2022-01-06 22:01:45.872 | INFO     | __main__:<module>:214 - | epoch : 113 | val done |
+2022-01-06 22:02:46.918 | INFO     | __main__:<module>:84 - | epoch : 114 | training done | loss: 0.008442614104721573 |
+2022-01-06 22:03:02.627 | INFO     | __main__:<module>:214 - | epoch : 114 | val done |
+2022-01-06 22:04:05.701 | INFO     | __main__:<module>:84 - | epoch : 115 | training done | loss: 0.007528573602110475 |
+2022-01-06 22:04:21.548 | INFO     | __main__:<module>:214 - | epoch : 115 | val done |
+2022-01-06 22:05:23.875 | INFO     | __main__:<module>:84 - | epoch : 116 | training done | loss: 0.007544709430946098 |
+2022-01-06 22:05:40.081 | INFO     | __main__:<module>:214 - | epoch : 116 | val done |
+2022-01-06 22:06:40.126 | INFO     | __main__:<module>:84 - | epoch : 117 | training done | loss: 0.007623042379106794 |
+2022-01-06 22:06:56.559 | INFO     | __main__:<module>:214 - | epoch : 117 | val done |
+2022-01-06 22:07:54.587 | INFO     | __main__:<module>:84 - | epoch : 118 | training done | loss: 0.007559239209353269 |
+2022-01-06 22:08:11.799 | INFO     | __main__:<module>:214 - | epoch : 118 | val done |
+2022-01-06 22:09:06.757 | INFO     | __main__:<module>:84 - | epoch : 119 | training done | loss: 0.007957726389497191 |
+2022-01-06 22:09:24.561 | INFO     | __main__:<module>:214 - | epoch : 119 | val done |

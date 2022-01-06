@@ -160,7 +160,7 @@ class normalize:
         image -= self.mean
         image /= self.std
 
-        gt /= 255
+#        gt /= 255
         sample['image'] = image
         sample['gt'] = gt
 

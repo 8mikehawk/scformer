@@ -71,3 +71,21 @@
 2022-01-06 21:59:28.162 | INFO     | __main__:<module>:224 - | epoch : 29 | val done |
 2022-01-06 22:00:22.607 | INFO     | __main__:<module>:94 - | epoch : 30 | training done | loss: 0.021607368201999873 |
 2022-01-06 22:00:39.527 | INFO     | __main__:<module>:224 - | epoch : 30 | val done |
+2022-01-06 22:01:35.660 | INFO     | __main__:<module>:94 - | epoch : 31 | training done | loss: 0.0207672669337346 |
+2022-01-06 22:01:51.716 | INFO     | __main__:<module>:224 - | epoch : 31 | val done |
+2022-01-06 22:02:49.862 | INFO     | __main__:<module>:94 - | epoch : 32 | training done | loss: 0.021031252630464323 |
+2022-01-06 22:03:04.260 | INFO     | __main__:<module>:224 - | epoch : 32 | val done |
+2022-01-06 22:04:04.781 | INFO     | __main__:<module>:94 - | epoch : 33 | training done | loss: 0.01989379950932094 |
+2022-01-06 22:04:20.135 | INFO     | __main__:<module>:220 - | epoch : 33 | CVC-300 : 0.7474805533481201 | CVC-ClinicDB : 0.8783380305492041 | CVC-ColonDB : 0.62182864911928 | ETIS-LaribPolypDB : 0.5452435564776392 | Kvasir : 0.815104134152608 |
+2022-01-06 22:04:20.135 | CRITICAL | __main__:<module>:221 - | epoch : 33 | best_val_dice_score : 0.7215989847293703 |
+2022-01-06 22:05:20.327 | INFO     | __main__:<module>:94 - | epoch : 34 | training done | loss: 0.01904852377189385 |
+2022-01-06 22:05:35.781 | INFO     | __main__:<module>:224 - | epoch : 34 | val done |
+2022-01-06 22:06:33.129 | INFO     | __main__:<module>:94 - | epoch : 35 | training done | loss: 0.018765525503472966 |
+2022-01-06 22:06:48.812 | INFO     | __main__:<module>:224 - | epoch : 35 | val done |
+2022-01-06 22:07:44.206 | INFO     | __main__:<module>:94 - | epoch : 36 | training done | loss: 0.019027240983732454 |
+2022-01-06 22:07:59.915 | INFO     | __main__:<module>:224 - | epoch : 36 | val done |
+2022-01-06 22:08:52.600 | INFO     | __main__:<module>:94 - | epoch : 37 | training done | loss: 0.01813322764176589 |
+2022-01-06 22:09:08.858 | INFO     | __main__:<module>:220 - | epoch : 37 | CVC-300 : 0.75367095736196 | CVC-ClinicDB : 0.8771374259304368 | CVC-ColonDB : 0.6293003950101963 | ETIS-LaribPolypDB : 0.5463279297654619 | Kvasir : 0.8120132404554525 |
+2022-01-06 22:09:08.858 | CRITICAL | __main__:<module>:221 - | epoch : 37 | best_val_dice_score : 0.7236899897047013 |
+2022-01-06 22:09:52.878 | INFO     | __main__:<module>:94 - | epoch : 38 | training done | loss: 0.018479091780526296 |
+2022-01-06 22:10:06.679 | INFO     | __main__:<module>:224 - | epoch : 38 | val done |

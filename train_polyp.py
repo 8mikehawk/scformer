@@ -4,7 +4,7 @@ from tqdm import tqdm
 import torch.nn as nn
 import torch.optim as optmi
 import torch.nn.functional as F
-from utils.tools import mean_dice
+from utils.tools import mean_dice, mean_iou
 from utils import DataBuilder, Datareader, CustomDataSet
 from utils.loss import *
 from torch.utils.data import DataLoader
@@ -30,14 +30,14 @@ device = config['training']['device']
 model = build(model_name=config['model']['model_name'], class_num=config['dataset']['class_num'])
 model.to(device)
 
-# if pretrained 
-if config['model']['is_pretrained']:
-    pretrained_dict = torch.load(config['model']['pretrained_path'])
-    model_dict = model.state_dict()
+# # if pretrained 
+# if config['model']['is_pretrained']:
+#     pretrained_dict = torch.load(config['model']['pretrained_path'])
+#     model_dict = model.state_dict()
 
-    pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict}
-    model_dict.update(pretrained_dict)
-    model.load_state_dict(model_dict)
+#     pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict}
+#     model_dict.update(pretrained_dict)
+#     model.load_state_dict(model_dict)
 
 train_img_root = config['dataset']['train_img_root']
 train_label_root = config['dataset']['train_label_root']
@@ -115,14 +115,13 @@ for epoch in tqdm(range(max_epoch)):
                 label = label.to(device)
                 x = model(img)
                 pred = F.softmax(x, dim=1)
-                # print(pred.shape, img.shape)
                 pre_label = pred.max(dim=1)[1].data.cpu().numpy()
                 true_label = label.data.cpu().numpy()
                 true_label = np.squeeze(true_label, axis = 1)
                 all_acc, acc, dice = mean_dice(pre_label, true_label, num_classes = config['dataset']['class_num'], ignore_index = None)
                 val_dice = dice[1] + val_dice
             val_cvc_300 = val_dice/(idx+1)
-
+        
         print("evaluating CVC-ClinicDB")
         # CVC-ClinicDB
         val_ds = CustomDataSet(config['dataset']['test_CVC-ClinicDB_img'], config['dataset']['test_CVC-ClinicDB_label'], crop_size, transform_list = Val_transform_list)
