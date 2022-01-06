@@ -1,5 +1,4 @@
-from .segformer_b2_pretrained_original import sct_b2 as segformer_b2_pretrained_original
-
+from .segformer import sct_b2 as segformer
 
 from .srm import sct_b2 as srm
 from .srm_fully_conv import sct_b2 as srm_fully_conv
@@ -13,8 +12,8 @@ from .srm_pretrain import mit_b2 as srm_pretrain
 
 def build(model_name, class_num=2):
 
-    if model_name == "segformer_b2_pretrained_original":
-        model = segformer_b2_pretrained_original(class_num=class_num)
+    if model_name == "segformer":
+        model = segformer(class_num=class_num)
         return model
         
     if model_name == "srm":

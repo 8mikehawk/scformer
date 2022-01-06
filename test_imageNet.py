@@ -19,7 +19,7 @@ model = mit_b2()
 
 model = model.to(device)
 
-checkpoint_path = "/data/segformer/scformer/train_package/imageNet_pretrain/train_7.pth"
+checkpoint_path = "/data/segformer/scformer/train_package/imageNet_pretrain/train_best.pth"
 
 if device != "cuda":
     model.load_state_dict(torch.load(checkpoint_path, map_location=device))
@@ -29,7 +29,7 @@ else:
 val_ds = ImageNetLoader("/data/imageNet/train_.txt", "/data/imageNet/val_.txt", mode="val")
 val_loader = DataLoader(val_ds, batch_size=batch_size, num_workers=num_works, shuffle=True)
 
-progress = tqdm(enumerate(val_loader), desc="Loss: ", total=val_ds.__len__())
+progress = tqdm(enumerate(val_loader), total=val_ds.__len__())
 with torch.no_grad():
     acc = 0
     for idx, (img, label) in enumerate(val_loader):
@@ -39,9 +39,10 @@ with torch.no_grad():
         out = F.softmax(out, dim=1)
         pred = torch.argmax(out, dim=1)
         acc += sum(pred == label)
-        if idx != 0:
+        print(sum(pred == label))
+        # if idx != 0:
         #     print(f"batch : {idx}, acc : {acc / idx}")
-            progress.set_description("Loss: {:.4f}".format(acc / idx))
-        progress.update(batch_size)
+        #     progress.set_description("Accuracy: {:.4f}".format(acc / (idx * batch_size)))
+        # progress.update(batch_size)
 
-    print(f"accuracy is : {acc / idx}")
+    # print(f"accuracy is : {acc / idx}")

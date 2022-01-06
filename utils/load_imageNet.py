@@ -47,12 +47,33 @@ class ImageNetLoader(Dataset):
             return img.float(), label.long()
 
         if self.mode == "val":
+            # img = Image.open(self.val_img[index])
+            # label = self.val_label[index]
+
+            # img = img.resize((224, 224))
+
+            # img = np.array(img)
+            
+            # if len(img.shape) != 3:
+            #     img = np.repeat(img, 3)
+            #     img = img.reshape((224, 224, 3))
+            # if img.shape[2] == 4:
+            #     img = img[:,:,:3]
+
+            # img = torch.as_tensor(img)
+            # label = torch.as_tensor(label)
+
+            # img = img.permute(2, 0, 1)
+
+            # img = self.transformation(img)
+
+            # return img.float(), label.long()
             img = Image.open(self.val_img[index])
             label = self.val_label[index]
 
             img = img.resize((224, 224))
 
-            img = np.array(img)
+            img = np.array(img) 
             
             if len(img.shape) != 3:
                 img = np.repeat(img, 3)
@@ -65,9 +86,9 @@ class ImageNetLoader(Dataset):
 
             img = img.permute(2, 0, 1)
 
-            img = self.transformation(img)
+            # img = self.transformation(img)
 
-            return img.float(), label.long()
+            return img.float(), label.long()            
 
     def __len__(self):
         if self.mode == 'train':
