@@ -22,6 +22,10 @@ np.seterr(divide='ignore',invalid='ignore')
 f = open(sys.argv[1])
 config = yaml.safe_load(f)
 
+# logger
+print(config['other']['logger_path'])
+logger.add(config['other']['logger_path'])
+
 evl_epoch = config['training']['evl_epoch']
 
 
@@ -29,6 +33,15 @@ evl_epoch = config['training']['evl_epoch']
 device = config['training']['device']
 model = build(model_name=config['model']['model_name'], class_num=config['dataset']['class_num'])
 model.to(device)
+
+# if pretrained 
+if config['model']['is_pretrained']:
+    logger.info("successfully add pretrained ...")
+    pretrained_dict = torch.load(config['model']['pretrained_path'])
+    model_dict = model.state_dict()
+    pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict}
+    model_dict.update(pretrained_dict)
+    model.load_state_dict(model_dict)
 
 train_img_root = config['dataset']['train_img_root']
 train_label_root = config['dataset']['train_label_root']
@@ -54,10 +67,6 @@ train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=True, num_wor
 # criterion = nn.NLLLoss().to(device)
 criterion = DiceLoss().to(device)
 optimizer = optmi.AdamW(model.parameters(), lr=lr)
-
-# logger
-print(config['other']['logger_path'])
-logger.add(config['other']['logger_path'])
 
 # start training
 logger.info(f"| start training .... | current model {config['model']['model_name']} |")
