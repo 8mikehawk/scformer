@@ -10,16 +10,12 @@ dataset:
   class_num: 2
 
   crop_size : 
-    w: 512
-    h: 512
+    w: 352
+    h: 352
   batch_size : 8
   num_workers : 8
 
-# sct_b1
-# sct_dw_b1
-# sct_pixel_b1
-# sct_dw_pixel_b1
-# sct_b0_pretrained
+
 
 model:
   model_name : sct_b1
@@ -35,3 +31,7 @@ other:
 
 test:
   checkpoint_save_path : /mnt/DATA-1/DATA-2/Feilong/scformer/train_package/test_config/val_best.pth
+
+
+
+            

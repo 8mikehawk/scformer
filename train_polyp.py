@@ -22,10 +22,6 @@ np.seterr(divide='ignore',invalid='ignore')
 f = open(sys.argv[1])
 config = yaml.safe_load(f)
 
-# logger
-print(config['other']['logger_path'])
-logger.add(config['other']['logger_path'])
-
 evl_epoch = config['training']['evl_epoch']
 
 
@@ -36,9 +32,9 @@ model.to(device)
 
 # if pretrained 
 if config['model']['is_pretrained']:
-    logger.info("successfully add pretrained ...")
     pretrained_dict = torch.load(config['model']['pretrained_path'])
     model_dict = model.state_dict()
+
     pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict}
     model_dict.update(pretrained_dict)
     model.load_state_dict(model_dict)
@@ -53,14 +49,17 @@ batch_size = config['dataset']['batch_size']
 num_workers = config['dataset']['num_workers']
 checkpoint_save_path = config['other']['checkpoint_save_path']
 
+# transform_list
+Train_transform_list = config['Train_transform_list']
+Val_transform_list = config['Val_transform_list']
+
 # training
 max_epoch = config['training']['max_epoch']
 lr = float(
     config['training']['lr']
 )
 
-train_ds = CustomDataSet(train_img_root, train_label_root, crop_size)
-
+train_ds = CustomDataSet(train_img_root, train_label_root, crop_size, transform_list=Train_transform_list)
 train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers)
 
 # optimizer
@@ -68,9 +67,14 @@ train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=True, num_wor
 criterion = DiceLoss().to(device)
 optimizer = optmi.AdamW(model.parameters(), lr=lr)
 
+# logger
+print(config['other']['logger_path'])
+logger.add(config['other']['logger_path'])
+
 # start training
 logger.info(f"| start training .... | current model {config['model']['model_name']} |")
 best_val_dice = [0]
+best_loss = [100000]
 
 for epoch in tqdm(range(max_epoch)):
     train_loss = 0
@@ -80,17 +84,16 @@ for epoch in tqdm(range(max_epoch)):
         label = label.to(device)
         out = model(img)
         out = F.log_softmax(out, dim=1)
-        
         loss = criterion(out, label)
-
         train_loss += loss.item()
-
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
 
-    print("train epoch done")
-    logger.info(f"| epoch : {epoch} | training done | loss: {train_loss / (idx + 1)} |")
+    if train_loss / (idx +1) < min(best_loss):
+
+        print("train epoch done")
+        logger.info(f"| epoch : {epoch} | training done | best loss: {train_loss / (idx + 1)} |")
 
     if epoch >= evl_epoch:
 
@@ -101,7 +104,7 @@ for epoch in tqdm(range(max_epoch)):
         val_Kvasir = 0
         print("evaluating cvc-300")
         # cvc
-        val_ds = Datareader(config['dataset']['test_CVC-300_img'], config['dataset']['test_CVC-300_label'], crop_size)
+        val_ds = CustomDataSet(config['dataset']['test_CVC-300_img'], config['dataset']['test_CVC-300_label'], crop_size, transform_list = Val_transform_list)
         val_loader = DataLoader(val_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers)
 
         # evaluate cvc
@@ -114,16 +117,15 @@ for epoch in tqdm(range(max_epoch)):
                 pred = F.softmax(x, dim=1)
                 # print(pred.shape, img.shape)
                 pre_label = pred.max(dim=1)[1].data.cpu().numpy()
-                pre_label = [i for i in pre_label]
                 true_label = label.data.cpu().numpy()
-                true_label = [i for i in true_label]
+                true_label = np.squeeze(true_label, axis = 1)
                 all_acc, acc, dice = mean_dice(pre_label, true_label, num_classes = config['dataset']['class_num'], ignore_index = None)
                 val_dice = dice[1] + val_dice
             val_cvc_300 = val_dice/(idx+1)
 
         print("evaluating CVC-ClinicDB")
         # CVC-ClinicDB
-        val_ds = Datareader(config['dataset']['test_CVC-ClinicDB_img'], config['dataset']['test_CVC-ClinicDB_label'], crop_size)
+        val_ds = CustomDataSet(config['dataset']['test_CVC-ClinicDB_img'], config['dataset']['test_CVC-ClinicDB_label'], crop_size, transform_list = Val_transform_list)
         val_loader = DataLoader(val_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers)
 
         # evaluate CVC-ClinicDB
@@ -136,16 +138,15 @@ for epoch in tqdm(range(max_epoch)):
                 pred = F.softmax(x, dim=1)
                 # print(pred.shape, img.shape)
                 pre_label = pred.max(dim=1)[1].data.cpu().numpy()
-                pre_label = [i for i in pre_label]
                 true_label = label.data.cpu().numpy()
-                true_label = [i for i in true_label]
+                true_label = np.squeeze(true_label, axis = 1)
                 all_acc, acc, dice = mean_dice(pre_label, true_label, num_classes = config['dataset']['class_num'], ignore_index = None)
                 val_dice = dice[1] + val_dice
             val_cvc_clinicDB = val_dice/(idx+1)
 
         print("CVC-ColonDB")
         # CVC-ColonDB
-        val_ds = Datareader(config['dataset']['test_CVC-ColonDB_img'], config['dataset']['test_CVC-ColonDB_label'], crop_size)
+        val_ds = CustomDataSet(config['dataset']['test_CVC-ColonDB_img'], config['dataset']['test_CVC-ColonDB_label'], crop_size, transform_list = Val_transform_list)
         val_loader = DataLoader(val_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers)
 
         # evaluate CVC-ColonDB
@@ -158,9 +159,8 @@ for epoch in tqdm(range(max_epoch)):
                 pred = F.softmax(x, dim=1)
                 # print(pred.shape, img.shape)
                 pre_label = pred.max(dim=1)[1].data.cpu().numpy()
-                pre_label = [i for i in pre_label]
                 true_label = label.data.cpu().numpy()
-                true_label = [i for i in true_label]
+                true_label = np.squeeze(true_label, axis = 1)
                 all_acc, acc, dice = mean_dice(pre_label, true_label, num_classes = config['dataset']['class_num'], ignore_index = None)
                 val_dice = dice[1] + val_dice
             val_cvc_colonDB = val_dice/(idx+1)
@@ -168,7 +168,7 @@ for epoch in tqdm(range(max_epoch)):
         print("evaluating ETIS-LaribPolypDB")
 
         # ETIS-LaribPolypDB
-        val_ds = Datareader(config['dataset']['test_ETIS-LaribPolypDB_img'], config['dataset']['test_ETIS-LaribPolypDB_label'], crop_size)
+        val_ds = CustomDataSet(config['dataset']['test_ETIS-LaribPolypDB_img'], config['dataset']['test_ETIS-LaribPolypDB_label'], crop_size, transform_list = Val_transform_list)
         val_loader = DataLoader(val_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers)
 
         # evaluate ETIS-LaribPolypDB
@@ -181,16 +181,15 @@ for epoch in tqdm(range(max_epoch)):
                 pred = F.softmax(x, dim=1)
                 # print(pred.shape, img.shape)
                 pre_label = pred.max(dim=1)[1].data.cpu().numpy()
-                pre_label = [i for i in pre_label]
                 true_label = label.data.cpu().numpy()
-                true_label = [i for i in true_label]
+                true_label = np.squeeze(true_label, axis = 1)
                 all_acc, acc, dice = mean_dice(pre_label, true_label, num_classes = config['dataset']['class_num'], ignore_index = None)
                 val_dice = dice[1] + val_dice
             val_etis = val_dice/(idx+1)
 
         print("evaluating Kvasir")
         # Kvasir
-        val_ds = Datareader(config['dataset']['test_Kvasir_img'], config['dataset']['test_Kvasir_label'], crop_size)
+        val_ds = CustomDataSet(config['dataset']['test_Kvasir_img'], config['dataset']['test_Kvasir_label'], crop_size, transform_list = Val_transform_list)
         val_loader = DataLoader(val_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers)
 
         # evaluate Kvasir
@@ -203,9 +202,8 @@ for epoch in tqdm(range(max_epoch)):
                 pred = F.softmax(x, dim=1)
                 # print(pred.shape, img.shape)
                 pre_label = pred.max(dim=1)[1].data.cpu().numpy()
-                pre_label = [i for i in pre_label]
                 true_label = label.data.cpu().numpy()
-                true_label = [i for i in true_label]
+                true_label = np.squeeze(true_label, axis = 1)
                 all_acc, acc, dice = mean_dice(pre_label, true_label, num_classes = config['dataset']['class_num'], ignore_index = None)
                 val_dice = dice[1] + val_dice
             val_Kvasir = val_dice/(idx+1)

@@ -7,6 +7,8 @@ import torch
 import yaml
 import sys
 import albumentations as A
+import torchvision.transforms as transforms
+from utils.custom_transforms import *
 
 f = open(sys.argv[1])
 config = yaml.safe_load(f)
@@ -303,45 +305,30 @@ class Datareader(Dataset):
 import cv2
 
 class CustomDataSet(Dataset):
-    def __init__(self, img_path, label_path, crop_size, transformation=False):
+    def __init__(self, img_path, label_path, crop_size, transform_list):
         self.img_path = img_path
         self.label_path = label_path
 
         self.img_files = self.read_file(self.img_path)
         self.label_files = self.read_file(self.label_path)
-        
-        self.crop_size = crop_size
-
-        self.transformation = transformation
+        self.transform = self.get_transform(transform_list)
         
 
     def __getitem__(self, index):
 
-        img = Image.open(self.img_files[index])
-        label = Image.open(self.label_files[index])
-
-        img = img.resize((self.crop_size[0], self.crop_size[1]))
-        label = label.resize((self.crop_size[0], self.crop_size[1]))
-        if self.transformation:
-            img, label = self.img_transform(img, label)        
+        img = Image.open(self.img_files[index]).convert('RGB')
+        label = Image.open(self.label_files[index]).convert('L')
         
-        img = np.array(img) / 255
-        label = np.array(label)
-
-        img = torch.as_tensor(img)
-        label = torch.as_tensor(label)
-
-        if 'cvc' in config['dataset']['train_img_root']:
-            # just for cvc start
-            label = label[:, :, 0]
-            # just for cvc end
-        img = torch.as_tensor(img)
-        label = torch.as_tensor(label)
-        if 'Seg' in config['dataset']['train_img_root'] or 'BRATS2015' in config['dataset']['train_img_root']:
-            img = img.unsqueeze(0)
-        else:
-            img = img.permute(2, 0, 1)
-
+        name = self.img_files[index].split('/')[-1]
+        if name.endswith('.jpg'):
+            name = name.split('.jpg')[0] + '.png'          
+        shape = label.size[::-1]
+        sample = {'image': img, 'gt': label, 'name': name, 'shape': shape}            
+        sample = self.transform(sample)
+        img, label = sample['image'],sample['gt']
+        img = torch.as_tensor(np.array(img))
+        label = torch.as_tensor(np.array(label))
+        
         return img.float(), label.long()
 
     def __len__(self):
@@ -354,21 +341,17 @@ class CustomDataSet(Dataset):
         file_path_list = [os.path.join(path, img) for img in files_list]
         file_path_list.sort()
         return file_path_list
-     
-    def img_transform(self, img, label):
-        label = np.array(label)
-        img = np.array(img)
-        transform = A.Compose([
-            A.VerticalFlip(p=0.5), 
-            A.HorizontalFlip(p=0.5),
-            A.RandomScale(scale_limit=(0.75, 1.25), interpolation=cv2.INTER_CUBIC, p=0.5),
-        ])(image=img, mask=label)
-                            
-        img = transform['image']
-        label = transform['mask']
         
-        return img, label
-
+    @staticmethod
+    def get_transform(transform_list):
+        tfs = []
+        for key, value in zip(transform_list.keys(), transform_list.values()):
+            if value is not None:
+                tf = eval(key)(**value)
+            else:
+                tf = eval(key)()
+            tfs.append(tf)
+        return transforms.Compose(tfs)
 
 
         
