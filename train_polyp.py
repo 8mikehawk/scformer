@@ -15,7 +15,7 @@ import os
 import sys
 import numpy as np
 import yaml
-
+from tabulate import tabulate
 np.seterr(divide='ignore',invalid='ignore')
 
 
@@ -30,14 +30,14 @@ device = config['training']['device']
 model = build(model_name=config['model']['model_name'], class_num=config['dataset']['class_num'])
 model.to(device)
 
-# # if pretrained 
-# if config['model']['is_pretrained']:
-#     pretrained_dict = torch.load(config['model']['pretrained_path'])
-#     model_dict = model.state_dict()
+# if pretrained 
+if config['model']['is_pretrained']:
+    pretrained_dict = torch.load(config['model']['pretrained_path'])
+    model_dict = model.state_dict()
 
-#     pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict}
-#     model_dict.update(pretrained_dict)
-#     model.load_state_dict(model_dict)
+    pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict}
+    model_dict.update(pretrained_dict)
+    model.load_state_dict(model_dict)
 
 train_img_root = config['dataset']['train_img_root']
 train_label_root = config['dataset']['train_label_root']
@@ -91,7 +91,7 @@ for epoch in tqdm(range(max_epoch)):
         optimizer.step()
 
     if train_loss / (idx +1) < min(best_loss):
-
+        best_loss.append(train_loss / (idx +1))
         print("train epoch done")
         logger.info(f"| epoch : {epoch} | training done | best loss: {train_loss / (idx + 1)} |")
 
@@ -208,13 +208,30 @@ for epoch in tqdm(range(max_epoch)):
             val_Kvasir = val_dice/(idx+1)
 
         mean_total = (val_cvc_300 + val_cvc_clinicDB + val_cvc_colonDB + val_etis + val_Kvasir) / 5
-        # mean_total = 0.2 * val_cvc_300 + 0.2 * val_cvc_clinicDB + 0.2 * val_cvc_colonDB + 0.2 * val_etis + val_Kvasir
-        # logger.info(f"| epoch : {epoch} | CVC-300 : {val_cvc_300} | CVC-ClinicDB : {val_cvc_clinicDB} | CVC-ColonDB : {val_cvc_colonDB} | ETIS-LaribPolypDB : {val_etis} | Kvasir : {val_Kvasir} |")
         if max(best_val_dice) <=  mean_total:
             best_val_dice.append(mean_total)
             print('best_val_dice_score :{:}'.format(max(best_val_dice)))
-            logger.info(f"| epoch : {epoch} | CVC-300 : {val_cvc_300} | CVC-ClinicDB : {val_cvc_clinicDB} | CVC-ColonDB : {val_cvc_colonDB} | ETIS-LaribPolypDB : {val_etis} | Kvasir : {val_Kvasir} |")
-            logger.critical(f"| epoch : {epoch} | best_val_dice_score : {max(best_val_dice)} |")
+            
+            table_header = ['Dataset', config['model']['model_name']+'_Dice','UACANet_L_Dice','First_Dice']
+            table_data = [('CVC-300',str(val_cvc_300), '0.910','None'),
+            			 ('CVC-ColonDB',str(val_cvc_colonDB),'0.751','0.8474'),
+            			('CVC-ClinicDB',str(val_cvc_clinicDB),'0.926','0.9420' ),
+            			('ETIS-LaribPolypDB',str(val_etis),'0.766','0.766'),
+            			('Kvasir',str(val_Kvasir),'0.912','0.9217'),
+            			('Average',str(mean_total),'0.853','None'),]
+            			
+            print(tabulate(table_data, headers=table_header, tablefmt='psql'))
+            logger.info(tabulate(table_data, headers=table_header, tablefmt='psql'))
             torch.save(model.state_dict(), os.path.join(checkpoint_save_path, "val_best.pth"))
         else:
-            logger.info(f"| epoch : {epoch} | val done |")
+            logger.info(f"| epoch : {epoch} | val done |")                  
+        # mean_total = 0.2 * val_cvc_300 + 0.2 * val_cvc_clinicDB + 0.2 * val_cvc_colonDB + 0.2 * val_etis + val_Kvasir
+        # logger.info(f"| epoch : {epoch} | CVC-300 : {val_cvc_300} | CVC-ClinicDB : {val_cvc_clinicDB} | CVC-ColonDB : {val_cvc_colonDB} | ETIS-LaribPolypDB : {val_etis} | Kvasir : {val_Kvasir} |")
+#        if max(best_val_dice) <=  mean_total:
+#            best_val_dice.append(mean_total)
+#            print('best_val_dice_score :{:}'.format(max(best_val_dice)))
+#            logger.info(f"| epoch : {epoch} | CVC-300 : {val_cvc_300} | CVC-ClinicDB : {val_cvc_clinicDB} | CVC-ColonDB : {val_cvc_colonDB} | ETIS-LaribPolypDB : {val_etis} | Kvasir : {val_Kvasir} |")
+#            logger.critical(f"| epoch : {epoch} | best_val_dice_score : {max(best_val_dice)} |")
+#            torch.save(model.state_dict(), os.path.join(checkpoint_save_path, "val_best.pth"))
+#        else:
+#            logger.info(f"| epoch : {epoch} | val done |")

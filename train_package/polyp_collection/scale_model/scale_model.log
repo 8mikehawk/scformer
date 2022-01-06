@@ -1,1 +1,84 @@
-2022-01-06 23:06:23.978 | INFO     | __main__:<module>:75 - | start training .... | current model scale_model |
+接着训练的
+2022-01-07 02:57:28.515 | INFO     | __main__:<module>:75 - | start training .... | current model scale_model |
+2022-01-07 02:57:58.567 | INFO     | __main__:<module>:96 - | epoch : 0 | training done | best loss: 0.14831696696333832 |
+2022-01-07 02:58:12.224 | INFO     | __main__:<module>:224 - +-------------------+--------------------+------------------+--------------+
+| Dataset           |   scale_model_Dice |   UACANet_L_Dice | First_Dice   |
+|-------------------+--------------------+------------------+--------------|
+| CVC-300           |           0.658675 |            0.91  | None         |
+| CVC-ColonDB       |           0.578136 |            0.751 | 0.8474       |
+| CVC-ClinicDB      |           0.776923 |            0.926 | 0.9420       |
+| ETIS-LaribPolypDB |           0.493636 |            0.766 | 0.766        |
+| Kvasir            |           0.738904 |            0.912 | 0.9217       |
+| Average           |           0.649255 |            0.853 | None         |
++-------------------+--------------------+------------------+--------------+
+2022-01-07 02:58:42.586 | INFO     | __main__:<module>:96 - | epoch : 1 | training done | best loss: 0.13064632572970547 |
+2022-01-07 02:58:56.389 | INFO     | __main__:<module>:224 - +-------------------+--------------------+------------------+--------------+
+| Dataset           |   scale_model_Dice |   UACANet_L_Dice | First_Dice   |
+|-------------------+--------------------+------------------+--------------|
+| CVC-300           |           0.717167 |            0.91  | None         |
+| CVC-ColonDB       |           0.593862 |            0.751 | 0.8474       |
+| CVC-ClinicDB      |           0.83931  |            0.926 | 0.9420       |
+| ETIS-LaribPolypDB |           0.5165   |            0.766 | 0.766        |
+| Kvasir            |           0.774601 |            0.912 | 0.9217       |
+| Average           |           0.688288 |            0.853 | None         |
++-------------------+--------------------+------------------+--------------+
+2022-01-07 02:59:26.652 | INFO     | __main__:<module>:96 - | epoch : 2 | training done | best loss: 0.11513290955470158 |
+2022-01-07 02:59:40.548 | INFO     | __main__:<module>:224 - +-------------------+--------------------+------------------+--------------+
+| Dataset           |   scale_model_Dice |   UACANet_L_Dice | First_Dice   |
+|-------------------+--------------------+------------------+--------------|
+| CVC-300           |           0.749831 |            0.91  | None         |
+| CVC-ColonDB       |           0.632587 |            0.751 | 0.8474       |
+| CVC-ClinicDB      |           0.846265 |            0.926 | 0.9420       |
+| ETIS-LaribPolypDB |           0.559451 |            0.766 | 0.766        |
+| Kvasir            |           0.787626 |            0.912 | 0.9217       |
+| Average           |           0.715152 |            0.853 | None         |
++-------------------+--------------------+------------------+--------------+
+2022-01-07 03:00:10.871 | INFO     | __main__:<module>:96 - | epoch : 3 | training done | best loss: 0.11360554773728926 |
+2022-01-07 03:00:24.723 | INFO     | __main__:<module>:227 - | epoch : 3 | val done |
+2022-01-07 03:00:54.672 | INFO     | __main__:<module>:96 - | epoch : 4 | training done | best loss: 0.1065164267361819 |
+2022-01-07 03:01:08.562 | INFO     | __main__:<module>:227 - | epoch : 4 | val done |
+2022-01-07 03:01:38.537 | INFO     | __main__:<module>:96 - | epoch : 5 | training done | best loss: 0.10628516071445339 |
+2022-01-07 03:01:52.440 | INFO     | __main__:<module>:227 - | epoch : 5 | val done |
+2022-01-07 03:02:22.463 | INFO     | __main__:<module>:96 - | epoch : 6 | training done | best loss: 0.10153922143873277 |
+2022-01-07 03:02:36.279 | INFO     | __main__:<module>:227 - | epoch : 6 | val done |
+2022-01-07 03:03:20.078 | INFO     | __main__:<module>:227 - | epoch : 7 | val done |
+2022-01-07 03:03:49.929 | INFO     | __main__:<module>:96 - | epoch : 8 | training done | best loss: 0.09824888457308759 |
+2022-01-07 03:04:03.846 | INFO     | __main__:<module>:227 - | epoch : 8 | val done |
+2022-01-07 03:04:33.825 | INFO     | __main__:<module>:96 - | epoch : 9 | training done | best loss: 0.09682884059109531 |
+2022-01-07 03:04:47.569 | INFO     | __main__:<module>:224 - +-------------------+--------------------+------------------+--------------+
+| Dataset           |   scale_model_Dice |   UACANet_L_Dice | First_Dice   |
+|-------------------+--------------------+------------------+--------------|
+| CVC-300           |           0.718275 |            0.91  | None         |
+| CVC-ColonDB       |           0.667084 |            0.751 | 0.8474       |
+| CVC-ClinicDB      |           0.854686 |            0.926 | 0.9420       |
+| ETIS-LaribPolypDB |           0.569088 |            0.766 | 0.766        |
+| Kvasir            |           0.78836  |            0.912 | 0.9217       |
+| Average           |           0.719499 |            0.853 | None         |
++-------------------+--------------------+------------------+--------------+
+2022-01-07 03:05:17.895 | INFO     | __main__:<module>:96 - | epoch : 10 | training done | best loss: 0.09333392748465905 |
+2022-01-07 03:05:31.712 | INFO     | __main__:<module>:224 - +-------------------+--------------------+------------------+--------------+
+| Dataset           |   scale_model_Dice |   UACANet_L_Dice | First_Dice   |
+|-------------------+--------------------+------------------+--------------|
+| CVC-300           |           0.689158 |            0.91  | None         |
+| CVC-ColonDB       |           0.648361 |            0.751 | 0.8474       |
+| CVC-ClinicDB      |           0.861103 |            0.926 | 0.9420       |
+| ETIS-LaribPolypDB |           0.60109  |            0.766 | 0.766        |
+| Kvasir            |           0.817122 |            0.912 | 0.9217       |
+| Average           |           0.723367 |            0.853 | None         |
++-------------------+--------------------+------------------+--------------+
+2022-01-07 03:06:02.104 | INFO     | __main__:<module>:96 - | epoch : 11 | training done | best loss: 0.0895438443173419 |
+2022-01-07 03:06:15.859 | INFO     | __main__:<module>:227 - | epoch : 11 | val done |
+2022-01-07 03:06:59.701 | INFO     | __main__:<module>:227 - | epoch : 12 | val done |
+2022-01-07 03:07:30.251 | INFO     | __main__:<module>:96 - | epoch : 13 | training done | best loss: 0.08775548751537617 |
+2022-01-07 03:07:44.886 | INFO     | __main__:<module>:227 - | epoch : 13 | val done |
+2022-01-07 03:08:39.876 | INFO     | __main__:<module>:227 - | epoch : 14 | val done |
+2022-01-07 03:09:18.978 | INFO     | __main__:<module>:96 - | epoch : 15 | training done | best loss: 0.08656191825866699 |
+2022-01-07 03:09:35.695 | INFO     | __main__:<module>:227 - | epoch : 15 | val done |
+2022-01-07 03:10:40.496 | INFO     | __main__:<module>:227 - | epoch : 16 | val done |
+2022-01-07 03:11:27.462 | INFO     | __main__:<module>:96 - | epoch : 17 | training done | best loss: 0.08386866273460808 |
+2022-01-07 03:11:44.442 | INFO     | __main__:<module>:227 - | epoch : 17 | val done |
+2022-01-07 03:12:32.019 | INFO     | __main__:<module>:96 - | epoch : 18 | training done | best loss: 0.07915841747116256 |
+2022-01-07 03:12:48.822 | INFO     | __main__:<module>:227 - | epoch : 18 | val done |
+2022-01-07 03:13:55.609 | INFO     | __main__:<module>:227 - | epoch : 19 | val done |
+2022-01-07 03:15:04.035 | INFO     | __main__:<module>:227 - | epoch : 20 | val done |
+2022-01-07 03:16:14.137 | INFO     | __main__:<module>:227 - | epoch : 21 | val done |

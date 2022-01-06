@@ -59,12 +59,12 @@ Val_transform_list:
 model:
   model_name : scale_model
   is_pretrained : True
-  pretrained_path : /data/segformer/scformer/train_package/imageNet_pretrain/train_best.pth
+  pretrained_path : /data/segformer/scformer/train_package/polyp_collection/scale_model/val_best_.pth
 
 training:
   device : cuda
-  lr : 1e-4
-  max_epoch : 200
+  lr : 1e-5
+  max_epoch : 2000
   evl_epoch : 0
 
 other:
